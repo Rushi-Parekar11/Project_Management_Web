@@ -2,8 +2,8 @@ import { useState } from 'react'
 import Navbar from './Components/Navbar'
 import Home from './Pages/Home'
 import Login from './Pages/Login'
-import YourWork from './Pages/YourWork'
 import Signup from './Pages/Signup'
+import DashBoard from './Pages/DashBoard'
 import { ToastContainer } from 'react-toastify'
 import { Route, Routes } from 'react-router-dom'
 function App() {
@@ -16,8 +16,7 @@ function App() {
        <Route path="/" element={<Home />} />
        <Route path='/login' element={<Login/>}/>
        <Route path='/signup' element={<Signup/>}/>
-       <Route path='/yourwork' element={<YourWork/>} />
-       <Route path={`/${username}/yourwork`} element={<YourWork />} />
+       <Route path={`/${username}/dashboard`} element={<DashBoard />} />
     </Routes>
     <ToastContainer/>
     

@@ -46,7 +46,7 @@ function Login() {
         window.dispatchEvent(new Event("login"));
       
         setTimeout(() => {
-          navigate(`/${name}/yourwork`);
+          navigate(`/${name}/dashboard`);
         }, 1000);
       }
        else if (error) {

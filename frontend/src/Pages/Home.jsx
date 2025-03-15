@@ -31,7 +31,7 @@ function Home() {
   const goToYourWork = () => {
     const name = localStorage.getItem('LoggedInUser');
     if (name) {
-      navigate(`/${name}/yourwork`);
+      navigate(`/${name}/dashboard`);
     } else {
       toast.error("User not logged in properly!");
       navigate('/login');

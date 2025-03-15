@@ -35,7 +35,7 @@ function Navbar() {
   const goToYourWork = () => {
     const name = localStorage.getItem('LoggedInUser');
     if (name) {
-      navigate(`/${name}/yourwork`);
+      navigate(`/${name}/dashboard`);
     } else {
       toast.error("User not logged in properly!");
       navigate('/login');
@@ -43,9 +43,16 @@ function Navbar() {
   };
 
   return (
-    <div className="w-full h-15 sticky top-0 backdrop-blur-xs z-50 flex sm:px-15 px-2 shadow">
+    <div className="w-full h-15 sticky top-0 backdrop-blur-xs z-50 flex sm:px-15 px-2 shadow z-60">
       <div className="w-[50%] h-15 flex items-center">
         <Link to='/' className='sm:text-4xl text-2xl font-bold'>name</Link>
+      </div>
+
+      <div className='flex items-center '>
+      <Link to="/signup" className='hidden sm:flex w-40 h-10 text-gray-800 items-center justify-center pb-1'>Listed All Projects </Link>
+      <Link to="/signup" className='hidden sm:flex w-20 h-10 text-gray-800 items-center justify-center pb-1'>Dosc</Link>
+      <Link to="/signup" className='hidden sm:flex w-20 h-10 text-gray-800 items-center justify-center pb-1'>Products</Link>
+      <Link to="/signup" className='hidden sm:flex w-20 h-10 text-gray-800 items-center justify-center pb-1'>Pricing</Link>
       </div>
 
       <div className="w-[50%] h-15 flex items-center justify-end space-x-4">
