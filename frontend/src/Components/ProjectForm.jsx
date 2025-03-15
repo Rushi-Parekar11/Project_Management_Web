@@ -1,6 +1,7 @@
 import { useState } from "react";
+import axios from "axios";
 
-export default function ProjectForm({ onClose }) {
+export default function ProjectForm({ onClose, username }) {
   const [project, setProject] = useState({
     name: "",
     description: "",
@@ -11,17 +12,30 @@ export default function ProjectForm({ onClose }) {
     setProject({ ...project, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Project Created:", project);
-    onClose();
+
+    try {
+      const response = await axios.post(`http://localhost:8080/${username}/dashboard`, {
+        projectname: project.name,
+        discription: project.description,
+        type: project.type
+      });
+
+      console.log("✅ Project Created:", response.data);
+      alert("Project created successfully!");
+      onClose();
+
+    } catch (error) {
+      console.error("❌ Error creating project:", error.response?.data || error.message);
+      alert("Failed to create project. Please try again.");
+    }
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm bg-black/50 px-4">
       <div className="relative w-full max-w-md bg-white shadow-lg rounded-lg p-6">
         
-        {/*Close button in top-right corner */}
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-2xl font-bold"
@@ -29,7 +43,7 @@ export default function ProjectForm({ onClose }) {
           &times;
         </button>
 
-        <h2 className="text-2xl font-semibold text-center mb-6">Create New Project</h2>
+        <h2 className="text-2xl font-semibold text-center mb-6">Create New Project {username}</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -58,7 +72,6 @@ export default function ProjectForm({ onClose }) {
             ></textarea>
           </div>
 
-          {/* dropdown menu */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Project Type</label>
             <select
@@ -70,7 +83,7 @@ export default function ProjectForm({ onClose }) {
             >
               <option value="" disabled>Select Project Type</option>
               <option value="school">School Project</option>
-              <option value="software">Software Project</option>
+              <option value="software">Software</option>
               <option value="webdev">Web Development Project</option>
             </select>
           </div>
@@ -86,3 +99,4 @@ export default function ProjectForm({ onClose }) {
     </div>
   );
 }
+

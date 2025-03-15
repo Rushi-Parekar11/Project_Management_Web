@@ -3,8 +3,9 @@ const express = require('express');
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const router =  express.Router();
-const UserModel = require('../Models/UserModel'); 
-const {signupValidation,loginValidation} = require("../Middleware/AllValidations")
+const User = require('../Models/UserModel');
+const Project = require('../Models/ProjectModel')
+const {signupValidation,loginValidation,projectcreateValidation} = require("../Middleware/AllValidations");
 
 router.post('/signup', signupValidation,async(req,res)=>{
     try {
@@ -63,6 +64,42 @@ router.post('/login',loginValidation,async(req,res)=>{
      })
   }
  })
+
+
+ router.post('/:name/dashboard', async (req, res) => {
+  try {
+    const { projectname, discription, type } = req.body;
+    const { name } = req.params;
+
+    // const user = await User.findOne({ name }); // Now both match
+    const user = await User.findOne({ username: name });
+
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const newProject = new Project({
+      projectname,
+      discription,
+      type,
+      createdby: user._id
+    });
+
+    const savedProject = await newProject.save();
+
+    res.status(201).json({
+      message: 'Project created successfully',
+      project: savedProject
+    });
+
+  } catch (err) {
+    console.error('Error creating project:', err.message);
+    res.status(500).json({ message: 'Server error while creating project' });
+  }
+});
+
+
 
 
 module.exports = router
