@@ -9,6 +9,8 @@ import { Plus } from 'lucide-react';
 
 function DashBoard() {
   const [active, setActive] = useState('Your Project');
+    const [isModalOpen, setIsModalOpen] = useState(false);
+  
 
   const items = [
     { name: 'Your Project', icon: LayoutPanelLeft },
@@ -41,39 +43,66 @@ function DashBoard() {
   return (
     <div className='flex'>
   {/* Fixed Sidebar */}
-  <div className='h-[94vh] w-[15%] border-r border-[#dddedd] flex flex-col justify-between fixed top-[6vh] left-0 bg-white z-50'>
-    <ul className='list-none pl-4 flex flex-col gap-3 mt-10'>
-      {items.map(({ name, icon: Icon }) => (
-        <li
-          key={name}
-          onClick={() => setActive(name)}
-          className={`flex justify-start items-center gap-2 w-56 h-9 rounded-sm pl-2 cursor-pointer ${
-            active === name ? 'bg-[#e2e2e2]' : 'hover:bg-[#ebebeb]'
+  <div className='h-[94vh] w-full md:w-[15%] border-r border-[#dddedd] flex flex-col justify-between fixed top-[6vh] left-0 bg-white z-50'>
+  <ul className='list-none pl-4 pr-2 flex flex-col gap-2 mt-10'>
+    {items.map(({ name, icon: Icon }) => (
+      <li
+        key={name}
+        onClick={() => setActive(name)}
+        className={`flex items-center gap-2 w-full h-10 rounded-sm pl-3 pr-2 cursor-pointer border-l-4 transition-all duration-200
+          ${active === name
+            ? 'bg-[#e2e2e2] border-black text-black'
+            : 'border-transparent hover:bg-[#ebebeb] text-[#333]'
           }`}
-        >
-          <Icon className='h-4 w-4' />
-          {name}
-        </li>
-        
-      ))}
-      <hr className='mr-4 mt-5 border-[#cacaca]'/>
-      <li className='flex justify-center items-center gap-2 w-55 h-13 rounded-sm cursor-pointer hover:bg-[#e2e2e2] border border-2 border-[#e2e2e2] text-black '>
-        <Plus className='h-5 w-5' /> Start New Project
+      >
+        <Icon className='h-4 w-4' />
+        <span className="text-sm font-medium">{name}</span>
       </li>
-      
-    </ul>
+    ))}
 
-    <ul>
-      <li className='flex justify-center items-center gap-2 w-62 h-13 rounded-sm cursor-pointer bg-black text-white ml-0.5'>
-        <UserRoundPlus className='h-5 w-5' /> Share the Invite
-      </li>
-    </ul>
-  </div>
+    <hr className='mr-4 my-5 border-[#cacaca]' />
+
+    <li
+      onClick={() => console.log("Start New Project clicked")}
+      className='flex items-center justify-center gap-2 h-10 rounded-sm cursor-pointer border border-[#e2e2e2] text-black hover:bg-[#e2e2e2] transition-all duration-200'
+    >
+      <Plus className='h-5 w-5' />
+      <span className="text-sm font-medium" onClick={() => setIsModalOpen(true)}>Start New Project</span>
+    </li>
+  </ul>
+
+  <ul className='mb-2 px-1'>
+    <li
+      onClick={() => console.log("Share the Invite clicked")}
+      className='flex items-center justify-center gap-2 h-10 rounded-sm cursor-pointer bg-black text-white transition-all duration-200 hover:bg-[#222]'
+    >
+      <UserRoundPlus className='h-5 w-5' />
+      <span className="text-sm font-medium">Share the Invite</span>
+    </li>
+  </ul>
+</div>
+
 
   {/* Content Area (Shifted to right) */}
   <div className='w-[85%] min-h-[100vh] ml-[15%] p-6'>
     {renderContent()}
   </div>
+
+
+    {/* Model open  */}
+{isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white w-1/2 rounded-lg p-6 relative shadow-lg">
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="absolute top-2 right-2 text-gray-600 text-2xl hover:text-black"
+            >
+              &times;
+            </button>
+            <p className="text-gray-800">This is a modal!</p>
+          </div>
+        </div>
+      )}
 </div>
 
   );

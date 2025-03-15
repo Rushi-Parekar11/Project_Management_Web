@@ -14,7 +14,7 @@ import ProgressBar from './ProgressBar';
 function ProjectCardTwo() {
   return (
     <>
-        <div className='h-95 w-95 rounded-md shadow-md border-1 border-gray-200'>
+        <div className='h-[410px] w-[380px] rounded-md shadow-md border-1 border-gray-200'>
 <div className="pt-4 pl-4 flex items-center justify-between pr-3">
     <div className="h-11 w-11 bg-[#776aff] font-bold text-white rounded-lg flex justify-center items-center">CR</div>
     <Ellipsis className="text-gray-500" />
@@ -24,7 +24,7 @@ function ProjectCardTwo() {
 <div className="px-4 text-[#2f3035] flex gap-2 my-3"><UserPen className='h-4 w-4'/> <h1 className='text-sm font-medium'>rushiparekar11@gmail.com</h1></div>
 <div className="px-4"><h1 className='text-sm text-gray-600'>CryptoCraft, a crypto lear application where users can create accounts,lear application lear application ... </h1></div>
 
-<hr className='w-[94%] my-3 ml-2 text-gray-300'/>
+<hr className='w-[94%] my-3 ml-2 text-gray-300 mt-4'/>
 <div className="px-4 mt-2 text-gray-600 flex gap-5">
 <div className="flex gap-4">
   {/* Copy Icon with tooltip */}
@@ -66,7 +66,7 @@ function ProjectCardTwo() {
 <div className="mt-5"><ProgressBar percentage={85} /></div>
 
 <div className='px-4 mt-10 flex justify-between'>
-    <div className='h-8 w-26 bg-[#e7e7e7] flex items-center justify-center text-sm text-gray-700'><ClockAlert className='h-4 w-4'/> <h3 className='flex'>3 days ago</h3></div>
+    <div className='h-8 w-[100px] bg-[#e7e7e7] flex items-center justify-center text-sm text-gray-700'><ClockAlert className='h-4 w-4'/> <h3 className='flex'>3 days ago</h3></div>
     
     <div className="flex items-center space-x-[-12px]">
   <div className="w-8 h-8 rounded-full bg-[#e7e7e7] text-gray-500 flex items-center justify-center text-xs font-bold z-30 border-2 border-white"><UserRound className='h-4 w-4'/></div>

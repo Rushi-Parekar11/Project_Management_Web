@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Search } from 'lucide-react';
 import ProjectCardOne from '../Components/ProjectCardOne';
+import ProjectForm from '../Components/ProjectForm';
 import { Plus } from 'lucide-react';
 
 
 function YourProject() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+  
   return (
     <>
     <div className='min-h-[100vh] w-350  pl-10 pt-10'>
@@ -26,16 +29,28 @@ function YourProject() {
 <ProjectCardOne/>
 <ProjectCardOne/>
 <ProjectCardOne/>
-<ProjectCardOne/>
 </div>
 
 <hr className="w-[95%] mt-10 mb-4 border border-[#cacaca]" />
 
-<div className="h-30 w-[98%] flex justify-center items-center">
-<li className='flex justify-center items-center gap-2 w-100 h-20 rounded-sm cursor-pointer hover:bg-black hover:text-white border border-2 border-[#c4c4c4] text-xl text-[#444444] '>
-        <Plus className='h-5 w-5' /> Start New Project
-</li>
+<div className="h-[130px] w-[100%] flex justify-center">
+      <div className="h-[120px] w-[48%] flex justify-center items-center">
+          <li onClick={() => setIsModalOpen(true)}  className='flex justify-center items-center gap-2 w-[100%] h-[80px] rounded-sm cursor-pointer hover:bg-black hover:text-white border border-2 border-[#c4c4c4] text-xl text-[#444444]'>
+            <Plus className='h-5 w-5' /> Start New Project
+          </li>
+      </div>
 </div>
+
+
+        {/* Model open  */}
+        {isModalOpen && <ProjectForm onClose={() => setIsModalOpen(false)} />}
+
+
+
+
+
+
+
 
     </div>
     </>
