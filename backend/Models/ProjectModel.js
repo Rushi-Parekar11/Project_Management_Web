@@ -12,7 +12,6 @@ const ProjectSchema = new mongoose.Schema({
   type: {
     type: String,
     default: "General",
-    enum: ["General", "Software", "Marketing", "Research", "Other"]
   },
   createdby: {
     type: mongoose.Schema.Types.ObjectId,

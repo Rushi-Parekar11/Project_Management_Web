@@ -66,37 +66,27 @@ router.post('/login',loginValidation,async(req,res)=>{
  })
 
 
- router.post('/:name/dashboard', async (req, res) => {
-  try {
-    const { projectname, discription, type } = req.body;
-    const { name } = req.params;
+ router.post('/:name/dashboard',projectcreateValidation, async (req, res) => {
+  const { projectname, discription, type } = req.body;
+  const { name } = req.params;
 
-    // const user = await User.findOne({ name }); // Now both match
-    const user = await User.findOne({ username: name });
+  const user = await User.findOne({ name }); // Correct: matches frontend username
 
+  if (!user) return res.status(404).json({ message: 'User not found' });
 
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
+  const newProject = new Project({
+    projectname,
+    discription,
+    type,
+    createdby: user._id
+  });
 
-    const newProject = new Project({
-      projectname,
-      discription,
-      type,
-      createdby: user._id
-    });
+  const savedProject = await newProject.save();
 
-    const savedProject = await newProject.save();
-
-    res.status(201).json({
-      message: 'Project created successfully',
-      project: savedProject
-    });
-
-  } catch (err) {
-    console.error('Error creating project:', err.message);
-    res.status(500).json({ message: 'Server error while creating project' });
-  }
+  res.status(201).json({
+    message: 'Project created successfully',
+    project: savedProject
+  });
 });
 
 
