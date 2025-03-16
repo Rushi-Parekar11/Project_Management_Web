@@ -89,6 +89,23 @@ router.post('/login',loginValidation,async(req,res)=>{
   });
 });
 
+router.get('/project/:projectName', async (req, res) => {
+  const { projectName } = req.params;
+
+  try {
+    const project = await Project.findOne({ projectname: projectName }).populate('createdby','email');
+    if (!project) {
+      return res.status(404).json({ message: 'Project not found' });
+    }
+    res.json(project);
+    console.log(project);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+});
+
+
+
 
 
 

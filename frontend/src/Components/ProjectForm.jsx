@@ -1,7 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
+
 
 export default function ProjectForm({ onClose, username }) {
+  const navigate = useNavigate();
+
   const [project, setProject] = useState({
     name: "",
     description: "",
@@ -22,10 +28,15 @@ export default function ProjectForm({ onClose, username }) {
       });
 
       console.log("✅ Project Created:", response.data);
-      alert("Project created successfully!");
-      onClose();
+      toast.success("Project Created successfully !");
+
+      setTimeout(() => {
+        navigate(`/project/${project.name}`);
+      }, 1000);
+      
     } catch (error) {
       console.error("❌ Error creating project:", error.response?.data || error.message);
+      toast.error("Failed to create project :",error.message);
       alert("Failed to create project. Please try again.");
     }
   };
@@ -109,6 +120,7 @@ export default function ProjectForm({ onClose, username }) {
           </button>
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 }
