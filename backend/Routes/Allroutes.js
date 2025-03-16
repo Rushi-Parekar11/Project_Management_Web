@@ -7,14 +7,15 @@ const User = require('../Models/UserModel');
 const Project = require('../Models/ProjectModel')
 const {signupValidation,loginValidation,projectcreateValidation} = require("../Middleware/AllValidations");
 
+//// signup route 
 router.post('/signup', signupValidation,async(req,res)=>{
     try {
        const {name,email,password} = req.body;
-       const user = await UserModel.findOne({email});
+       const user = await User.findOne({email});
        if(user){
         return res.status(409).json({message : 'user is Already exist,you can Login',success:false})
        }
-       const userModel = new UserModel({name,email,password});
+       const userModel = new User({name,email,password});
        userModel.password = await bcrypt.hash(password, 10);
        await userModel.save();
        res.status(201)
@@ -31,10 +32,11 @@ router.post('/signup', signupValidation,async(req,res)=>{
     }
 })
 
+//// login route 
 router.post('/login',loginValidation,async(req,res)=>{
    try {
      const {email,password} = req.body;
-     const user = await UserModel.findOne({email});
+     const user = await User.findOne({email});
      if(!user){
       return res.status(403).json({message : 'email or Password is wrong',success:false})
      }
@@ -65,30 +67,42 @@ router.post('/login',loginValidation,async(req,res)=>{
   }
  })
 
-
- router.post('/:name/dashboard',projectcreateValidation, async (req, res) => {
+//// Project create route
+ router.post('/:name/dashboard', projectcreateValidation, async (req, res) => {
   const { projectname, discription, type } = req.body;
   const { name } = req.params;
 
-  const user = await User.findOne({ name }); // Correct: matches frontend username
+  try {
+    const user = await User.findOne({ name });
 
-  if (!user) return res.status(404).json({ message: 'User not found' });
+    if (!user) return res.status(404).json({ message: 'User not found' });
 
-  const newProject = new Project({
-    projectname,
-    discription,
-    type,
-    createdby: user._id
-  });
+    const newProject = new Project({
+      projectname,
+      discription,
+      type,
+      createdby: user._id
+    });
 
-  const savedProject = await newProject.save();
+    // Save the project first
+    const savedProject = await newProject.save();
 
-  res.status(201).json({
-    message: 'Project created successfully',
-    project: savedProject
-  });
+    // Then update the user's Projects
+    user.Projects.push(savedProject._id);
+    await user.save();
+
+    res.status(201).json({
+      message: 'Project created successfully',
+      project: savedProject
+    });
+  } catch (error) {
+    console.error(" Error creating project:", error.message);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
 });
 
+
+//// Single project data page 
 router.get('/project/:projectName', async (req, res) => {
   const { projectName } = req.params;
 

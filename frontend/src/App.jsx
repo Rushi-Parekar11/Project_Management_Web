@@ -17,10 +17,19 @@ function App() {
        <Route path="/" element={<Home />} />
        <Route path='/login' element={<Login/>}/>
        <Route path='/signup' element={<Signup/>}/>
-       <Route path={`/${username}/dashboard`} element={<DashBoard />} />
+       <Route path="/:username/dashboard" element={<DashBoard />} />
        <Route path='/project/:projectName' element={<Project />} />
     </Routes>
-    <ToastContainer/>
+    <ToastContainer
+  position="top-center"
+  autoClose={1000}
+  hideProgressBar={false}
+  newestOnTop
+  closeOnClick
+  pauseOnFocusLoss={false}
+  draggable
+  pauseOnHover
+/>
     
     </>
   )

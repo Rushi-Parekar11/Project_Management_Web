@@ -5,6 +5,8 @@ import Saved from './Saved';
 import Workmates from './Workmates';
 import GlobalPortfolio from './GlobalPortfolio';
 import { Plus } from 'lucide-react';
+import { toast,ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 
 function DashBoard() {
@@ -103,6 +105,8 @@ function DashBoard() {
           </div>
         </div>
       )}
+      <ToastContainer/>
+
 </div>
 
   );

@@ -19,14 +19,13 @@ function Login() {
   const HandelLogin = async (e) => {
     e.preventDefault();
     const { email, password } = loginInfo;
-
     if (!email || !password) {
       toast.error("Please fill in all the fields");
       return;
     }
 
     try {
-      const response = await fetch("http://localhost:8080/login", {
+      const response = await fetch("http://localhost:8081/login", {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'
@@ -38,7 +37,10 @@ function Login() {
       const { success, message, jwtToken, name, error } = result;
 
       if (success) {
-        toast.success(message || "Login successful!");
+        toast.success("Login successful!", {
+          autoClose: 1500, // closes after 1.5 seconds
+        });
+        
         localStorage.setItem('token', jwtToken);
         localStorage.setItem('LoggedInUser', name);
       
@@ -106,12 +108,14 @@ function Login() {
                 Sign up
               </Link>
             </div>
+
+
           </div>
+
         </div>
       </form>
 
       {/* Toasts display here */}
-      <ToastContainer position="top-center" autoClose={2000} />
     </>
   )
 }

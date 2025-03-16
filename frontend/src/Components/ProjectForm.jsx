@@ -27,7 +27,7 @@ export default function ProjectForm({ onClose, username }) {
         type: project.type
       });
 
-      console.log("✅ Project Created:", response.data);
+    //  console.log("Project Created:", response.data);
       toast.success("Project Created successfully !");
 
       setTimeout(() => {
@@ -35,7 +35,7 @@ export default function ProjectForm({ onClose, username }) {
       }, 1000);
       
     } catch (error) {
-      console.error("❌ Error creating project:", error.response?.data || error.message);
+      console.error("Error creating project:", error.response?.data || error.message);
       toast.error("Failed to create project :",error.message);
       alert("Failed to create project. Please try again.");
     }

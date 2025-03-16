@@ -13,22 +13,12 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  // Projects: [
-  //   {
-  //     menuItem: {
-  //       type: mongoose.Schema.Types.ObjectId,
-  //       ref: "Project"
-  //     },
-  //     Created: {
-  //       type: mongoose.Schema.Types.ObjectId,
-  //       ref: "User"
-  //     },
-  //     contributors: {
-  //       type: mongoose.Schema.Types.ObjectId,
-  //       ref: "User"
-  //     }
-  //   }
-  // ]
+  Projects: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Project",
+    }
+  ]
 }, { timestamps: true });
 
 const User = mongoose.model("User", UserSchema);
