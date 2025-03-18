@@ -15,8 +15,7 @@ function YourProject() {
 
   return (
     <div className='min-h-[100vh] w-350 pl-10 pt-10'>
-      <h1 className='text-3xl font-bold'>Your project</h1>
-      <hr className="w-[95%] mt-10 mb-4 border border-[#c4c4c4]" />
+      <h1 className='text-3xl font-bold mb-9'>Your project</h1>
 
       <div className='h-13 w-300'>
         <div className="relative w-[70%]">

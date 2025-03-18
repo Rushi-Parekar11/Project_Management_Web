@@ -107,7 +107,7 @@ router.get('/project/:projectName', async (req, res) => {
   const { projectName } = req.params;
 
   try {
-    const project = await Project.findOne({ projectname: projectName }).populate('createdby','email');
+    const project = await Project.findOne({ projectname: projectName }).populate('createdby', 'email name');
     if (!project) {
       return res.status(404).json({ message: 'Project not found' });
     }
@@ -118,6 +118,29 @@ router.get('/project/:projectName', async (req, res) => {
   }
 });
 
+//// Task CURD
+// PUT route to update tasks of a specific project
+router.put('/project/:projectname', async (req, res) => {
+  const { projectname } = req.params;
+  const { tasks } = req.body;
+
+  try {
+    const updatedProject = await Project.findOneAndUpdate(
+      { projectname },
+      { tasks },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedProject) {
+      return res.status(404).json({ message: 'Project not found' });
+    }
+
+    res.status(200).json(updatedProject);
+  } catch (err) {
+    console.error("Error updating tasks:", err);
+    res.status(500).json({ message: 'Server error while updating tasks' });
+  }
+});
 
 
 

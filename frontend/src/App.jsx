@@ -20,6 +20,9 @@ function App() {
        <Route path='/signup' element={<Signup/>}/>
        <Route path="/:username/dashboard" element={<DashBoard />} />
        <Route path='/project/:projectName' element={<Project />} />
+
+       {/* <Route path='/task' element={<TaskManager/>}/> */}
+
     </Routes>
     <ToastContainer
   position="top-center"
