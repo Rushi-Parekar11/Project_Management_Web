@@ -2,10 +2,12 @@ import React from 'react';
 import { Ellipsis } from 'lucide-react';
 import { Calendar1, ExternalLink, LockOpen, ClockAlert, UserRound } from 'lucide-react';
 import ProgressBar from './ProgressBar';
+import { useNavigate } from 'react-router-dom';
 
 
 function ProjectCardOne({ project }) {
   const { projectname, discription, createdAt, users, progress } = project;
+  const navigate = useNavigate();
 
   const createdDate = new Date(createdAt);
   const currentDate = new Date();
@@ -16,7 +18,7 @@ function ProjectCardOne({ project }) {
 
 
   return (
-    <div className="h-[305px] w-[300px] rounded-md shadow-md border-2 border-[#dddedd]" >
+    <div className="h-[305px] w-[300px] rounded-md shadow-md border-2 border-[#dddedd] cursor-pointer" onClick={() => navigate(`/project/${projectname}`)}  >
       <div className="pt-4 pl-4 flex items-center justify-between pr-3">
         <div className="h-11 w-11 bg-[#776aff] font-bold text-white rounded-lg flex justify-center items-center">
           {projectname ? projectname.substring(0, 2).toUpperCase() : 'NA'}

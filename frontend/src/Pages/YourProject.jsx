@@ -2,10 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Search, Plus } from 'lucide-react';
 import ProjectCardOne from '../Components/ProjectCardOne';
 import ProjectForm from '../Components/ProjectForm';
+import { useNavigate } from 'react-router-dom';
 
 function YourProject() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const username = localStorage.getItem("username") || "test";
+  const username = localStorage.getItem("LoggedInUser");
+  const navigate = useNavigate();
+  console.log(username);
+
 
   const [projects, setProjects] = useState([]);
   const [error, setError] = useState(null);
@@ -54,9 +58,8 @@ function YourProject() {
 
       <div className="mt-5 h-82 flex gap-7 flex-row flex-wrap">
         {projects.length > 0 ? (
-          // Reverse the projects array to show the latest ones first
           [...projects].reverse().map((project) => (
-            <ProjectCardOne key={project._id} project={project}  />
+            <ProjectCardOne key={project._id} project={project}   className='cursor-pointer' />
           ))
         ) : (
           <p>No projects found.</p>

@@ -81,7 +81,7 @@ const TaskManager = ({ projectName }) => {
   };
 
   return (
-<div className="min-h-screen pt-[40px] p-8 bg-background text-foreground flex flex-col items-center z-0">
+<div className="min-h-[80vh] pt-[40px] p-8 bg-background text-foreground flex flex-col items-center z-0 mt-18">
 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl">
         {['Activities', 'inprocess', 'Complete'].map((status) => (
           <div
