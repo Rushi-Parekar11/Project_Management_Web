@@ -143,6 +143,28 @@ router.put('/project/:projectname', async (req, res) => {
 });
 
 
+// Route to fetch all projects of a specific user by their username
+router.get('/:name/dashboard', async (req, res) => {
+  const { name } = req.params;
+
+  try {
+    // Find the user by their name
+    const user = await User.findOne({ name }).populate('Projects');
+    
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // If the user exists, return their projects
+    res.status(200).json({
+      message: 'Projects retrieved successfully',
+      projects: user.Projects
+    });
+  } catch (error) {
+    console.error("Error fetching projects:", error.message);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+});
 
 
 

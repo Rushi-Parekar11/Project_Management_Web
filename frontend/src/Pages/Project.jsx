@@ -146,7 +146,7 @@ function Project() {
 <div className=" min-h-[106vh] w-[83%]  ml-[17%]">
 
 <div className="h-[110px] z-1000 flex  items-center pl-5 shadow-sm drop-shadow-md sticky shadow-b-2 top-[64px] bg-white">
-  <div onClick={() => setIsOpen(prev => !prev)} className="flex items-center cursor-pointer rounded-md px-6 py-2 hover:bg-[#ebebeb]"><h4 className='text-2xl font-bold mr-3'>{projectName}</h4><ChevronDown/></div>
+  <div onClick={() => setIsOpen(prev => !prev)} className="flex items-center cursor-pointer rounded-md px-6 py-2 hover:bg-[#ebebeb] mr-4"><h4 className='text-2xl font-bold mr-3'>{projectName}</h4><ChevronDown/></div>
  <h1>Software</h1>
 </div>
 

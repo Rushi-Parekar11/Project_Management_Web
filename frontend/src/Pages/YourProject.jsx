@@ -1,13 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Search, Plus } from 'lucide-react';
 import ProjectCardOne from '../Components/ProjectCardOne';
 import ProjectForm from '../Components/ProjectForm';
 
 function YourProject() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // Optional: get username from localStorage if needed
   const username = localStorage.getItem("username") || "test";
+
+  const [projects, setProjects] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetch(`http://localhost:8081/${username}/dashboard`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.projects) {
+          setProjects(data.projects);
+        } else {
+          setError('Failed to fetch projects');
+        }
+      })
+      .catch((err) => {
+        setError('An error occurred while fetching projects');
+      });
+  }, [username]);
+
+  useEffect(() => {
+    if (projects.length > 0) {
+      console.log(projects);
+    }
+  }, [projects]);
 
   const handleClose = () => {
     setIsModalOpen(false);
@@ -30,10 +52,15 @@ function YourProject() {
 
       <h1 className='text-lg font-bold text-[#292a2e] mt-6'>Latest Projects</h1>
 
-      <div className="mt-5 h-82 flex gap-7">
-        <ProjectCardOne />
-        <ProjectCardOne />
-        <ProjectCardOne />
+      <div className="mt-5 h-82 flex gap-7 flex-row flex-wrap">
+        {projects.length > 0 ? (
+          // Reverse the projects array to show the latest ones first
+          [...projects].reverse().map((project) => (
+            <ProjectCardOne key={project._id} project={project}  />
+          ))
+        ) : (
+          <p>No projects found.</p>
+        )}
       </div>
 
       <hr className="w-[95%] mt-10 mb-4 border border-[#cacaca]" />
