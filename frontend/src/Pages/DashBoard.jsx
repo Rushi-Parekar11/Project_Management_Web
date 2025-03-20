@@ -12,7 +12,6 @@ import "react-toastify/dist/ReactToastify.css";
 function DashBoard() {
   const [active, setActive] = useState('Your Project');
     const [isModalOpen, setIsModalOpen] = useState(false);
-  
 
   const items = [
     { name: 'Your Project', icon: LayoutPanelLeft },

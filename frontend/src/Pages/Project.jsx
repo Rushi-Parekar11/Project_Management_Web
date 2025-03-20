@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { CircleUser, House, ChartPie, ChevronRight ,CalendarRange, ClipboardList, Route, UserPlus, Tornado, Tags, UserRoundPlus, CircleDot, ChevronDown, AtSign, CalendarCheck2, ClockAlert, UserRound } from 'lucide-react';
-import { useParams } from 'react-router-dom';
+import { CircleUser, House, ChartPie, ChevronRight  ,CalendarRange, ClipboardList, Route, UserPlus, Tornado, Tags, UserRoundPlus, CircleDot, ChevronDown, AtSign, CalendarCheck2, ClockAlert, UserRound, Icon } from 'lucide-react';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import TaskManager from '../Components/TaskManager';
 import Statistics from '../Components/Statistics';
@@ -12,7 +12,9 @@ function Project() {
   const popupRef = useRef(null);
   const { projectName } = useParams();
   const [projectData, setProjectData] = useState(null);
-
+    const [active,setactive] = useState('Activities')
+  
+  const navigate = useNavigate();
   // fetch data
   useEffect(() => {
     const fetchData = async () => {
@@ -59,6 +61,23 @@ function Project() {
     return `${diffDays} days ago`;
   };
 
+  const items=[
+    {name : 'Activities',icon:Tornado},
+    {name : 'Statistics',icon:ChartPie},
+    {name : 'Build Documentation',icon:ClipboardList},
+    {name : 'Project Flow',icon:Route }
+  ]
+
+  const renderContent=()=>{
+    switch (active){
+      case 'Activities' : return   <TaskManager projectName={projectName} />;
+      case 'Statistics' : return   <Statistics/>;
+      case 'Build Documentation'  : return <Notes/>;
+      case 'Project Flow' : return <ProjectFlow/>;
+      default : return  <TaskManager projectName={projectName} />;
+    }
+  }
+
   return (
     <>
       <div className="flex">
@@ -88,7 +107,7 @@ function Project() {
               </li>
 
               <li className="flex items-center gap-2 w-full h-10 rounded-sm pl-3 pr-2 cursor-pointer  transition-all duration-200 hover:bg-[#ebebeb] text-[#333]">
-                <ChartPie className="h-4 w-4" /><span className="text-sm font-medium">Statistics </span>
+                <ChartPie className="h-4 w-4" /><span className="text-sm font-medium" onClick={()=>navigate(`/documentation/${projectName}`)}>Documentation </span>
               </li>
 
               <li className="flex items-center gap-2 w-full h-10 rounded-sm pl-3 pr-2 cursor-pointer  transition-all duration-200 hover:bg-[#ebebeb] text-[#333]">
@@ -130,16 +149,17 @@ function Project() {
         {/* main content */}
         <div className="min-h-[70] w-[83%] ml-[17%] overflow-y-auto">
         <div className="h-[110px] border-b-1 z-1000 flex flex-col justify-between pl-0 shadow-sm drop-shadow-md sticky top-[64px] bg-white">
-  <div onClick={() => setIsOpen((prev) => !prev)} className="flex items-center cursor-pointer ml-5 rounded-md px-6 py-2 hover:bg-[#ebebeb] mr-4 w-[170px]">
+  <div onClick={() => setIsOpen((prev) => !prev)} className="flex items-center cursor-pointer ml-5 rounded-md px-6 py-2 hover:bg-[#ebebeb] mr-4 w-fit">
     <h4 className="text-2xl font-bold mr-3">{projectName}</h4><ChevronDown />
   </div>
 
 <div className="flex pl-10">
-  <ul className='flex list-none text-sm font-medium text-[#333] cursor-pointer mb-1'>
-    <li className='flex gap-1 items-center px-2 py-1 rounded-sm hover:bg-[#ebebeb] transition-all duration-200 border-b-2 border-black  '><Tornado className='h-4 w-4'/>Activities</li>
-    <li className='flex gap-1 items-center px-4 py-1 rounded-sm hover:bg-[#ebebeb] transition-all duration-200'><ChartPie  className='h-4 w-4'/>Statistics</li>
-    <li className='flex gap-1 items-center px-4 py-1 rounded-sm hover:bg-[#ebebeb] transition-all duration-200'><ClipboardList   className='h-4 w-4'/>Notes</li>
-    <li className='flex gap-1 items-center px-4 py-1 rounded-sm hover:bg-[#ebebeb] transition-all duration-200'><ChartPie  className='h-4 w-4'/>Project Flow</li>
+  <ul className='flex list-none text-sm font-medium text-[#333] cursor-pointer mb-2'>
+
+  {items.map(({name,icon : Icon})=>(
+    <li key={name} onClick={()=>setactive(name)} className={`flex gap-1 items-center px-2 py-1 rounded-sm hover:bg-[#ebebeb]  transition-all duration-200  ${active === name ? 'border-b-2 border-black' : 'border-b-2 border-white' }`} >
+    <Icon className='h-4 w-4'/>{name}</li>
+  ))}
 
   </ul>
 </div>  
@@ -174,7 +194,7 @@ function Project() {
           )}
 
           <hr className="mb-10" />
-          <TaskManager projectName={projectName} />
+          {renderContent()}
         </div>
       </div>
     </>

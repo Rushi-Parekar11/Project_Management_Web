@@ -5,6 +5,7 @@ import Login from './Pages/Login'
 import Signup from './Pages/Signup'
 import Project from './Pages/Project'
 import DashBoard from './Pages/DashBoard';
+import DisplayProject from './Pages/DisplayProject'
 import { ToastContainer } from 'react-toastify'
 
 import { Route, Routes } from 'react-router-dom'
@@ -20,8 +21,7 @@ function App() {
        <Route path='/signup' element={<Signup/>}/>
        <Route path="/:username/dashboard" element={<DashBoard />} />
        <Route path='/project/:projectName' element={<Project />} />
-
-       {/* <Route path='/task' element={<TaskManager/>}/> */}
+       <Route path='/documentation/:projectName' element={<DisplayProject/>}/>
 
     </Routes>
     <ToastContainer
