@@ -16,6 +16,20 @@ function ProjectCardOne({ project }) {
   const timeAgo = daysAgo === 0 ? 'Today' : `${daysAgo} days ago`;
 
 
+  const totaltask = project.tasks.length;
+
+  const statusCount = project.tasks.reduce((acc, curr) => {
+    acc[curr.status] = (acc[curr.status] || 0) + 1;
+    return acc;
+  }, {});
+  
+  const complettask = statusCount.Complete || 0;
+  let percentage = Math.round((complettask / totaltask) * 100);  
+  percentage = isNaN(percentage) ? 0 : percentage;
+  
+  
+  
+
 
   return (
     <div className="h-[305px] w-[300px] rounded-md shadow-md border-2 border-[#dddedd] cursor-pointer" onClick={() => navigate(`/project/${projectname}`)}  >
@@ -39,7 +53,7 @@ function ProjectCardOne({ project }) {
 
       {/* Progress Bar */}
       <div className="mt-5">
-        <ProgressBar percentage={progress || 85} />
+        <ProgressBar percentage={percentage} />
       </div>
 
       {/* Time and Users Info */}
