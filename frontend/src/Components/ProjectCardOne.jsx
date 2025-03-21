@@ -5,7 +5,7 @@ import ProgressBar from './ProgressBar';
 import { useNavigate } from 'react-router-dom';
 
 
-function ProjectCardOne({ project }) {
+function SkProjectCardOne({ project }) {
   const { projectname, discription, createdAt, users, progress } = project;
   const navigate = useNavigate();
 
@@ -48,7 +48,7 @@ function ProjectCardOne({ project }) {
       </div>
 
       <div className="px-4">
-        <h1 className="text-sm text-gray-600">{discription.slice(0, 65)}...</h1>
+        <h1 className="text-sm text-gray-600">{discription.slice(0, 70)}...</h1>
       </div>
 
       {/* Progress Bar */}
@@ -74,4 +74,4 @@ function ProjectCardOne({ project }) {
   );
 }
 
-export default ProjectCardOne;
+export default SkProjectCardOne;

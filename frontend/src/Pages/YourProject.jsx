@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Search, Plus } from 'lucide-react';
 import ProjectCardOne from '../Components/ProjectCardOne';
 import ProjectForm from '../Components/ProjectForm';
+import SkeletonCard from '../Skeleton Compo/SkProjectCardOne';
 import { useNavigate } from 'react-router-dom';
 
 function YourProject() {
@@ -10,25 +11,30 @@ function YourProject() {
   const navigate = useNavigate();
   console.log(username);
 
-
+  const [loading, setLoading] = useState(true);
   const [projects, setProjects] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:8081/${username}/dashboard`)
-      .then((response) => response.json())
-      .then((data) => {
+    const fetchProjects = async () => {
+      try {
+        const response = await fetch(`http://localhost:8081/${username}/dashboard`);
+        const data = await response.json();
         if (data.projects) {
           setProjects(data.projects);
         } else {
           setError('Failed to fetch projects');
         }
-      })
-      .catch((err) => {
+      } catch (error) {
         setError('An error occurred while fetching projects');
-      });
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    fetchProjects();
   }, [username]);
-
+  
   useEffect(() => {
     if (projects.length > 0) {
       console.log(projects);
@@ -57,13 +63,20 @@ function YourProject() {
       <h1 className='text-lg font-bold text-[#292a2e] mt-6'>Latest Projects</h1>
 
       <div className="mt-5 h-82 flex gap-7 flex-row flex-wrap">
-        {projects.length > 0 ? (
-          [...projects].reverse().map((project) => (
-            <ProjectCardOne key={project._id} project={project}   className='cursor-pointer' />
-          ))
-        ) : (
-          <p>No projects found.</p>
-        )}
+      <div className="mt-5 h-82 flex gap-7 flex-row flex-wrap">
+  {loading ? (
+    Array.from({ length: 4 }).map((_, index) => (
+      <SkeletonCard key={index} />
+    ))
+  ) : projects.length > 0 ? (
+    [...projects].reverse().map((project) => (
+      <ProjectCardOne key={project._id} project={project} className='cursor-pointer' />
+    ))
+  ) : (
+    <p>No projects found.</p>
+  )}
+</div>
+
       </div>
 
       <hr className="w-[95%] mt-10 mb-4 border border-[#cacaca]" />

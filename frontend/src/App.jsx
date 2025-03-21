@@ -6,6 +6,7 @@ import Signup from './Pages/Signup'
 import Project from './Pages/Project'
 import DashBoard from './Pages/DashBoard';
 import DisplayProject from './Pages/DisplayProject'
+import GlobalPortfolio from './Pages/GlobalPortfolio'
 import { ToastContainer } from 'react-toastify'
 
 import { Route, Routes } from 'react-router-dom'
@@ -22,6 +23,7 @@ function App() {
        <Route path="/:username/dashboard" element={<DashBoard />} />
        <Route path='/project/:projectName' element={<Project />} />
        <Route path='/documentation/:projectName' element={<DisplayProject/>}/>
+       <Route path='/GlobalPortfolio/projects' element={<GlobalPortfolio/>}/>
 
     </Routes>
     <ToastContainer

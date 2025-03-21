@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from "react-toastify";
+import { UserRound ,LogOut  } from 'lucide-react';
 import "react-toastify/dist/ReactToastify.css";
 
 function Navbar() {
@@ -42,7 +43,8 @@ function Navbar() {
   };
 
   return (
-    <div className="w-full h-16 sticky top-0 backdrop-blur-sm z-50 flex px-4 sm:px-10 shadow items-center justify-between">
+    <>
+    <div className="w-full h-16 sticky top-0 backdrop-blur-sm z-50 flex px-4 sm:px-10 shadow items-center justify-between ">
       
       {/* Logo */}
       <div className="flex items-center">
@@ -50,24 +52,19 @@ function Navbar() {
       </div>
 
       {/* Navigation links */}
-      <div className='hidden sm:flex items-center gap-6'>
-        <Link to="/signup" className='text-gray-800 hover:text-black'>All Projects</Link>
-        <Link to="/signup" className='text-gray-800 hover:text-black'>Docs</Link>
-        <Link to="/signup" className='text-gray-800 hover:text-black'>Products</Link>
-        <Link to="/signup" className='text-gray-800 hover:text-black'>Pricing</Link>
+      <div className='hidden sm:flex items-center gap-6 '>
+        <Link to="/GlobalPortfolio/projects" className='text-gray-800 hover:text-black hover:border-b-2 border-black'>Global Showcases</Link>
+        <Link to="/signup" className='text-gray-800 hover:text-black hover:border-b-2 border-black'>Docs</Link>
+        <Link to="/signup" className='text-gray-800 hover:text-black hover:border-b-2 border-black'>Products</Link>
+        <Link to="/signup" className='text-gray-800 hover:text-black hover:border-b-2 border-black'>Pricing</Link>
       </div>
 
       {/* Auth + CTA */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 ">
         {isLogin ? (
           <>
-            <button onClick={HandleLogout} className="text-sm text-gray-800 hover:text-black">Logout</button>
-            <button
-              onClick={goToYourWork}
-              className='px-4 py-2 sm:px-5 sm:py-2.5 rounded bg-black text-white text-sm hover:bg-gray-900 transition-all'
-            >
-              Get Started
-            </button>
+            <button onClick={HandleLogout} className="text-sm text-gray-800 hover:text-black flex items-center gap-2">Logout <LogOut className='w-4 h-4'/></button>
+            <button onClick={goToYourWork} className=' h-9 w-9 rounded-full bg-black text-white items-center flex justify-center hover:bg-gray-900'><UserRound/></button>
           </>
         ) : (
           <>
@@ -83,8 +80,9 @@ function Navbar() {
         )}
       </div>
 
-      <ToastContainer position="top-center" autoClose={2000} />
     </div>
+    <ToastContainer position="top-center" autoClose={2000} />
+    </>
   );
 }
 

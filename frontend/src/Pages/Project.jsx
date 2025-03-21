@@ -127,7 +127,7 @@ function Project() {
 
               <h3 className="text-md font-medium pl-3 mt-5">Contributor</h3>
               <div className="flex">
-                <div className="h-[33px] w-[33px] font-bold ml-3 text-gray-500 text-xl rounded-full flex justify-center items-center outline outline-[4px] outline-dotted outline-gray-500 mr-[3px]">
+                <div className="h-[39px] w-[39px] font-bold ml-3 text-gray-800 text-xl rounded-full flex justify-center items-center border-2 border-gray-700 mr-[3px]">
                   <UserPlus className="h-4 w-4" />
                 </div>
                 <div className="h-[37px] w-[37px] bg-[#f9aaef] ml-1 font-bold text-white text-md rounded-full flex justify-center items-center">CR</div>
