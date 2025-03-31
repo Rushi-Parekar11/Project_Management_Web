@@ -104,12 +104,12 @@ router.post('/login', loginValidation, async (req, res) => {
 });
 
 
-//// Single project data page 
+//// Single project.jsx data page 
 router.get('/project/:projectName', async (req, res) => {
   const { projectName } = req.params;
 
   try {
-    const project = await Project.findOne({ projectname: projectName }).populate('createdby', 'email name');
+    const project = await Project.findOne({ projectname: projectName }).populate('createdby', 'email name').populate('contributor', 'email name');
     if (!project) {
       return res.status(404).json({ message: 'Project not found' });
     }
@@ -140,7 +140,6 @@ router.get('/:name/dashboard', async (req, res) => {
 });
 
 
-//// Task CURD
 // PUT route to update tasks of a specific project
 router.put('/project/:projectname', async (req, res) => {
   const { projectname } = req.params;
@@ -170,7 +169,7 @@ router.get('/documentation/:projectName', async (req, res) => {
   const { projectName } = req.params;
 
   try {
-    const project = await Project.findOne({ projectname: projectName }).populate('createdby', 'email name');
+    const project = await Project.findOne({ projectname: projectName }).populate('createdby', 'email name').populate('contributor', 'email name');
     if (!project) {
       return res.status(404).json({ message: 'Project not found' });
     }
@@ -190,6 +189,41 @@ router.get('/GlobalPortfolio/projects', async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "failed to get all projects" });
+  }
+});
+
+
+
+// Add a project to user's Projects array using email
+router.post('/project/:projectname', async (req, res) => {
+  const { email } = req.body;
+  const { projectname } = req.params;
+
+  try {
+    const project = await Project.findOne({ projectname });
+    if (!project) {
+      return res.status(404).json({ message: 'Project not found' });
+    }
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    if (!user.Projects.includes(project._id)) {
+      user.Projects.push(project._id);
+      await user.save();
+    }
+
+    if (!project.contributor.includes(user._id)) {
+      project.contributor.push(user._id);
+      await project.save();
+    }
+    res.status(200).json({ message: 'Contributor added successfully', user, project });
+
+  } catch (error) {
+    console.error('Error adding contributor:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 });
 

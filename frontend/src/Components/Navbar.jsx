@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from "react-toastify";
 import { UserRound ,LogOut  } from 'lucide-react';
 import "react-toastify/dist/ReactToastify.css";
+import logo from "../assets/logo.svg"
 
 function Navbar() {
   const navigate = useNavigate();
@@ -48,13 +49,15 @@ function Navbar() {
       
       {/* Logo */}
       <div className="flex items-center">
-        <Link to='/' className='sm:text-3xl text-xl font-bold'>name</Link>
+        <Link to='/' className='sm:text-3xl text-xl font-bold'>
+        <img src={logo} alt="" className='h-14 w-30' />
+        </Link>
       </div>
 
       {/* Navigation links */}
       <div className='hidden sm:flex items-center gap-6 '>
         <Link to="/GlobalPortfolio/projects" className='text-gray-800 hover:text-black hover:border-b-2 border-black'>Global Showcases</Link>
-        <Link to="/signup" className='text-gray-800 hover:text-black hover:border-b-2 border-black'>Docs</Link>
+        <Link to="/cluster" className='text-gray-800 hover:text-black hover:border-b-2 border-black'>Cluster</Link>
         <Link to="/signup" className='text-gray-800 hover:text-black hover:border-b-2 border-black'>Products</Link>
         <Link to="/signup" className='text-gray-800 hover:text-black hover:border-b-2 border-black'>Pricing</Link>
       </div>

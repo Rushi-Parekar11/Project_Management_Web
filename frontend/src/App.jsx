@@ -7,6 +7,7 @@ import Project from './Pages/Project'
 import DashBoard from './Pages/DashBoard';
 import DisplayProject from './Pages/DisplayProject'
 import GlobalPortfolio from './Pages/GlobalPortfolio'
+import Cluster from './Pages/Cluster'
 import { ToastContainer } from 'react-toastify'
 
 import { Route, Routes } from 'react-router-dom'
@@ -24,6 +25,8 @@ function App() {
        <Route path='/project/:projectName' element={<Project />} />
        <Route path='/documentation/:projectName' element={<DisplayProject/>}/>
        <Route path='/GlobalPortfolio/projects' element={<GlobalPortfolio/>}/>
+       <Route path='/cluster' element={<Cluster/>}/>
+
 
     </Routes>
     <ToastContainer

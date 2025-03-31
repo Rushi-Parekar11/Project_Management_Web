@@ -21,19 +21,22 @@ function Statistics() {
   }, [projectName]);
 
   const statusCount = task.reduce((acc, curr) => {
-    acc[curr.status] = (acc[curr.status] || 0) + 1;
+    const status = curr.status.toLowerCase(); // normalize to lowercase
+    acc[status] = (acc[status] || 0) + 1;
     return acc;
   }, {});
+  
 
 
 
   const total = task.length
   const data = [
-    { label: "Activities", value: statusCount.Activities, color: "#60a5fa" }, // blue-400
-    { label: "In Process", value: statusCount.inprocess, color: "#facc15" }, // yellow-400
-    { label: "Completed", value: statusCount.Complete, color: "#34d399" }, // green-400
-    
+    { label: "Activities", value: statusCount.activities || 0, color: "#60a5fa" },
+    { label: "In Process", value: statusCount.inprocess || 0, color: "#facc15" },
+    { label: "Completed", value: statusCount.complete || 0, color: "#34d399" },
   ]
+  
+  
 
   const radius = 40
   const circumference = 2 * Math.PI * radius
@@ -110,7 +113,6 @@ function Statistics() {
       <div className="flex flex-col justify-center gap-4 flex-1">
         <div>
           <h2 className="text-xl font-semibold">Task Status Overview</h2>
-          <p className="text-sm text-muted-foreground">Last 6 Months</p>
         </div>
 
         <div className="grid grid-cols-3 gap-4 text-center text-sm w-full">
@@ -126,10 +128,7 @@ function Statistics() {
           ))}
         </div>
 
-        <div className="flex items-center gap-2 mt-2 text-sm font-medium">
-          Trending up by 5.2% this month
-          <TrendingUp className="h-4 w-4 text-green-500" />
-        </div>
+      
       </div>
     </div>
 

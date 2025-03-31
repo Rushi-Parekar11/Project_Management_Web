@@ -32,6 +32,19 @@ const ProjectSchema = new mongoose.Schema({
     ref: "User",
     required: true
   },
+  contributor: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    }
+  ],
+  saved: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    } 
+  ],
+
   tasks: [taskSchema] 
 }, { timestamps: true });
 

@@ -4,7 +4,6 @@ import { Calendar1, ExternalLink, LockOpen, ClockAlert, UserRound } from 'lucide
 import ProgressBar from './ProgressBar';
 import { useNavigate } from 'react-router-dom';
 
-
 function SkProjectCardOne({ project }) {
   const { projectname, discription, createdAt, users, progress } = project;
   const navigate = useNavigate();

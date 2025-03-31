@@ -6,22 +6,30 @@ import TaskManager from '../Components/TaskManager';
 import Statistics from '../Components/Statistics';
 import Notes from '../Components/Notes';
 import ProjectFlow from '../Components/ProjectFlow';
+import ProjectForm from '../Components/ProjectForm';
+import { toast,ToastContainer } from 'react-toastify';
+
 
 function Project() {
   const [isOpen, setIsOpen] = useState(false);
   const popupRef = useRef(null);
   const { projectName } = useParams();
   const [projectData, setProjectData] = useState(null);
-    const [active,setactive] = useState('Activities')
+  const [active,setactive] = useState('Activities')
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [contributorEmail, setContributorEmail] = useState('');
+
   
   const navigate = useNavigate();
   // fetch data
   useEffect(() => {
     const fetchData = async () => {
+
       try {
         const res = await axios.get(`http://localhost:8081/project/${projectName}`);
         setProjectData(res.data);
         console.log(res.data);
+
       } catch (err) {
         console.error("Error fetching project:", err);
       }
@@ -77,6 +85,35 @@ function Project() {
     }
   }
 
+  const handleSendRequest = async () => {
+    if (!contributorEmail) return alert('Please enter an email.');
+  
+    try {
+      const res = await fetch(`http://localhost:8081/project/${projectData.projectname}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: contributorEmail }),
+      });
+  
+      const data = await res.json();
+  
+      if (res.ok) {
+        toast.success("Request sent successfully!");
+        setIsModalOpen(false);
+        setContributorEmail('');
+      } else {
+        toast.error(data.message || 'Something went wrong!');
+
+      }
+    } catch (error) {
+      console.error('Error sending request:', error);
+      toast.error('Faild the request');
+    }
+  };
+  
+
   return (
     <>
       <div className="flex">
@@ -96,8 +133,8 @@ function Project() {
           )}
 
           <div className="w-full h-[74vh]">
-            <ul className="list-none pl-4 pr-2 flex flex-col gap-2 mt-4">
-              <li className="flex items-center gap-2 w-full h-10 rounded-sm pl-3 pr-2 cursor-pointer  transition-all duration-200 hover:bg-[#ebebeb] text-[#333]">
+            <ul className="list-none pl-4 pr-2 flex flex-col gap-2 mt-2">
+              <li onClick={() => navigate(`/${projectData.createdby.name}/dashboard`)} className="flex items-center gap-2 w-full h-10 rounded-sm pl-3 pr-2 cursor-pointer  transition-all duration-200 hover:bg-[#ebebeb] text-[#333]">
                 <House className="h-4 w-4" /><span className="text-sm font-medium">Home</span>
               </li>
 
@@ -113,11 +150,11 @@ function Project() {
                 <CalendarRange className="h-4 w-4" /><span className="text-sm font-medium">Calendar </span>
               </li>
 
-              <li className="flex items-center gap-2 w-full h-10 rounded-sm pl-3 pr-2 cursor-pointer  transition-all duration-200 hover:bg-[#ebebeb] text-[#333]">
+              {/* <li className="flex items-center gap-2 w-full h-10 rounded-sm pl-3 pr-2 cursor-pointer  transition-all duration-200 hover:bg-[#ebebeb] text-[#333]">
                 <Tags className="h-4 w-4" /><span className="text-sm font-medium">Tip Notes </span>
-              </li>
+              </li> */}
 
-              <hr className="mt-10" />
+              <hr className="mt-4" />
 
               <h3 className="text-md font-medium pl-3">project CreatedBy</h3>
               <div className="h-[37px] w-[37px] bg-[#776aff] ml-3 font-bold text-white text-md rounded-full flex justify-center items-center">
@@ -125,14 +162,28 @@ function Project() {
                   projectData.createdby.name.slice(0, 2).toUpperCase()}
               </div>
 
-              <h3 className="text-md font-medium pl-3 mt-5">Contributor</h3>
-              <div className="flex">
-                <div className="h-[39px] w-[39px] font-bold ml-3 text-gray-800 text-xl rounded-full flex justify-center items-center border-2 border-gray-700 mr-[3px]">
+              <h3 className="text-md font-medium pl-3 mt-3">Contributor</h3>
+            
+
+              <div className="flex flex-col">
+                <div  className="h-[47px] w-[180px] mb-2 font-bold ml-3 text-[#656566] text-xl rounded-md flex justify-center items-center shadow-md border-2 border-[#a5a6a7] mr-[3px]"   onClick={() => setIsModalOpen(true)}>
                   <UserPlus className="h-4 w-4" />
                 </div>
-                <div className="h-[37px] w-[37px] bg-[#f9aaef] ml-1 font-bold text-white text-md rounded-full flex justify-center items-center">CR</div>
-                <div className="h-[37px] w-[37px] bg-[#0db3c1] ml-1 font-bold text-white text-md rounded-full flex justify-center items-center">AT</div>
-                <div className="h-[37px] w-[37px] bg-[#ff642e] ml-1 font-bold text-white text-md rounded-full flex justify-center items-center">PR</div>
+
+      
+
+                {/* <h1>{projectData.contributor.name}</h1> */}
+                {projectData?.contributor && projectData.contributor.map((con, index) => (
+                <div key={index} className="h-[48px] w-[180px] mt-1 font-bold ml-3 text-gray-800 text-xl rounded-md flex justify-start items-center shadow-md border-2 border-[#b9b9b9] mr-[3px]">
+                <div className="h-[35px] w-[35px] bg-[#776aff] font-medium text-white text-base rounded-lg flex justify-center items-center ml-2">{con.name?.slice(0, 2).toUpperCase()}</div>
+                <div className="flex flex-col ml-4 mb-2">
+                <h1 className="text-lg font-medium mb-[-2px] text-[#4a4a4b]">{con.name}</h1>
+                <h1 className="text-xs font-medium text-[#656566]">{con.email}</h1>
+              </div>
+                 </div>
+  
+))}
+
               </div>
             </ul>
           </div>
@@ -144,6 +195,45 @@ function Project() {
             </li>
           </ul>
         </div>
+
+          {/* Model open  Contribution Request */}
+           {isModalOpen && (
+            <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+  <div className="bg-white w-full max-w-md rounded-2xl shadow-xl p-6 relative space-y-4">
+    {/* Close Button */}
+    <button
+      onClick={() => setIsModalOpen(false)}
+      className="absolute top-3 right-3 text-black hover:border-2 border-black  rounded-full w-8 h-8 flex items-center justify-center transition"
+    >
+      &times;
+    </button>
+
+    {/* Heading */}
+    <h2 className="text-2xl font-semibold text-black">Send Contribution Request</h2>
+
+    {/* Description */}
+    <p className="text-sm text-black">
+      Enter the contributor's email address below to send them a request.
+    </p>
+
+    <input
+  type="email"
+  placeholder="email@example.com"
+  value={contributorEmail}
+  onChange={(e) => setContributorEmail(e.target.value)}
+  className="w-full border border-black rounded-md px-4 py-2 text-sm bg-white text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
+/>
+
+
+
+    {/* Submit Button */}
+    <button onClick={handleSendRequest}  className="w-full bg-black text-white py-2 px-4 rounded-md text-sm font-medium border border-black transition">
+  Send Request
+</button>
+
+  </div>
+</div>
+      )}
 
         {/* main content */}
         <div className="min-h-[70] w-[83%] ml-[17%] overflow-y-auto">
@@ -196,6 +286,7 @@ function Project() {
           {renderContent()}
         </div>
       </div>
+      <ToastContainer/>
     </>
   );
 }

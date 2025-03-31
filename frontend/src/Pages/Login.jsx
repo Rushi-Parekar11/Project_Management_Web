@@ -37,9 +37,9 @@ function Login() {
       const { success, message, jwtToken, name, error } = result;
 
       if (success) {
-        toast.success("Login successful!", {
-          autoClose: 1500, // closes after 1.5 seconds
-        });
+        // toast.success("Login successful!", {
+        //   autoClose: 1500, // closes after 1.5 seconds
+        // });
         
         localStorage.setItem('token', jwtToken);
         localStorage.setItem('LoggedInUser', name);
@@ -53,9 +53,9 @@ function Login() {
       }
        else if (error) {
         const details = error?.details?.[0]?.message;
-        toast.error(details || "Something went wrong!");
+        toast.error(details || "Something went wrong!", {autoClose: 1000,});
       } else {
-        toast.error(message || "Login failed");
+        toast.error(message || "Login failed", {autoClose: 1000,});
       }
 
     } catch (err) {
@@ -116,6 +116,7 @@ function Login() {
       </form>
 
       {/* Toasts display here */}
+      <ToastContainer/>
     </>
   )
 }
