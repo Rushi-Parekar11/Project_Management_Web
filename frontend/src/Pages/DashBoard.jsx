@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  LayoutPanelLeft,
+import {LayoutPanelLeft,
   Star,
   Users,
   LayoutGrid,
   CalendarRange,
-  UserRoundPlus,
-  ListFilterPlus,
-  Plus,
-  ArrowLeft,
-} from 'lucide-react';
+  UserRoundPlus,ListFilterPlus,Plus,ArrowLeft,} from 'lucide-react';
+
 import YourProject from './YourProject';
 import Saved from './Saved';
 import Workmates from './Workmates';

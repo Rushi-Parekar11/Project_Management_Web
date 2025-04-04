@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-
 const taskSchema = new mongoose.Schema({
   title: String,
   status: {
@@ -44,7 +43,13 @@ const ProjectSchema = new mongoose.Schema({
       ref: "User",
     } 
   ],
-
+  docText: [
+    {
+      textname: { type: String, required: true },  
+      textnamelogo: String, 
+      textContent: String
+    }
+  ],
   tasks: [taskSchema] 
 }, { timestamps: true });
 

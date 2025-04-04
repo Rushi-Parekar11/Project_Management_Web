@@ -40,7 +40,6 @@ function YourProject() {
   
   useEffect(() => {
     if (projects.length > 0) {
-      console.log(projects);
     }
   }, [projects]);
 

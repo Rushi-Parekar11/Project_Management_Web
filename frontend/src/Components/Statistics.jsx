@@ -12,7 +12,6 @@ function Statistics() {
         try {
           const res = await axios.get(`http://localhost:8081/project/${projectName}`);
            settasks(res.data.tasks);
-           console.log(res.data)
         } catch (error) {
           console.log(error)
         }

@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import TaskManager from '../Components/TaskManager';
 import Statistics from '../Components/Statistics';
-import Notes from '../Components/Notes';
+import BuildDocs from '../Components/BuildDocs';
 import ProjectFlow from '../Components/ProjectFlow';
 import ProjectForm from '../Components/ProjectForm';
 import { toast,ToastContainer } from 'react-toastify';
@@ -15,7 +15,7 @@ function Project() {
   const popupRef = useRef(null);
   const { projectName } = useParams();
   const [projectData, setProjectData] = useState(null);
-  const [active,setactive] = useState('Activities')
+  const [active,setactive] = useState('Build Documentation')
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [contributorEmail, setContributorEmail] = useState('');
 
@@ -28,8 +28,6 @@ function Project() {
       try {
         const res = await axios.get(`http://localhost:8081/project/${projectName}`);
         setProjectData(res.data);
-        console.log(res.data);
-
       } catch (err) {
         console.error("Error fetching project:", err);
       }
@@ -69,19 +67,19 @@ function Project() {
   };
 
   const items=[
-    {name : 'Activities',icon:Tornado},
-    {name : 'Statistics',icon:ChartPie},
     {name : 'Build Documentation',icon:ClipboardList},
+    {name : 'Project Mangement',icon:Tornado},
+    {name : 'Statistics',icon:ChartPie},
     {name : 'Project Flow',icon:Route }
   ]
 
   const renderContent=()=>{
     switch (active){
-      case 'Activities' : return   <TaskManager projectName={projectName} />;
+      case 'Build Documentation'  : return <BuildDocs/>;
+      case 'Project Mangement' : return   <TaskManager projectName={projectName} />;
       case 'Statistics' : return   <Statistics/>;
-      case 'Build Documentation'  : return <Notes/>;
       case 'Project Flow' : return <ProjectFlow/>;
-      default : return  <TaskManager projectName={projectName} />;
+      default : return  <BuildDocs/>;
     }
   }
 
@@ -236,8 +234,8 @@ function Project() {
       )}
 
         {/* main content */}
-        <div className="min-h-[70] w-[83%] ml-[17%] overflow-y-auto">
-        <div className="h-[110px] border-b-1 z-1000 flex flex-col justify-between pl-0 shadow-sm drop-shadow-md sticky top-[64px] bg-white">
+        <div className="min-h-[70] w-[83%] ml-[17%] overflow-y-auto border-2 border-red-500">
+        <div className="h-[90px] border-2 border-black  z-1000 flex flex-col justify-between pl-0 shadow-sm drop-shadow-md sticky  bg-white">
   <div onClick={() => setIsOpen((prev) => !prev)} className="flex items-center cursor-pointer ml-5 rounded-md px-6 py-2 hover:bg-[#ebebeb] mr-4 w-fit">
     <h4 className="text-2xl font-bold mr-3">{projectName}</h4><ChevronDown />
   </div>
@@ -282,7 +280,7 @@ function Project() {
             </div>
           )}
 
-          <hr className="mb-10" />
+          <hr className="mb-2" />
           {renderContent()}
         </div>
       </div>

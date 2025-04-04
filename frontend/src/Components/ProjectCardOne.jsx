@@ -31,7 +31,7 @@ function SkProjectCardOne({ project }) {
 
 
   return (
-    <div className="h-[305px] w-[300px] rounded-md shadow-md border-2 border-[#dddedd] cursor-pointer" onClick={() => navigate(`/project/${projectname}`)}  >
+    <div className="h-[280px] w-[300px] rounded-md shadow-md border-2 border-[#dddedd] cursor-pointer" onClick={() => navigate(`/project/${projectname}`)}  >
       <div className="pt-4 pl-4 flex items-center justify-between pr-3">
         <div className="h-11 w-11 bg-[#776aff] font-bold text-white rounded-lg flex justify-center items-center">
           {projectname ? projectname.substring(0, 2).toUpperCase() : 'NA'}
@@ -51,10 +51,10 @@ function SkProjectCardOne({ project }) {
       </div>
 
       {/* Progress Bar */}
-      <div className="mt-5">
+      {/* <div className="mt-5">
         <ProgressBar percentage={percentage} />
-      </div>
-
+      </div> */}
+      <hr className='my-[20px]' />
       {/* Time and Users Info */}
       <div className="px-4 mt-10 flex justify-between">
         <div className="h-8 w-[90px] bg-[#e7e7e7] flex items-center justify-center text-xs text-gray-700 gap-1">

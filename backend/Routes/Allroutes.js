@@ -228,5 +228,32 @@ router.post('/project/:projectname', async (req, res) => {
 });
 
 
+//Add textdocs
+// Route for adding text data
+router.post('/project/:projectname/textdocs', async (req, res) => {
+  const { TextDocsObject } = req.body;
+  const { projectname } = req.params;
+
+  if (!TextDocsObject) {
+    return res.status(400).json({ message: 'TextDocsObject is required' });
+  }
+
+  try {
+    const project = await Project.findOne({ projectname });
+    if (!project) {
+      return res.status(404).json({ message: 'Project not found' });
+    }
+
+    project.docText.push(TextDocsObject);
+    await project.save();
+    res.status(200).json({ message: 'Text data added successfully', project });
+  } catch (error) {
+    console.error('Error adding text data:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
+
 
 module.exports = router

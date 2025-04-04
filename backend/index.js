@@ -10,8 +10,8 @@ const PORT = process.env.PORT || 8000;
 
 //app.use(cors());
 app.use(cors({
-  origin: 'http://localhost:5173',
-  credentials: true
+  origin: ['http://localhost:5173', 'http://localhost:5174'], // Allow multiple origins
+  credentials: true // If using cookies or authentication
 }));
 
 app.use(bodyParser.json());
