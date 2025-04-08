@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { AlignLeft, Copy, ExternalLink, FileChartPie, Play, UserPlus, Plus, FileVideo, FileText, Dot } from 'lucide-react';
+import { AlignLeft, Copy, ExternalLink, FileChartPie, Play, UserPlus, Plus, FileVideo, FileText, Dot,Download  } from 'lucide-react';
+import { LiaDownloadSolid } from "react-icons/lia";
 
 function DisplayProject() {
   const { projectName } = useParams();
@@ -61,9 +62,10 @@ function DisplayProject() {
             </div>
             <h1 className="text-3xl font-bold">{projectName}</h1>
           </div>
-          <div className="relative flex items-center gap-3 mr-8">
+          <div className="relative flex items-center gap-4 mr-8">
             <ExternalLink className="cursor-pointer" onClick={() => window.open("https://yourlink.com", "_blank")} />
             <Copy className="cursor-pointer" onClick={handleCopyClick} />
+            <Download className="cursor-pointer" onClick={handleCopyClick} /> 
             {message && (
               <span className="absolute top-8 left-0 bg-gray-800 text-white text-sm p-1 rounded">
                 {message}
@@ -95,64 +97,64 @@ function DisplayProject() {
         <hr className="w-[90%] ml-[50px] my-[30px] " />
 
         {/* Key Resources */}
-        {/* <div>
+        <div>
         <div className="w-full flex items-center gap-2 pl-[46px] mt-[30px]">
           <FileChartPie className="h-[25px] w-[25px]" />
           <h1 className="text-lg font-bold">Key Resources</h1>
         </div>
 
         <div className="flex px-[80px] pt-3 gap-3">
-          <div className="flex h-[70px] w-fit pr-3 border-2 rounded-lg border-gray-500 items-center pl-2">
-            <div className="text-gray-500 mr-3">
-              <FileText className="h-[35px] w-[35px]" />
-            </div>
-            <div className="flex flex-col justify-start">
-              <h6 className="font-semibold text-gray-700">Example.pdf</h6>
-              <h6 className="text-xs text-gray-600">PDF | Download</h6>
-            </div>
-          </div>
 
-          <div className="flex h-[70px] w-fit pr-3 border-2 rounded-lg border-gray-500 items-center pl-2">
-            <div className="text-gray-500 mr-3">
-              <FileText className="h-[35px] w-[35px]" />
-            </div>
-            <div className="flex flex-col justify-start">
-              <h6 className="font-semibold text-gray-700">Prototype.png</h6>
-              <h6 className="text-xs text-gray-600">PNG | Download</h6>
-            </div>
-          </div>
+        <div className="flex h-[50px] w-fit min-w-[150px] border-2 border-gray-700 rounded-lg items-center pl-2 pr-3 cursor-pointer group transition-all duration-300">
+  {/* File Icon */}
+  <div className="text-gray-800 mr-3">
+    <FileText className="h-[23px] w-[23px]" />
+  </div>
+  {/* File Details */}
+  <div className="flex flex-col justify-start">
+    <h6 className="font-semibold text-gray-800 text-[15px]">Example.pdf</h6>
+    <h6 className="text-xs text-gray-600">PDF | Download</h6>
+  </div>
+  {/* Download Icon (Initially hidden, appears on hover & expands width) */}
+  <div className="ml-2 opacity-0 w-0 group-hover:w-7 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+    <LiaDownloadSolid className="h-7 w-7 text-gray-800" />
+  </div>
+       </div>
 
-          <div className="flex h-[70px] w-fit border-2 rounded-lg border-gray-500 items-center pl-2 pr-3">
-            <div className="text-gray-500 mr-3">
-              <FileText className="h-[35px] w-[35px]" />
-            </div>
-            <div className="flex flex-col justify-start">
-              <h6 className="font-semibold text-gray-700">DataFlowDiagram.pdf</h6>
-              <h6 className="text-xs text-gray-600">PDF | Download</h6>
-            </div>
-          </div>
+       <div className="flex h-[50px] w-fit min-w-[150px] border-2 border-gray-700 rounded-lg items-center pl-2 pr-3 cursor-pointer group transition-all duration-300">
+  {/* File Icon */}
+  <div className="text-gray-800 mr-3">
+    <FileText className="h-[23px] w-[23px]" />
+  </div>
+  {/* File Details */}
+  <div className="flex flex-col justify-start">
+    <h6 className="font-semibold text-gray-800 text-[15px]">Example.pdf</h6>
+    <h6 className="text-xs text-gray-600">PDF | Download</h6>
+  </div>
+  {/* Download Icon (Initially hidden, appears on hover & expands width) */}
+  <div className="ml-2 opacity-0 w-0 group-hover:w-7 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+    <LiaDownloadSolid className="h-7 w-7 text-gray-800" />
+  </div>
+       </div>
 
-          <div className="flex h-[70px] w-fit border-2 flex flex-col gap-1 rounded-lg border-gray-500 items-center pt-2 pl-2 pr-2">
-            <div className="text-gray-500 mr-3">
-              <FileVideo  className="h-[30px] w-[30px]" />
-            </div>
-            <div className="flex flex-col justify-start">
-              <h6 className="text-sm font-medium text-gray-500">Work Video.mp4</h6>
-            </div>
-          </div>
-
-          <div className="flex h-[70px] w-fit border-2 rounded-lg border-gray-500 items-center pl-2 pr-3">
-            <div className="text-gray-500 mr-3">
-              <FileText className="h-[35px] w-[35px]" />
-            </div>
-            <div className="flex flex-col justify-start">
-              <h6 className="font-semibold text-gray-700">Certificate.pdf</h6>
-              <h6 className="text-xs text-gray-600">PDF | Download</h6>
-            </div>
-          </div>
+       <div className="flex h-[50px] w-fit min-w-[150px] border-2 border-gray-700 rounded-lg items-center pl-2 pr-3 cursor-pointer group transition-all duration-300">
+  {/* File Icon */}
+  <div className="text-gray-800 mr-3">
+    <FileText className="h-[23px] w-[23px]" />
+  </div>
+  {/* File Details */}
+  <div className="flex flex-col justify-start">
+    <h6 className="font-semibold text-gray-800 text-[15px]">Example.pdf</h6>
+    <h6 className="text-xs text-gray-600">PDF | Download</h6>
+  </div>
+  {/* Download Icon (Initially hidden, appears on hover & expands width) */}
+  <div className="ml-2 opacity-0 w-0 group-hover:w-7 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+    <LiaDownloadSolid className="h-7 w-7 text-gray-800" />
+  </div>
+       </div>
 
         </div>
-        </div> */}
+        </div>
 
 
 

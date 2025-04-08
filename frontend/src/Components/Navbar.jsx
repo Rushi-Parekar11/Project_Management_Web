@@ -43,6 +43,15 @@ function Navbar() {
     }
   };
 
+  const goToProfile = () => {
+    const name = localStorage.getItem('LoggedInUser');
+    if (name) {
+      navigate(`profile/${name}`);
+    } else {
+      toast.error("User not found!");
+    }
+  };
+
   return (
     <>
     <div className="w-full h-16 sticky top-0 backdrop-blur-sm z-50 flex px-4 sm:px-10 shadow items-center justify-between ">
@@ -67,7 +76,7 @@ function Navbar() {
         {isLogin ? (
           <>
             <button onClick={HandleLogout} className="text-sm text-gray-800 hover:text-black flex items-center gap-2">Logout <LogOut className='w-4 h-4'/></button>
-            <button onClick={goToYourWork} className=' h-9 w-9 rounded-full bg-black text-white items-center flex justify-center hover:bg-gray-900'><UserRound/></button>
+            <button onClick={goToProfile} className=' h-8 w-8 text-[12px] font-bold rounded-full bg-[#776aff] text-white items-center flex justify-center hover:bg-gray-900'><h1>RU</h1></button>
           </>
         ) : (
           <>

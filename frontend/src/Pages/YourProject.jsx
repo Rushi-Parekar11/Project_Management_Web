@@ -25,6 +25,7 @@ function YourProject() {
         const data = await response.json();
         if (data.projects) {
           setProjects(data.projects);
+          console.log(data)
         } else {
           setError('Failed to fetch projects');
         }

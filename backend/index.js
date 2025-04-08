@@ -38,7 +38,20 @@ app.get('/ping',(req,res)=>{
     res.send("PONG");
 })
 
-app.listen(PORT,()=>{
-    console.log(`Server is Running at ${PORT}`)
+mongoose.connect(process.env.MONGODB_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 })
+.then(() => {
+  console.log("MongoDB Connected ✅");
+
+  // Start server only after DB is connected
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running at http://localhost:${PORT}`);
+  });
+})
+.catch((err) => {
+  console.error("❌ MongoDB Connection Error:", err);
+});
+
 

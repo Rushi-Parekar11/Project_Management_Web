@@ -4,6 +4,7 @@ import Home from './Pages/Home'
 import Login from './Pages/Login'
 import Signup from './Pages/Signup'
 import Project from './Pages/Project'
+import ProfilePage from './Pages/ProfilePage'
 import DashBoard from './Pages/DashBoard';
 import DisplayProject from './Pages/DisplayProject'
 import GlobalPortfolio from './Pages/GlobalPortfolio'
@@ -26,6 +27,7 @@ function App() {
        <Route path='/documentation/:projectName' element={<DisplayProject/>}/>
        <Route path='/GlobalPortfolio/projects' element={<GlobalPortfolio/>}/>
        <Route path='/cluster' element={<Cluster/>}/>
+       <Route path="/profile/:username" element={<ProfilePage />} />
 
 
     </Routes>

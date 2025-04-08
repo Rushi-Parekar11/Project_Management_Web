@@ -254,6 +254,43 @@ router.post('/project/:projectname/textdocs', async (req, res) => {
 });
 
 
+// Route to fetch user data with projects for profile and projects by username
+router.get('/profile/:username', async (req, res) => {
+  const { username } = req.params;
+
+  try {
+    const user = await User.findOne({ name: username });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found', success: false });
+    }
+
+    const projects = await Project.find({
+      $or: [
+        { createdby: user._id },
+        { contributor: user._id }
+      ]
+    })
+    .populate('createdby', 'name email')
+    .populate('contributor', 'name email')
+    .populate('saved', 'name email');
+
+    res.status(200).json({
+      success: true,
+      message: 'User profile fetched successfully',
+      user,
+      projects,
+    });
+
+  } catch (error) {
+    console.error('Error fetching user profile:', error);
+    res.status(500).json({ message: 'Internal server error', success: false });
+  }
+});
+
+
+
+
 
 
 module.exports = router
