@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import TextDocumentModel from './Models/TextDocumentModel';
 import ImageDocument from './Models/ImageDocument';
+import FileDocument from './Models/FileDocument';
 import { useEffect, useState } from 'react';
 import { AlignLeft, Copy, ExternalLink, FileChartPie, Play, UserPlus, Plus, FileText, Dot, Download, Link } from 'lucide-react';
 import { LiaDownloadSolid } from "react-icons/lia";
@@ -12,6 +13,7 @@ function BuildDocs() {
 
   const [textDocModel, settextDocModel] = useState(false);
   const [ImageModel, setImageDocModel] = useState(false);
+  const [FileModel, setFileDocModel] = useState(false);
   const [projectData, setProjectData] = useState(null);
 
   const iconMap = {
@@ -72,8 +74,9 @@ function BuildDocs() {
                 <Plus className="h-4 w-4" /><span className="text-sm font-medium">Images (JPEG,JPG,PNG,GIF)</span>
               </li>
 
-              <li className="flex items-center gap-2 w-full h-10 rounded-sm pl-3 pr-2 cursor-pointer  transition-all duration-200 hover:bg-[#ebebeb] text-[#333]" >
-                <Plus className="h-4 w-4" /><span className="text-sm font-medium">Excel Sheet</span>
+              <li className="flex items-center gap-2 w-full h-10 rounded-sm pl-3 pr-2 cursor-pointer  transition-all duration-200 hover:bg-[#ebebeb] text-[#333]"
+                onClick={() => setFileDocModel(true)} >
+                <Plus className="h-4 w-4" /><span className="text-sm font-medium">PDFs and other raw files</span>
               </li>
 
               <li className="flex items-center gap-2 w-full h-10 rounded-sm pl-3 pr-2 cursor-pointer  transition-all duration-200 hover:bg-[#ebebeb] text-[#333]">
@@ -230,6 +233,11 @@ function BuildDocs() {
             {ImageModel && (
               <ImageDocument onClose={() => setImageDocModel(false)} projectName={projectName}/>
             )}
+
+            {FileModel && (
+              <FileDocument onClose={() => setFileDocModel(false)} projectName={projectName}/>
+            )}
+
           </div>
         </div>
       </div>

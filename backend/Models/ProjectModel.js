@@ -56,6 +56,12 @@ const ProjectSchema = new mongoose.Schema({
       ImageText: String
     }
   ],
+  docFile: [
+    {
+      fileUrl: { type: String, required: true },
+      fileText: String
+    }
+  ],
   tasks: [taskSchema] 
 }, { timestamps: true });
 

@@ -342,7 +342,32 @@ router.post('/project/:projectname/docimage', async (req, res) => {
   }
 });
 
-
+// Route upload File of the project on username
+router.post('/project/:projectname/docfile', async (req, res) => {
+  const { imageUrl, ImageText } = req.body;
+  const { projectname } = req.params;
+  
+  if (!imageUrl) {
+    return res.status(400).json({ message: 'imageUrl is required' });
+  }
+  
+  try {
+    const project = await Project.findOne({ projectname });
+    if (!project) {
+      return res.status(404).json({ message: 'Project not found' });
+    }
+  
+    // Push as fileUrl and fileText to match schema
+    project.docFile.push({ fileUrl: imageUrl, fileText: ImageText });
+    await project.save();
+  
+    res.status(200).json({ message: 'File data added successfully', project });
+  } catch (error) {
+    console.error('Error adding file data:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+  
+});
 
 
 

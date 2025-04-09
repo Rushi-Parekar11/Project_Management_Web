@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { CloudUpload } from 'lucide-react';
 import { useParams } from 'react-router-dom';
 
-function ImageDocument({ onClose,projectName }) {
+function FileDocument({ onClose,projectName }) {
   const { project } = useParams();
   const [image, setImage] = useState(null);
   const [dragActive, setDragActive] = useState(false);
@@ -35,7 +35,7 @@ function ImageDocument({ onClose,projectName }) {
     document.getElementById('upload-image').click();
   };
 
-    //   uploading file  //
+    //   uploading image  //
     const handleSubmit = async (e) => {
         console.log(project)
         e.preventDefault();
@@ -64,7 +64,7 @@ function ImageDocument({ onClose,projectName }) {
           const user = JSON.parse(localStorage.getItem("user"));
 
           // Now send to your backend
-          const backendRes = await fetch(`http://localhost:8081/project/${projectName}/docimage`, {
+          const backendRes = await fetch(`http://localhost:8081/project/${projectName}/docfile`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
@@ -111,7 +111,7 @@ function ImageDocument({ onClose,projectName }) {
             {/* Hidden File Input */}
             <input
               type="file"
-              accept="image/*"
+              accept=".pdf,.doc,.docx,.txt,.ppt,.xls,.csv,.zip,.rar,.jpg,.jpeg,.png"
               onChange={handleChange}
               className="hidden"
               id="upload-image"
@@ -123,7 +123,7 @@ function ImageDocument({ onClose,projectName }) {
               onClick={openFilePicker}
               className="w-[45%] border flex items-center gap-2 items-center border-black text-black py-1 rounded-md hover:bg-black hover:text-white transition duration-300"
             >
-              <CloudUpload className='h-4 w-4 ml-11' /> Uploade file from Computer
+              <CloudUpload className='h-4 w-4 ml-11' /> Uploade from Computer
             </button>
 
             {/* Drag-and-drop area */}
@@ -139,7 +139,7 @@ function ImageDocument({ onClose,projectName }) {
                 {image ? (
                   <p className="text-gray-800">{image.name}</p>
                 ) : (
-                  <p className="text-gray-500">Drag & drop file here</p>
+                  <p className="text-gray-500">Drag & drop image here</p>
                 )}
               </label>
             </div>
@@ -150,7 +150,7 @@ function ImageDocument({ onClose,projectName }) {
               type="submit"
               className="w-full bg-black text-white py-2 rounded-md hover:bg-gray-900 transition duration-300"
             >
-              Upload file
+              Upload Image
             </button>
           </form>
         </div>
@@ -160,4 +160,4 @@ function ImageDocument({ onClose,projectName }) {
   );
 }
 
-export default ImageDocument;
+export default FileDocument;

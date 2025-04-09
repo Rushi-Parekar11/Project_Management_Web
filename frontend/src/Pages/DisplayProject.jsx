@@ -10,6 +10,7 @@ function DisplayProject() {
   const [projectData, setProjectData] = useState(null);
   const [message, setMessage] = useState("");
   const [imageLength,setimgLength] = useState(0);
+  const [files,setfiles] = useState([]);
   const iconMap = {
     Dot: Dot,
     AlignLeft: AlignLeft,
@@ -28,8 +29,8 @@ function DisplayProject() {
       try {
         const res = await axios.get(`http://localhost:8081/documentation/${projectName}`);
         setProjectData(res.data);
-        console.log(res.data)
         setimgLength(res.data.docImage.length)
+        setfiles(res.data.docFile)
       } catch (err) {
         console.error("Error fetching project:", err);
       }
@@ -51,6 +52,26 @@ function DisplayProject() {
     setTimeout(() => setMessage(""), 2000);
   };
 
+  const handeldownload = async (fileUrl, fileName = "file.pdf") => {
+    try {
+      const response = await fetch(fileUrl, { mode: 'cors' });
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+  
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = fileName; // You can pass a custom name
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Download failed:", error);
+    }
+  };
+  
+  
+  
   return (
     <div className="flex">
 
@@ -106,88 +127,79 @@ function DisplayProject() {
           <FileChartPie className="h-[25px] w-[25px]" />
           <h1 className="text-md font-bold">Key Resources</h1>
         </div>
+
+    
         {/* PDF */}
         <div className="flex px-[80px] pt-3 mt-2 gap-3">
-        <div className="flex h-[50px] w-fit min-w-[150px] border-2 border-gray-700 rounded-lg items-center pl-2 pr-3 cursor-pointer group transition-all duration-300">
+      
+
+       {files.map((file,index)=>{
+        return (
+          <div key={index} className="flex h-[50px] w-fit min-w-[150px] border-2 border-gray-700 rounded-lg items-center pl-2 pr-3 cursor-pointer group transition-all duration-300">
   {/* File Icon */}
   <div className="text-gray-800 mr-3">
     <FileText className="h-[23px] w-[23px]" />
   </div>
   {/* File Details */}
   <div className="flex flex-col justify-start">
-    <h6 className="font-semibold text-gray-800 text-[15px]">Example.pdf</h6>
+    <h6 className="font-semibold text-gray-800 text-[15px]">{file.fileText.slice(0,11)}..</h6>
     <h6 className="text-xs text-gray-600">PDF | Download</h6>
   </div>
   {/* Download Icon (Initially hidden, appears on hover & expands width) */}
   <div className="ml-2 opacity-0 w-0 group-hover:w-7 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
-    <LiaDownloadSolid className="h-7 w-7 text-gray-800" />
+  <LiaDownloadSolid
+  className="h-7 w-7 text-gray-800"
+  onClick={() => handeldownload(file.fileUrl, file.fileText)}
+/>
+
+
   </div>
        </div>
-
-       <div className="flex h-[50px] w-fit min-w-[150px] border-2 border-gray-700 rounded-lg items-center pl-2 pr-3 cursor-pointer group transition-all duration-300">
-  {/* File Icon */}
-  <div className="text-gray-800 mr-3">
-    <FileText className="h-[23px] w-[23px]" />
-  </div>
-  {/* File Details */}
-  <div className="flex flex-col justify-start">
-    <h6 className="font-semibold text-gray-800 text-[15px]">Example.pdf</h6>
-    <h6 className="text-xs text-gray-600">PDF | Download</h6>
-  </div>
-  {/* Download Icon (Initially hidden, appears on hover & expands width) */}
-  <div className="ml-2 opacity-0 w-0 group-hover:w-7 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
-    <LiaDownloadSolid className="h-7 w-7 text-gray-800" />
-  </div>
-       </div>
-
-       <div className="flex h-[50px] w-fit min-w-[150px] border-2 border-gray-700 rounded-lg items-center pl-2 pr-3 cursor-pointer group transition-all duration-300">
-  {/* File Icon */}
-  <div className="text-gray-800 mr-3">
-    <FileText className="h-[23px] w-[23px]" />
-  </div>
-  {/* File Details */}
-  <div className="flex flex-col justify-start">
-    <h6 className="font-semibold text-gray-800 text-[15px]">Example.pdf</h6>
-    <h6 className="text-xs text-gray-600">PDF | Download</h6>
-  </div>
-  {/* Download Icon (Initially hidden, appears on hover & expands width) */}
-  <div className="ml-2 opacity-0 w-0 group-hover:w-7 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
-    <LiaDownloadSolid className="h-7 w-7 text-gray-800" />
-  </div>
-       </div>
-
+        )
+       })}
         </div>
+
 
         {/* images */}
         {imageLength > 0 && <ImageSlider projectData={projectData} />}
-
         </div>
 
-
-
        
+         {/* text Documentation */}
+         <div>
+        <div className="w-full flex items-center gap-2 pl-[46px] mt-[30px]">
+          <FileChartPie className="h-[25px] w-[25px]" />
+          <h1 className="text-md font-bold">Text Documentation</h1>
+        </div>
 
-
-      {projectData.docText.map((doc, index) => {
+        {projectData.docText.map((doc, index) => {
   const IconComponent = doc.textnamelogo !== "None" ? iconMap[doc.textnamelogo] : null;
 
   return (
-    <div key={index} className="border-2 border-white relative mb-4">
+    <div key={index} className="border-2 border-white relative mb-4 pr-[18px] ">
   <div className="w-full ml-[70px] flex items-center gap-2 pl-[8px] mt-[10px] relative ">
     {IconComponent && (
       <span className="absolute left-[-20px] flex justify-center items-center w-6 h-6">
         <IconComponent className="w-11 h-11" />
       </span>
     )}
-    <h1 className="text-lg font-bold">{doc.textname}</h1>
+    <h1 className="text-md font-bold">{doc.textname}</h1>
   </div>
-  <div className="pl-[80px] pt-1">
+  <div className="pl-[80px] pr-[70px] pt-1 text-[15px]">
     <h2>{doc.textContent}</h2>
   </div>
 </div>
 
   );
 })}
+
+        </div>
+
+
+       
+
+
+
 
 
 
