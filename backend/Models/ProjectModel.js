@@ -50,6 +50,12 @@ const ProjectSchema = new mongoose.Schema({
       textContent: String
     }
   ],
+  docImage: [
+    {
+      imageUrl: { type: String, required: true },
+      ImageText: String
+    }
+  ],
   tasks: [taskSchema] 
 }, { timestamps: true });
 

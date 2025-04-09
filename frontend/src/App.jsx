@@ -28,7 +28,7 @@ function App() {
        <Route path='/GlobalPortfolio/projects' element={<GlobalPortfolio/>}/>
        <Route path='/cluster' element={<Cluster/>}/>
        <Route path="/profile/:username" element={<ProfilePage />} />
-
+       {/* <Route path="/test" element={<Test />} /> */}
 
     </Routes>
     <ToastContainer

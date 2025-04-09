@@ -3,11 +3,13 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { AlignLeft, Copy, ExternalLink, FileChartPie, Play, UserPlus, Plus, FileVideo, FileText, Dot,Download  } from 'lucide-react';
 import { LiaDownloadSolid } from "react-icons/lia";
+import ImageSlider from '../Components/ImageSlider';
 
 function DisplayProject() {
   const { projectName } = useParams();
   const [projectData, setProjectData] = useState(null);
   const [message, setMessage] = useState("");
+  const [imageLength,setimgLength] = useState(0);
   const iconMap = {
     Dot: Dot,
     AlignLeft: AlignLeft,
@@ -26,7 +28,8 @@ function DisplayProject() {
       try {
         const res = await axios.get(`http://localhost:8081/documentation/${projectName}`);
         setProjectData(res.data);
-        console.log(res.data.docText)
+        console.log(res.data)
+        setimgLength(res.data.docImage.length)
       } catch (err) {
         console.error("Error fetching project:", err);
       }
@@ -57,15 +60,15 @@ function DisplayProject() {
         {/* Header */}
         <div className="w-full flex items-center pl-[15px] mt-[50px] justify-between pr-[80px]">
           <div className="flex items-center gap-3">
-            <div className="h-[50px] w-[50px] bg-[#776aff] font-bold text-white text-xl rounded-lg flex justify-center items-center">
+            <div className="h-[40px] w-[40px] bg-[#776aff] font-bold text-white text-xl rounded-lg flex justify-center items-center ml-3">
               {projectName.charAt(0).toUpperCase()}
             </div>
-            <h1 className="text-3xl font-bold">{projectName}</h1>
+            <h1 className="text-2xl font-bold">{projectName}</h1>
           </div>
-          <div className="relative flex items-center gap-4 mr-8">
-            <ExternalLink className="cursor-pointer" onClick={() => window.open("https://yourlink.com", "_blank")} />
-            <Copy className="cursor-pointer" onClick={handleCopyClick} />
-            <Download className="cursor-pointer" onClick={handleCopyClick} /> 
+          <div className="relative flex items-center gap-4 ">
+            <ExternalLink className="cursor-pointer  h-5 w-5" onClick={() => window.open("https://yourlink.com", "_blank")} />
+            <Copy className="cursor-pointer h-5 w-5" onClick={handleCopyClick} />
+            <Download className="cursor-pointer h-5 w-5" onClick={handleCopyClick} /> 
             {message && (
               <span className="absolute top-8 left-0 bg-gray-800 text-white text-sm p-1 rounded">
                 {message}
@@ -76,17 +79,17 @@ function DisplayProject() {
 
         {/* Type */}
         <div className="w-full flex items-start pl-[80px] flex-col">
-          <h5 className="text-md font-medium">{projectData.type}</h5>
+          <h5 className="text-sm font-medium">{projectData.type}</h5>
           {/* <a href="https://khatabook.com" className="text-md font-medium mt-3 text-blue-800 ">https://khatabook.com/</a> */}
         </div>
 
         {/* Description */}
         <div className="w-full flex items-center gap-2 pl-[46px] mt-[30px]">
           <AlignLeft className="h-[25px] w-[25px]" />
-          <h1 className="text-lg font-bold">Description</h1>
+          <h1 className="text-md font-bold">Description</h1>
         </div>
         <div className="w-full flex items-center pl-[80px] pr-[80px] mt-[5px]">
-          <h5 className="text-md font-normal">{projectData.discription}</h5>
+          <h5 className="text-sm font-normal">{projectData.discription}</h5>
         </div>
 
 
@@ -96,15 +99,15 @@ function DisplayProject() {
 
         <hr className="w-[90%] ml-[50px] my-[30px] " />
 
+
         {/* Key Resources */}
         <div>
         <div className="w-full flex items-center gap-2 pl-[46px] mt-[30px]">
           <FileChartPie className="h-[25px] w-[25px]" />
-          <h1 className="text-lg font-bold">Key Resources</h1>
+          <h1 className="text-md font-bold">Key Resources</h1>
         </div>
-
-        <div className="flex px-[80px] pt-3 gap-3">
-
+        {/* PDF */}
+        <div className="flex px-[80px] pt-3 mt-2 gap-3">
         <div className="flex h-[50px] w-fit min-w-[150px] border-2 border-gray-700 rounded-lg items-center pl-2 pr-3 cursor-pointer group transition-all duration-300">
   {/* File Icon */}
   <div className="text-gray-800 mr-3">
@@ -154,8 +157,15 @@ function DisplayProject() {
        </div>
 
         </div>
+
+        {/* images */}
+        {imageLength > 0 && <ImageSlider projectData={projectData} />}
+
         </div>
 
+
+
+       
 
 
       {projectData.docText.map((doc, index) => {
@@ -222,7 +232,7 @@ function DisplayProject() {
               </div>
             ))
           ) : (
-            <div className='mr-16'>  <p className="text-gray-500 mr-5">No contributors</p></div>
+            <div className='mr-16'>  <p className="text-gray-500 mr-3 text-sm">No contributors</p></div>
 
           )}
 

@@ -1,11 +1,16 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const jwt = require('jsonwebtoken')
+require('dotenv').config();
 const bcrypt = require('bcrypt')
 const router =  express.Router();
 const User = require('../Models/UserModel');
 const Project = require('../Models/ProjectModel')
 const {signupValidation,loginValidation,projectcreateValidation} = require("../Middleware/AllValidations");
+
+const CLOUD_NAME = "dqw9hj5x6";
+const API_KEY = "933327716588469";
+const API_SECRET = "ehrMQ09FIBsuJ4M1ZiNjwxYEx5c";
 
 //// signup route 
 router.post('/signup', signupValidation,async(req,res)=>{
@@ -288,6 +293,54 @@ router.get('/profile/:username', async (req, res) => {
   }
 });
 
+//fetch images of dokjanImage preset
+router.get("/test", async (req, res) => {
+  try {
+    const url = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/resources/image`;
+
+    const response = await fetch(url, {
+      headers: {
+        Authorization: "Basic " + Buffer.from(`${API_KEY}:${API_SECRET}`).toString("base64"),
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch images");
+    }
+
+    const data = await response.json();
+    res.status(200).json(data.resources);
+  } catch (err) {
+    console.error("Cloudinary fetch error:", err.message);
+    res.status(500).json({ message: "Failed to fetch images" });
+  }
+});
+
+
+// Route upload image of the project on username
+router.post('/project/:projectname/docimage', async (req, res) => {
+  const { imageUrl, ImageText } = req.body;
+  const { projectname } = req.params;
+
+  if (!imageUrl) {
+    return res.status(400).json({ message: 'imageUrl is required' });
+  }
+
+  try {
+    const project = await Project.findOne({ projectname });
+    if (!project) {
+      return res.status(404).json({ message: 'Project not found' });
+    }
+
+    project.docImage.push({ imageUrl, ImageText });
+    await project.save();
+
+    res.status(200).json({ message: 'Image data added successfully', project });
+  } catch (error) {
+    console.error('Error adding image data:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
 
 

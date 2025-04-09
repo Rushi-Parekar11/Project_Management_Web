@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { CloudUpload } from 'lucide-react';
+import { useParams } from 'react-router-dom';
 
-function ImageDocument({ onClose }) {
+function ImageDocument({ onClose,projectName }) {
+  const { project } = useParams();
   const [image, setImage] = useState(null);
   const [dragActive, setDragActive] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -35,35 +37,56 @@ function ImageDocument({ onClose }) {
 
     //   uploading image  //
     const handleSubmit = async (e) => {
+        console.log(project)
         e.preventDefault();
-      
         if (!image) {
           toast.error("No image selected");
           return;
         }
       
-        console.log("Selected image file:", image);
-      
         const data = new FormData();
-        data.append("file", image); // ✅ must be 'file'
-        data.append("upload_preset", "dokjanImage"); // ✅ your preset name
-        data.append("cloud_name", "dqw9hj5x6"); // optional for client-side
+        data.append("file", image);
+        data.append("upload_preset", "dokjanImage");
+        data.append("cloud_name", "dqw9hj5x6");
       
         try {
+          setUploading(true);
           const res = await fetch("https://api.cloudinary.com/v1_1/dqw9hj5x6/image/upload", {
             method: "POST",
             body: data,
           });
       
           const uploadedData = await res.json();
-          console.log("Uploaded Image Data:", uploadedData.url);
-      
+          const imageUrl = uploadedData.url;
           toast.success("Upload successful!");
+      
+          // Get username from localStorage
+          const user = JSON.parse(localStorage.getItem("user"));
+
+          // Now send to your backend
+          const backendRes = await fetch(`http://localhost:8081/project/${projectName}/docimage`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              imageUrl,
+              ImageText: `${image.name}` 
+            })
+          });
+          setImage(null);
+
+      
+          const result = await backendRes.json();
+          console.log(result);
         } catch (err) {
           console.error("Upload failed:", err);
           toast.error("Upload failed");
+        } finally {
+          setUploading(false);
         }
       };
+      
       
   
 

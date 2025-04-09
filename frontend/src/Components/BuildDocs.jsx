@@ -228,7 +228,7 @@ function BuildDocs() {
             )}
 
             {ImageModel && (
-              <ImageDocument onClose={() => setImageDocModel(false)} />
+              <ImageDocument onClose={() => setImageDocModel(false)} projectName={projectName}/>
             )}
           </div>
         </div>
