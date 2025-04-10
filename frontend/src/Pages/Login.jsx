@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ClipLoader from "react-spinners/ClipLoader";
 
 function Login() {
   const [loginInfo, setloginInfo] = useState({
     email: '',
     password: ''
   });
+    let [loading, setLoading] = useState(false);
+  
 
   const navigate = useNavigate();
 
@@ -18,9 +21,12 @@ function Login() {
 
   const HandelLogin = async (e) => {
     e.preventDefault();
+    setLoading(true)
+
     const { email, password } = loginInfo;
     if (!email || !password) {
       toast.error("Please fill in all the fields");
+      setLoading(false)
       return;
     }
 
@@ -49,13 +55,16 @@ function Login() {
       
         setTimeout(() => {
           navigate(`/${name}/dashboard`);
+          setLoading(false)
         }, 1000);
       }
        else if (error) {
         const details = error?.details?.[0]?.message;
         toast.error(details || "Something went wrong!", {autoClose: 1000,});
+        setLoading(false)
       } else {
         toast.error(message || "Login failed", {autoClose: 1000,});
+        setLoading(false)
       }
 
     } catch (err) {
@@ -94,7 +103,7 @@ function Login() {
               </div>
 
               <button className="w-full bg-black text-white py-2 rounded-md hover:bg-gray-900 transition duration-300">
-                Login
+              {!loading ? "Login" :  <ClipLoader color='white' className='w-8' size='30px' aria-label="Loading Spinner" data-testid="loader"/>}
               </button>
             </div>
 

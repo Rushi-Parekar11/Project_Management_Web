@@ -3,12 +3,14 @@ import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { CloudUpload } from 'lucide-react';
 import { useParams } from 'react-router-dom';
+import ClipLoader from "react-spinners/ClipLoader";
 
 function ImageDocument({ onClose,projectName }) {
   const { project } = useParams();
   const [image, setImage] = useState(null);
   const [dragActive, setDragActive] = useState(false);
   const [uploading, setUploading] = useState(false);
+    let [loading, setLoading] = useState(false);
 
 
   const handleDrop = (e) => {
@@ -37,6 +39,7 @@ function ImageDocument({ onClose,projectName }) {
 
     //   uploading file  //
     const handleSubmit = async (e) => {
+      setLoading(true)
         console.log(project)
         e.preventDefault();
         if (!image) {
@@ -75,6 +78,8 @@ function ImageDocument({ onClose,projectName }) {
             })
           });
           setImage(null);
+          setLoading(false)
+          window.location.reload();
 
       
           const result = await backendRes.json();
@@ -82,6 +87,7 @@ function ImageDocument({ onClose,projectName }) {
         } catch (err) {
           console.error("Upload failed:", err);
           toast.error("Upload failed");
+          setLoading(false)
         } finally {
           setUploading(false);
         }
@@ -150,7 +156,9 @@ function ImageDocument({ onClose,projectName }) {
               type="submit"
               className="w-full bg-black text-white py-2 rounded-md hover:bg-gray-900 transition duration-300"
             >
-              Upload file
+            {!loading ? "  Upload file" :  <ClipLoader color='white' className='w-8' size='25px' aria-label="Loading Spinner" data-testid="loader"/>}
+
+            
             </button>
           </form>
         </div>

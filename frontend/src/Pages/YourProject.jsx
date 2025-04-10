@@ -72,7 +72,7 @@ function YourProject() {
       <div className="mt-5 h-82 flex gap-7 flex-row flex-wrap">
 
       {/* //duptlicate card */}
-      <div className="h-[305px] w-[300px] flex items-center justify-center flex-col rounded-md shadow-md border-2 border-[#dddedd] cursor-pointer" onClick={() => setIsModalOpen(true)} >
+      <div className="h-[280px] w-[300px] flex items-center justify-center flex-col rounded-md shadow-md border-2 border-[#dddedd] cursor-pointer" onClick={() => setIsModalOpen(true)} >
         <Plus className='h-[45px] w-[45px] text-[#6b6b6b]'/>
         <h1 className='text-[#6b6b6b] font-medium'>Create New Project</h1>
       </div>

@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {LayoutPanelLeft,
+import {
+  LayoutPanelLeft,
   Star,
   Users,
   LayoutGrid,
   CalendarRange,
-  UserRoundPlus,ListFilterPlus,Plus,ArrowLeft,} from 'lucide-react';
+  UserRoundPlus, ListFilterPlus, Plus, ArrowLeft, House
+} from 'lucide-react';
 
 import YourProject from './YourProject';
 import Saved from './Saved';
@@ -51,21 +53,16 @@ function DashBoard() {
     <div className='flex'>
 
       {/* Sidebar */}
-      <div className='h-[94vh] w-full md:w-[15%] border-r border-[#dddedd] flex flex-col justify-between fixed top-[6vh] left-0 bg-white z-50'>
+      <div className='h-[91vh] w-full md:w-[17%] border-r border-[#dddedd] flex flex-col justify-between fixed top-[10vh] left-0 bg-white z-50'>
 
-      
 
         {/* Sidebar Items */}
-        <ul className='list-none pl-4 pr-2 flex flex-col gap-2 mt-0'>
-                {/* Back Button */}
+        <ul className='list-none pl-4 pr-2 flex flex-col gap-2'>
+          {/* Back Button */}
 
-        <div  className="flex items-center gap-2 p-4 cursor-pointer text-[#333] hover:bg-[#ebebeb] transition-all mt-2 duration-200" 
-          onClick={() => navigate(-1)}
-        >
-          <ArrowLeft className="h-5 w-5" />
-          <span className="text-sm font-medium">Back</span>
-        </div>
-
+          <li onClick={() => navigate('/')} className="flex items-center gap-2 w-full h-10 rounded-sm pl-3 mt-1 pr-2 cursor-pointer  transition-all duration-200 hover:bg-[#ebebeb] text-[#333]">
+            <House className="h-4 w-4" /><span className="text-sm font-medium">Home</span>
+          </li>
 
           {items.map(({ name, icon: Icon }) => (
             <li
@@ -107,7 +104,7 @@ function DashBoard() {
       </div>
 
       {/* Content Area */}
-      <div className='w-[85%] min-h-[100vh] ml-[15%] p-6'>
+      <div className='w-[83%] min-h-[100vh] ml-[15%] p-6'>
         {renderContent()}
       </div>
 

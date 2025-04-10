@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast, ToastContainer } from "react-toastify";
+import ClipLoader from "react-spinners/ClipLoader";
+
 
 function TextDocumentModel({ onClose }) {
     const { projectName } = useParams();
@@ -11,15 +13,19 @@ function TextDocumentModel({ onClose }) {
         textnamelogo: "None",
         textContent: ""
     });
+        let [loading, setLoading] = useState(false);
+    
 
     const handleChange = (e) => {
         setTextDocs({ ...textDocs, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = async (e) => {
+        setLoading(true)
         e.preventDefault();
         if (!textDocs.textname || !textDocs.textContent) {
             toast.error("All fields are required!");
+            setLoading(false)
             return;
         }
 
@@ -28,11 +34,14 @@ function TextDocumentModel({ onClose }) {
 
             if (response.status === 200) {
                 toast.success("Text Data Added Successfully!");
+                window.location.reload();
                 setTextDocs({ textname: "", textnamelogo: "None", textContent: "" });
+                setLoading(false)
             }
         } catch (error) {
             console.error("Error adding text data:", error);
             toast.error("Failed to add text data.");
+            setLoading(false)
         }
     };
 
@@ -107,7 +116,8 @@ function TextDocumentModel({ onClose }) {
                             type="submit"
                             className="w-full bg-black text-white py-2 rounded-md hover:bg-gray-900 transition duration-300"
                         >
-                            Add Text Data
+                     {!loading ? "Add Text Data" :  <ClipLoader color='white' className='w-8' size='25px' aria-label="Loading Spinner" data-testid="loader"/>}
+
                         </button>
                     </form>
                 </div>

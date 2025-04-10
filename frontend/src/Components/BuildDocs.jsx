@@ -8,6 +8,10 @@ import { useEffect, useState } from 'react';
 import { AlignLeft, Copy, ExternalLink, Eye, FileChartPie, Play, UserPlus, Plus, FileText, Dot, Download, Link } from 'lucide-react';
 import { LiaDownloadSolid } from "react-icons/lia";
 import PreviewImageSlider from './PreviewImageSlider';
+import SkProjectCardFour from '../Skeleton Compo/SkProjectCardFour';
+
+
+
 function BuildDocs() {
   const { projectName } = useParams();
 
@@ -19,6 +23,8 @@ function BuildDocs() {
   const [files, setFiles] = useState([]);
   const [imageLength, setImageLength] = useState(0);
   const navigate = useNavigate();
+  let [loading, setLoading] = useState(false);
+  
 
   const iconMap = {
     Dot: Dot,
@@ -49,7 +55,7 @@ function BuildDocs() {
   }, [projectName]);
 
   if (!projectData) {
-    return <div className="p-8 text-xl">Loading...</div>;
+    return <SkProjectCardFour/>;
   }
 
   const handleCopyClick = () => {
@@ -65,7 +71,8 @@ function BuildDocs() {
 
   return (
     <>
-      <div className="h-[80vh] w-full border-2 border-black">
+
+      <div className="h-[85vh] w-full ">
         <div className="flex h-full">
           <div className="w-1/5 h-full border-2 border-black">
 
@@ -111,10 +118,10 @@ function BuildDocs() {
             </ul>
           </div>
 
-          <div className="w-4/5 h-full border-2 border-black flex flex-col  items-center ">
+          <div className="w-4/5 h-full flex flex-col  items-center bg-[#f3f4f6]">
 
             {/* Opened Section */}
-            <div className="flex h-[40px] w-[200px] border border-black rounded-md overflow-hidden my-3">
+            <div className="flex h-[40px] w-[200px] border border-black rounded-md overflow-hidden my-3 bg-white">
               <div className="flex items-center gap-1 px-3 bg-gray-100 w-1/2 text-sm font-medium text-black">
                 <Eye className="w-4 h-4" />
                 preview
@@ -132,7 +139,7 @@ function BuildDocs() {
 
 
             {/* preview Content START*/}
-            <div className="border-[1px]  border-gray-500 w-[60%] min-h-[65vh] pb-[6px]">
+            <div className="border-[1px] bg-white border-gray-500 w-[60%] min-h-[60vh] pb-[6px] overflow-hidden">
               {/* Header */}
               <div className="w-full flex items-center pl-[7px] mt-[20px] justify-between pr-[40px]">
                 <div className="flex items-center gap-3">
@@ -238,7 +245,7 @@ function BuildDocs() {
               </div>
             </div>
             {/* preview Content END */}
-
+            <p className='text-md text-blue-400 hover:text-blue-800 my-1 cursor-pointer' onClick={()=>navigate(`/documentation/${projectName}`)}>Click to view All ...</p>
 
             {textDocModel && (
               <TextDocumentModel onClose={() => settextDocModel(false)} />
@@ -255,7 +262,6 @@ function BuildDocs() {
           </div>
         </div>
       </div>
-
     </>
   )
 }

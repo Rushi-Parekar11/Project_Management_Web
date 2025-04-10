@@ -7,6 +7,8 @@ import {
 } from 'lucide-react';
 import { LiaDownloadSolid } from 'react-icons/lia';
 import ImageSlider from '../Components/ImageSlider';
+import SkProjectCardFive from '../Skeleton Compo/SkProjectCardFive';
+
 
 function DisplayProject() {
   const { projectName } = useParams();
@@ -44,7 +46,7 @@ function DisplayProject() {
     fetchData();
   }, [projectName]);
 
-  if (!projectData) return <div className="p-8 text-xl">Loading...</div>;
+  if (!projectData) return <SkProjectCardFive/>;
 
   const handleCopyClick = () => {
     const link = "https://yourlink.com"; // Replace with actual dynamic link

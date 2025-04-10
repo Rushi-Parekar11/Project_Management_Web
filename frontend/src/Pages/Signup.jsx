@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast,ToastContainer } from 'react-toastify';
+import ClipLoader from "react-spinners/ClipLoader";
 
 
 function Signup() {
@@ -10,14 +11,16 @@ function Signup() {
     email:'',
     password:''
   })
-
+  let [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSignup= async(e)=>{
+     setLoading(true)
     e.preventDefault();
     const {name,email,password} =SignupInfo;
     if(!name || !email || !password){
       toast.error("Please fill in all the fields");
+      setLoading(false)
     }
     try {
       const url = "http://localhost:8081/signup";
@@ -34,23 +37,26 @@ function Signup() {
         toast.success(message || "Something went wrong!");
         setTimeout(()=>{
           navigate('/login')
+          setLoading(false)
         },1000)
 
       }else if(error){
         const details = error?.details[0].message
         toast.error(details || "Something went wrong!")
+        setLoading(false)
       }else{
         toast.error(message || "signup failed")
+        setLoading(false)
       }
       console.log(result)
     } catch (error) {
       toast.error(error || "Something went wrong!")
+      setLoading(false)
     }
   }
 
   const handleChange=(e)=>{
     const {name,value}=e.target
-    console.log(name,value)
     const copySignupInfo ={...SignupInfo};
     copySignupInfo[name] = value;
     setSignupInfo(copySignupInfo)
@@ -105,7 +111,7 @@ function Signup() {
           </div>
 
           <button className="w-full bg-black text-white py-2 rounded-md hover:bg-gray-900 transition duration-300">
-            Sign up
+          {!loading ? "Sign up" :  <ClipLoader color='white' className='w-8' size='30px' aria-label="Loading Spinner" data-testid="loader"/>}
           </button>
         </div>
 </form>

@@ -34,7 +34,7 @@ function ProfilePage() {
   return (
     <>
   <div className="flex justify-center bg-[#f3f4f6]">
-  <div className="min-h-[120vh] w-[75%] border-[1px] border-gray-300 rounded-xl mt-5 overflow-hidden bg-white">
+  <div className="min-h-[120vh] w-[75%]  rounded-xl mt-5 overflow-hidden bg-white">
     <div className="relative w-full h-[30vh]">
       <img src="https://media.licdn.com/dms/image/v2/C4D1BAQGpOaPiKAggCw/company-background_10000/company-background_10000/0/1583773465764/tambua_health_cover?e=2147483647&v=beta&t=1_MCOf1RV1Ds7R7frpk7LOSleMRBcEUgd2vKJsqFbVM"
         alt="profile background" className="w-full h-full object-cover"/>
@@ -46,7 +46,7 @@ function ProfilePage() {
       </div>
     </div>
 
-    <div className="w-full flex justify-between border-2 border-black h-[10vh] mt-[55px]">
+    <div className="w-full flex justify-between h-[10vh] mt-[55px]">
       <div className='w-[20%] flex-col  items-center flex h-full  '><h1 className='text-2xl font-medium'>{userinfo?.name || "User Name"}</h1> <h2 className='text-sm'>{userinfo?.email || "User email"}</h2></div>
       <div className="flex gap-1 mt-2 pr-3">
       <div className="h-[40px] w-[40px] rounded-full flex items-center justify-center hover:bg-gray-300"><Copy className='h-[20px] w-[20px]'/></div>
@@ -54,7 +54,7 @@ function ProfilePage() {
       </div>
     </div>
 
-    <div className="border-2 border-black pl-2 pb-2 flex">
+    <div className=" pl-2 pb-2 flex">
     <div className='w-[97%] '><h1 className='font-semibold text-lg'>About</h1>
       <p className='text-sm'>I am a pre-final year B.Tech CSE student passionate about web development, with experience in the MERN stack and Java. I enjoy creating dynamic, user-friendly web applications and am eager to learn and grow. Open to internships and collaborative opportunities to apply my skills and gain practical experience. Let's connect and work on impactful projects together!</p>
     </div>
@@ -66,8 +66,8 @@ function ProfilePage() {
 <hr className='border-black mt-3'/>
 
     <div className="w-full">
-    <h1 className='font-semibold text-lg'>Project Documents</h1>
-    <div className="w-full border-2 border-green-400 min-h-[200px] py-4 px-2 flex flex-wrap gap-8 pl-7">
+    <h1 className='font-semibold text-lg mt-4 ml-2'>Project Documents</h1>
+    <div className="w-full min-h-[200px] py-4 px-2 flex flex-wrap gap-8 pl-7">
     {projects.map((project, index) => (
   <ProjectCardThree key={index} data={project} className='cursor-pointer' />
 ))}

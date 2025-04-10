@@ -3,6 +3,7 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import ClipLoader from "react-spinners/ClipLoader";
 
 
 export default function ProjectForm({ onClose, username }) {
@@ -13,12 +14,16 @@ export default function ProjectForm({ onClose, username }) {
     description: "",
     type: "General"
   });
+    let [loading, setLoading] = useState(false);
+  
 
   const handleChange = (e) => {
     setProject({ ...project, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
+    setLoading(true)
+
     e.preventDefault();
     try {
       const response = await axios.post(`http://localhost:8081/${username}/dashboard`, {
@@ -29,15 +34,15 @@ export default function ProjectForm({ onClose, username }) {
 
     //  console.log("Project Created:", response.data);
       toast.success("Project Created successfully !");
-
       setTimeout(() => {
         navigate(`/project/${project.name}`);
+        setLoading(false)
       }, 1000);
       
     } catch (error) {
-      console.error("Error creating project:", error.response?.data || error.message);
-      toast.error("Failed to create project :",error.message);
-      alert("Failed to create project. Please try again.");
+      setLoading(false)
+      console.error("Error creating project ", error.response?.data || error.message);
+      toast.error("Failed to create project ",error.message);
     }
   };
 
@@ -104,7 +109,9 @@ export default function ProjectForm({ onClose, username }) {
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
             >
               <option value="General">General</option>
-              <option value="Software">Software</option>
+              <option value="Academic">Academic</option>
+              <option value="Personal">Personal</option>
+              <option value="Company">Company</option>
               <option value="Marketing">Marketing</option>
               <option value="Research">Research</option>
               <option value="Other">Other</option>
@@ -116,7 +123,8 @@ export default function ProjectForm({ onClose, username }) {
             type="submit"
             className="w-full bg-black text-white py-2 rounded-md hover:bg-gray-900 transition duration-300"
           >
-            Create Project
+           {!loading ? "Create Project" :  <ClipLoader color='white' className='w-8' size='30px' aria-label="Loading Spinner" data-testid="loader"/>}
+
           </button>
         </form>
       </div>
