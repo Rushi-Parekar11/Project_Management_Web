@@ -12,6 +12,14 @@ const CLOUD_NAME = "dqw9hj5x6";
 const API_KEY = "933327716588469";
 const API_SECRET = "ehrMQ09FIBsuJ4M1ZiNjwxYEx5c";
 
+router.get('/',(req,res)=>{
+  res.send('server is  running!');
+})
+
+
+router.get('/run',(req,res)=>{
+res.send('running !');
+})
 //// signup route 
 router.post('/signup', signupValidation,async(req,res)=>{
     try {
