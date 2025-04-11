@@ -92,7 +92,6 @@ function Project() {
   const handleSendRequest = async () => {
     if (!contributorEmail) return alert('Please enter an email.');
     setContributorLoading(true)
-
   
     try {
       const res = await fetch(`http://localhost:8081/project/${projectData.projectname}`, {

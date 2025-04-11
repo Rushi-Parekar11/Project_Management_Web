@@ -215,7 +215,7 @@ function Home() {
 
 <div className="h-[12vh] bg-[#e6f1fd]"></div>
 
-<div className="relative flex items-center justify-center  bg-gradient-to-r from-indigo-500  to-purple-600 text-white h-[30vh]  shadow-lg p-6 overflow-hidden">
+<div className="relative flex items-center justify-center  bg-gradient-to-r from-indigo-500   to-purple-600 text-white h-[32vh]  shadow-lg p-6 overflow-hidden">
       <div className="absolute inset-0 bg-opacity-10 backdrop-blur-lg" />
       
       <div className="relative z-10 text-center max-w-xl">
@@ -228,10 +228,19 @@ function Home() {
         </p>
         
         <div className="mt-4 flex justify-center gap-4 animate-fade-in-up delay-400">
-          <button className="bg-white text-indigo-600 hover:bg-indigo-100 font-semibold flex items-center gap-2 px-6 py-2 rounded-lg">
+
+
+        {isLogin ? (
+          <button className="bg-white text-indigo-600 hover:bg-indigo-100 font-semibold flex items-center gap-2 px-6 py-2 rounded-lg" onClick={goToYourWork}>
             <Rocket size={18} /> Get Started
           </button>
-          <button className="bg-indigo-700 hover:bg-indigo-800 font-semibold flex items-center gap-2 px-6 py-2 rounded-lg">
+  
+            ) : (
+              <button className="bg-white text-indigo-600 hover:bg-indigo-100 font-semibold flex items-center gap-2 px-6 py-2 rounded-lg" onClick={()=>navigate('/login')}>
+            <Rocket size={18} /> Get Started
+          </button>
+            )}
+          <button className="bg-indigo-700 hover:bg-indigo-800 font-semibold flex items-center gap-2 px-6 py-2 rounded-lg" onClick={()=>navigate('./guide')}>
             <CheckCircle size={18} /> Learn More
           </button>
         </div>
@@ -249,21 +258,17 @@ function Home() {
           <h2 className="text-2xl font-bold text-indigo-600">Dokjan</h2>
           <p className="text-gray-600 mt-1">The Ultimate Project Management Solution</p>
           
-          <div className="mt-4 flex gap-6">
-            <a href="#" className="text-gray-700 hover:text-indigo-600 transition-all"><Facebook size={24} /></a>
-            <a href="#" className="text-gray-700 hover:text-blue-500 transition-all"><Twitter size={24} /></a>
-            <a href="#" className="text-gray-700 hover:text-blue-700 transition-all"><Linkedin size={24} /></a>
-          </div>
-          
           <div className="mt-6 flex gap-6 text-gray-600">
-            <a href="#" className="hover:text-indigo-600 transition-all">About Us</a>
-            <a href="#" className="hover:text-indigo-600 transition-all">Features</a>
-            <a href="#" className="hover:text-indigo-600 transition-all">Pricing</a>
-            <a href="#" className="hover:text-indigo-600 transition-all">Blog</a>
-            <a href="#" className="hover:text-indigo-600 transition-all">Support</a>
+            <Link to="/guide" className="hover:text-indigo-600 transition-all">About Us</Link>
+            <Link to="/guide" className="hover:text-indigo-600 transition-all">Docs</Link>
+            <Link to="/legal" className="hover:text-indigo-600 transition-all">Privacy Policy</Link>
+            <Link to="/legal" className="hover:text-indigo-600 transition-all">Terms and Conditions</Link>
+            <Link to="/legal" className="hover:text-indigo-600 transition-all">licence</Link>
           </div>
           
           <p className="text-sm text-gray-500 mt-4">&copy; 2025 Dokjan. All Rights Reserved.</p>
+          <a href='https://rushikesh16.vercel.app/' className="text-sm text-gray-500 mt-4">Made By Rushi❤️</a>
+
         </div>
       </footer>
 

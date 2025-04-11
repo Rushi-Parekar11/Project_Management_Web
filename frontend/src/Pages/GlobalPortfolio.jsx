@@ -96,7 +96,7 @@ const handleBack = () => {
 
       <h1 className='text-lg font-bold text-[#292a2e] mt-3'>Listed All Projects</h1>
 
-      <div className="mt-5 h-82 flex-wrap flex gap-6 pb-5 border-2 border-red-500">
+      <div className="mt-5 h-82 flex-wrap flex gap-6 pb-5 ">
         {loading ? (
           Array.from({ length: 8 }).map((_, index) => (
             <SkProjectCardTwo key={index} />

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Plus, ArrowLeft, FolderOpen, Users, LayoutDashboard, PlusCircle } from "lucide-react";
+import { Plus, ArrowLeft, FolderOpen, Users,Lock ,LayoutDashboard, PlusCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const Cluster = () => {
@@ -21,7 +21,8 @@ const Cluster = () => {
   };
 
   return (
-    <div className="flex h-screen">
+    <>
+    <div className="flex h-full">
       {/* Sidebar */}
       <aside className="w-64 border-r border-gray-300 bg-white fixed h-screen flex flex-col justify-between">
         <ul className="list-none pl-4 pr-2 flex flex-col gap-2 mt-2">
@@ -125,6 +126,18 @@ const Cluster = () => {
         </div>
       )}
     </div>
+    <div className="absolute top-[9vh] left-0 w-full h-[91vh] bg-black/50 flex items-center justify-center z-40">
+  <div className="flex flex-col items-center text-white space-y-4">
+    <Lock size={48} />
+    <p className="text-lg font-semibold">Available in Future Version</p>
+    <p className="text-sm">A Cluster in DOKJAN is created by mentors or teachers to group and manage multiple student projects. </p>
+    <p  className="text-sm">It helps track project documentation, updates, and assignments from one place for better academic oversight.</p>
+    <p  className="text-sm">from one place for better academic oversight.</p>
+
+  </div>
+</div>
+
+    </>
   );
 };
 

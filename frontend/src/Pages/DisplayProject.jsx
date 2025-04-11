@@ -101,7 +101,7 @@ function DisplayProject() {
   return (
     <div className="flex">
       {/* Main Content */}
-      <div className="pl-14 pr-5 w-[85%] min-h-[100vh]" ref={printRef} >
+      <div className="pl-14 pr-5 w-[85%] min-h-[100vh] pb-[70px]" ref={printRef} >
         {/* Back Button */}
         <div
           className="flex items-center gap-2 p-4 cursor-pointer text-[#333] hover:bg-[#ebebeb] w-[90px] transition-all mt-6 duration-200 rounded"
