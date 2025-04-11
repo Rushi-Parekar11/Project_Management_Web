@@ -24,6 +24,10 @@ function ProjectCardTwo({ project }) {
     if (diffInDays === 1) return '1 day ago';
     return `${diffInDays} days ago`;
   };
+
+  const handleCopy = async () => {
+      await navigator.clipboard.writeText(window.location.href)
+  };
   
   console.log(project)
 
@@ -68,7 +72,7 @@ function ProjectCardTwo({ project }) {
         <div className="px-4 mt-2 text-gray-600 flex gap-5">
           <div className="flex gap-4">
             {/* Copy Icon with tooltip */}
-            <div className="relative group">
+            <div className="relative group" onClick={handleCopy}>
               <Copy className="h-5 w-5 cursor-pointer" />
               <span className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 scale-0 group-hover:scale-100 transition-transform bg-black text-white text-xs px-2 py-0.5 rounded whitespace-nowrap">
                 Copy

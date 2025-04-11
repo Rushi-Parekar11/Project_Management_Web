@@ -83,6 +83,8 @@ function Home() {
         <h1 className={`sm:text-4xl text-2xl font-bold tracking-tighter text-[#776aff] transition-opacity duration-500 ease-in-out sm:ml-40 mb-6 ${fade ? 'opacity-100' : 'opacity-0'}`}>
           {names[index]}
         </h1>
+
+
         {/* Call to action */}
         <div className="relative sm:ml-40">
           {/* Shadow Layer */}
@@ -116,6 +118,25 @@ function Home() {
             )}
           </div>
         </div>
+
+           {isLogin ? <p></p> :
+          <div className="relative sm:ml-40">
+          <div className="relative h-16 w-full max-w-md mt-7  rounded  flex items-center justify-between pr-4 z-10 px-4">
+              <div
+              onClick={() => navigate('/login', { state: { email: 'test@gmail.com', password: '12345678' } })}
+                className="cursor-pointer group relative  w-[280px] h-8  sm:h-10 rounded-3xl bg-black text-white flex items-center justify-center z-10 overflow-hidden transition-all duration-500"
+              >
+                <span className="group-hover:translate-y-[-150%] absolute gap-2 transition-all duration-500 w-full flex justify-center align-center">
+                <p>Log in with test user account</p> <FaArrowRightLong className='mt-[5px]' />
+                </span>
+                <span className="flex items-center gap-1 opacity-0 translate-y-[150%] group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-in-out text-sm">
+                  Just Click Login <FaArrowRightLong />
+                </span>
+              </div>
+          </div>
+        </div>
+      }
+
         </div>
 
       </div>

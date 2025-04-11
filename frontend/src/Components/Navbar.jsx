@@ -79,7 +79,7 @@ function Navbar() {
         {isLogin ? (
           <>
             <button onClick={HandleLogout} className="text-sm text-gray-800 hover:text-black flex items-center gap-2">Logout <LogOut className='w-4 h-4'/></button>
-            <button onClick={goToProfile} className=' h-8 w-8 text-[12px] font-bold rounded-full bg-[#776aff] text-white items-center flex justify-center hover:bg-gray-900'><h1>{username.toUpperCase().slice(0,2)}</h1></button>
+            <button onClick={goToProfile} className=' h-8 w-8 text-[12px] font-bold rounded-full bg-[#776aff] text-white items-center flex justify-center hover:bg-gray-900'><h1>{username.substring(0, 2).toUpperCase() || "NA"}</h1></button>
           </>
         ) : (
           <>

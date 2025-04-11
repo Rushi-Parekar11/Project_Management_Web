@@ -50,7 +50,7 @@ function ProfilePage() {
 
       <div className="absolute bottom-[-55px] left-[57px] z-10">
         <div className="w-[130px] h-[130px] rounded-full bg-[#776aff] cursor-pointer text-5xl border-2 border-white flex justify-center items-center text-white font-bold shadow-md">
-          <h1>{userinfo?.name.toUpperCase().slice(0,2)}</h1>
+        <h1>{userinfo?.name?.substring(0, 2).toUpperCase() || "NA"}</h1>
         </div>
       </div>
     </div>

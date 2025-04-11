@@ -143,7 +143,7 @@ function BuildDocs() {
               {/* Header */}
               <div className="w-full flex items-center pl-[7px] mt-[20px] justify-between pr-[40px]">
                 <div className="flex items-center gap-3">
-                  <div className="h-[22px] w-[22px] bg-[#776aff] font-bold text-white text-sm rounded-md flex justify-center items-center ml-3">
+                  <div className="h-[22px] w-[22px] bg-[#776aff] font-bold text-white text-[8px] rounded-md flex justify-center items-center ml-3">
                     {projectName.charAt(0).toUpperCase()}
                   </div>
                   <h1 className="text-sm font-bold">{projectName}</h1>

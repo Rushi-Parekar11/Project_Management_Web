@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ClipLoader from "react-spinners/ClipLoader";
@@ -13,6 +13,17 @@ function Login() {
   
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state?.email && location.state?.password) {
+      setloginInfo({
+        email: location.state.email,
+        password: location.state.password
+      });
+    }
+  }, [location.state]);
+
 
   const Handlechange = (e) => {
     const { name, value } = e.target;

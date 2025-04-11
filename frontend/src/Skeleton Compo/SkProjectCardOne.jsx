@@ -5,7 +5,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 
 function SkeletonCard() {
   return (
-    <div className="h-[310px] w-[300px] rounded-md shadow-md border-2 border-[#dddedd] p-4">
+    <div className="h-[300px] w-[300px] rounded-md shadow-md border-2 border-[#dddedd] p-4">
       <div className="flex justify-between items-center mb-3">
         <Skeleton circle height={44} width={44} />
         <Skeleton height={20} width={20} />
@@ -16,14 +16,7 @@ function SkeletonCard() {
       <Skeleton height={8} width={`100%`} className="mt-4 mb-2" />
       <Skeleton height={8} width={`80%`} />
 
-      <div className="flex justify-between items-center mt-8">
-        <Skeleton height={32} width={90} />
-        <div className="flex space-x-[-12px]">
-          <Skeleton circle height={32} width={32} />
-          <Skeleton circle height={32} width={32} />
-          <Skeleton circle height={32} width={32} />
-        </div>
-      </div>
+
     </div>
   );
 }
