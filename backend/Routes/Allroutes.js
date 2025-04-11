@@ -197,7 +197,7 @@ router.get('/documentation/:projectName', async (req, res) => {
 /// fetch all projects for Global portfolio
 router.get('/GlobalPortfolio/projects', async (req, res) => {
   try {
-    const projects = await Project.find().populate('createdby', 'email');
+    const projects = await Project.find().populate('createdby', 'email name');
     res.status(200).json(projects);
   } catch (error) {
     console.log(error);

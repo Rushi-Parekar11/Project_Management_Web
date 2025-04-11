@@ -5,7 +5,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 
 function SkProjectCardThree() {
   return (
-    <div className="min-h-[91vh] w-[17%] fixed top-[8vh] left-0 border-2 border-l-red px-4 pt-2">
+    <div className="min-h-[91vh] w-[17%] fixed top-[8vh] left-0  px-4 pt-2">
       <div className="flex flex-col gap-3">
         {[...Array(5)].map((_, idx) => (
           <div key={idx} className="flex items-center gap-2">

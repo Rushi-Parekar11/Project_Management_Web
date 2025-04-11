@@ -8,6 +8,8 @@ import {
 import { LiaDownloadSolid } from 'react-icons/lia';
 import ImageSlider from '../Components/ImageSlider';
 import SkProjectCardFive from '../Skeleton Compo/SkProjectCardFive';
+import html2canvas from 'html2canvas';
+import { useRef } from 'react';
 
 
 function DisplayProject() {
@@ -17,6 +19,8 @@ function DisplayProject() {
   const [message, setMessage] = useState('');
   const [files, setFiles] = useState([]);
   const [imageLength, setImageLength] = useState(0);
+  const printRef = useRef();
+
 
   const iconMap = {
     Dot,
@@ -48,40 +52,56 @@ function DisplayProject() {
 
   if (!projectData) return <SkProjectCardFive/>;
 
-  const handleCopyClick = () => {
-    const link = "https://yourlink.com"; // Replace with actual dynamic link
-    navigator.clipboard.writeText(link)
-      .then(() => setMessage('Copied!'))
-      .catch(() => setMessage('Failed to Copy'));
-    setTimeout(() => setMessage(''), 2000);
-  };
 
-  const handleDownload = async (fileUrl, fileName = 'file.pdf') => {
-    try {
-      const response = await fetch(fileUrl, { mode: 'cors' });
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
 
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = fileName;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error('Download failed:', error);
-    }
-  };
 
   const handleBack = () => {
     navigate(-1);
   };
 
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'Check this out!',
+          text: 'Have a look at this cool page:',
+          url: window.location.href,
+        });
+        console.log('Shared successfully');
+      } catch (error) {
+        console.error('Error sharing:', error);
+      }
+    } else {
+      alert('Sharing not supported on this device/browser.');
+    }
+  };
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href)
+      .then(() => setMessage('Copied!'))
+      .catch(() => setMessage('Failed to Copy'));
+    setTimeout(() => setMessage(''), 2000);
+    } catch (err) {
+      console.error('Failed to copy: ', err);
+    }
+  };
+  
+  const handleDownload = async () => {
+    if (!printRef.current) return;
+    const canvas = await html2canvas(printRef.current);
+    const data = canvas.toDataURL('image/png');
+  
+    const link = document.createElement('a');
+    link.href = data;
+    link.download = `${projectName}.png`;
+    link.click();
+  };
+  
   return (
     <div className="flex">
       {/* Main Content */}
-      <div className="pl-14 pr-5 w-[85%] min-h-[100vh]">
+      <div className="pl-14 pr-5 w-[85%] min-h-[100vh]" ref={printRef} >
         {/* Back Button */}
         <div
           className="flex items-center gap-2 p-4 cursor-pointer text-[#333] hover:bg-[#ebebeb] w-[90px] transition-all mt-6 duration-200 rounded"
@@ -100,9 +120,9 @@ function DisplayProject() {
             <h1 className="text-2xl font-bold">{projectName}</h1>
           </div>
           <div className="relative flex items-center gap-4">
-            <ExternalLink className="cursor-pointer h-5 w-5" onClick={() => window.open("https://yourlink.com", "_blank")} />
-            <Copy className="cursor-pointer h-5 w-5" onClick={handleCopyClick} />
-            <Download className="cursor-pointer h-5 w-5" onClick={handleCopyClick} />
+            <ExternalLink className="cursor-pointer h-5 w-5"  onClick={handleShare} />
+            <Copy className="cursor-pointer h-5 w-5"       onClick={handleCopy} />
+            <Download className="cursor-pointer h-5 w-5" onClick={handleDownload} />
             {message && (
               <span className="absolute top-8 left-0 bg-gray-800 text-white text-sm p-1 rounded">
                 {message}

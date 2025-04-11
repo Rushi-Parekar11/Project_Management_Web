@@ -1,24 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import { Copy,Pencil  } from 'lucide-react';
 import ProjectCardThree from '../Components/ProjectCardThree';
-
+import { useParams } from 'react-router-dom';
+import NoProjects from '../assets/NoProjects.png'
+import SkProjectCardSix from '../Skeleton Compo/SkProjectCardSix';
 
 
 function ProfilePage() {
   const [projects, setProjects] = useState([]);
   const [userinfo, setuserinfo] = useState({});
-
-  const username = localStorage.getItem("LoggedInUser");
+      let [loading, setLoading] = useState(false);
   
+
+  const { username } = useParams();
   useEffect(() => {
     const fetchProjects = async () => {
+      setLoading(true)
       try {
         const response = await fetch(`http://localhost:8081/profile/${username}`);
         const data = await response.json();
         setuserinfo(data.user)
-  
+      //  setLoading(false)
+
         if (data.projects) {
           setProjects(data.projects);
+          setLoading(false)
         } else {
           console.log('(ProfilePage) No projects found');
         }
@@ -30,9 +36,12 @@ function ProfilePage() {
     fetchProjects();
   }, [username]);
   
+  console.log(projects.length)
   
   return (
     <>
+
+  {!loading ? 
   <div className="flex justify-center bg-[#f3f4f6]">
   <div className="min-h-[120vh] w-[75%]  rounded-xl mt-5 overflow-hidden bg-white">
     <div className="relative w-full h-[30vh]">
@@ -47,7 +56,7 @@ function ProfilePage() {
     </div>
 
     <div className="w-full flex justify-between h-[10vh] mt-[55px]">
-      <div className='w-[20%] flex-col  items-center flex h-full  '><h1 className='text-2xl font-medium'>{userinfo?.name || "User Name"}</h1> <h2 className='text-sm'>{userinfo?.email || "User email"}</h2></div>
+      <div className='w-[20%] flex-col  items-center flex h-full  '><h1 className='text-2xl font-medium'>{userinfo?.name}</h1> <h2 className='text-sm'>{userinfo?.email }</h2></div>
       <div className="flex gap-1 mt-2 pr-3">
       <div className="h-[40px] w-[40px] rounded-full flex items-center justify-center hover:bg-gray-300"><Copy className='h-[20px] w-[20px]'/></div>
       <div className="h-[40px] w-[40px] rounded-full flex items-center justify-center hover:bg-gray-300"><Pencil className='h-[20px] w-[20px]' /></div>
@@ -68,17 +77,16 @@ function ProfilePage() {
     <div className="w-full">
     <h1 className='font-semibold text-lg mt-4 ml-2'>Project Documents</h1>
     <div className="w-full min-h-[200px] py-4 px-2 flex flex-wrap gap-8 pl-7">
-    {projects.map((project, index) => (
+    {projects.length > 0 ?   projects.map((project, index) => (
   <ProjectCardThree key={index} data={project} className='cursor-pointer' />
-))}
-
+)) :  <div> <img src={NoProjects} alt="no Projects" className='h-[130px]'/> <h1 className='font-semibold ml-4'>No Projects Found</h1></div> }
 </div>
     </div>
 
-
   </div>
 </div>
-
+:<SkProjectCardSix/>
+  }
     </>
   )
 }

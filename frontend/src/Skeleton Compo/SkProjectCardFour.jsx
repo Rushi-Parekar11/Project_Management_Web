@@ -3,7 +3,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 
 const SkProjectCardFour = () => {
   return (
-    <div className="h-[80vh] w-full border-2 border-black">
+    <div className="h-[80vh] w-full ">
       <div className="flex h-full">
         {/* Left Sidebar */}
         <div className="w-1/5 h-full border-2 border-[#ededed] p-3">

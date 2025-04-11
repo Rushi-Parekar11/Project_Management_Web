@@ -74,7 +74,7 @@ function BuildDocs() {
 
       <div className="h-[85vh] w-full ">
         <div className="flex h-full">
-          <div className="w-1/5 h-full border-2 border-black">
+          <div className="w-1/5 h-full border-2 border-[#b3b9c4]">
 
             <li className="flex items-center justify-center  w-full h-10 pl-3 pr-2 cursor-pointer  transition-all duration-200 bg-black text-white">
               <span className="text-md font-medium">Attachments</span>

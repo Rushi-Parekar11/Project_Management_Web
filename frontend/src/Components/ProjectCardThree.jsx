@@ -1,5 +1,5 @@
 import React from 'react'
-import { Calendar1, Ellipsis, ExternalLink, LockOpen, ClockAlert, UserRound, Users, Paperclip  } from 'lucide-react';
+import { Calendar1, Ellipsis, ExternalLink, LockOpen, ClockAlert, UserRound, Users, Paperclip,ArrowUpRight  } from 'lucide-react';
 import { RiImageAddFill } from "react-icons/ri";
 import { FaClockRotateLeft } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
@@ -28,7 +28,7 @@ function ProjectCardThree({data}) {
                             <h1 className="text-[15px] font-bold text-[#2f3035] ">{data.projectname}</h1>
                             <h1 className="text-[12px] text-gray-700">{data.type}</h1>
                         </div>
-                        <span className='h-7 w-7 items-center flex justify-center rounded-full hover:bg-[#e7e7e7]'><Ellipsis className="text-gray-500 h-5 w-5" /></span>
+                        <span className='h-7 w-7 items-center flex justify-center rounded-full hover:bg-[#e7e7e7]'><ArrowUpRight className="text-gray-500 h-5 w-5" /></span>
                     </div>
                 </div>
 

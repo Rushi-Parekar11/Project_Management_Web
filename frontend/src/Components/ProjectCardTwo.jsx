@@ -1,8 +1,10 @@
 import React from 'react'
-import { Ellipsis, Calendar1, ExternalLink, LockOpen, ClockAlert, UserPen, UserRound, Copy, Star } from 'lucide-react';
+import { Ellipsis, Calendar1, ExternalLink, LockOpen, ClockAlert, UserPen,Mail ,ArrowUpRight, UserRound, Copy, Star } from 'lucide-react';
 import ProgressBar from './ProgressBar';
+import { useNavigate } from 'react-router-dom';
 
 function ProjectCardTwo({ project }) {
+  const navigate = useNavigate();
 
   const getTimeAgo = (dateString) => {
     const updatedDate = new Date(dateString);
@@ -23,28 +25,39 @@ function ProjectCardTwo({ project }) {
     return `${diffInDays} days ago`;
   };
   
+  console.log(project)
 
   return (
     <>
-      <div className='h-[410px] w-[380px] rounded-md shadow-md border-2 border-gray-200'>
-        <div className="pt-4 pl-4 flex items-center justify-between pr-3">
-          <div className="h-11 w-11 bg-[#776aff] font-bold text-white rounded-lg flex justify-center items-center">
+      <div className='h-[300px] w-[400px] rounded-md shadow-md border-2 border-gray-200'>
+        <div className="pt-4 pl-4 flex items-center justify-between pr-3 cursor-pointer" onClick={()=>navigate(`/documentation/${project.projectname}`)}>
+          <div className="h-11 w-11 bg-[#776aff] font-bold text-white rounded-lg flex justify-center items-center cursor-pointer">
             {project.projectname.slice(0, 2).toUpperCase()}
           </div>
-          <Ellipsis className="text-gray-500" />
+          <ArrowUpRight className="text-gray-500 cursor-pointer hover:text-[#776aff]" />
         </div>
 
         <div className="pl-4">
-          <h1 className='text-lg font-bold text-[#2f3035] mt-2'>{project.projectname}</h1>
+          <h1 className='text-lg font-bold text-[#2f3035] mt-2 cursor-pointer'>{project.projectname}</h1>
         </div>
         <div className="pl-4">
-          <h1 className='text-sm font-medium text-gray-700 mb-2'>{project.type}</h1>
+          <h1 className='text-sm font-medium text-gray-700 mb-2 cursor-pointer'>{project.type}</h1>
         </div>
 
-        <div className="px-4 text-[#2f3035] flex gap-2 my-3">
+
+
+        <div className="flex py-3 gap-3 pl-4">
+        <div className=" text-[#2f3035] flex gap-1 justify-center">
           <UserPen className='h-4 w-4' />
+          <h1 className='text-sm font-medium'>{project.createdby.name}</h1>
+        </div>
+        <div className=" text-[#2f3035] flex gap-1 justify-center ml-2">
+          <Mail  className='h-4 w-4 mt-1' />
           <h1 className='text-sm font-medium'>{project.createdby.email}</h1>
         </div>
+        </div>
+
+
 
         <div className="px-4">
           <h1 className='text-sm text-gray-600'>{project.discription.slice(0, 75)}...</h1>
@@ -87,30 +100,18 @@ function ProjectCardTwo({ project }) {
           </div>
 
           <div className='flex gap-1 justify-center items-center ml-19'>
-            <Calendar1 className='h-5 w-5' />
-            <h5 className='text-sm font-medium'>{new Date(project.updatedAt).toLocaleDateString('en-GB')}</h5>
+            <Calendar1 className='h-4 w-4' />
+            <h5 className='text-[12px] font-medium'>{new Date(project.updatedAt).toLocaleDateString('en-GB')}</h5>
           </div>
-        </div>
 
-
-        <div className='px-4 mt-10 flex justify-between'>
-          <div className='h-8 w-[120px] bg-[#e7e7e7] flex items-center justify-center text-sm text-gray-700'>
+          <div className='flex gap-1 justify-center items-center ml-19'>
             <ClockAlert className='h-4 w-4' />
-            <h3 className='flex ml-1'>{getTimeAgo(project.updatedAt)}</h3>
+            <h5 className='text-[12px] font-medium'>{getTimeAgo(project.updatedAt)}</h5>
           </div>
 
-          <div className="flex items-center space-x-[-12px]">
-            <div className="w-8 h-8 rounded-full bg-[#e7e7e7] text-gray-500 flex items-center justify-center text-xs font-bold z-30 border-2 border-white">
-              <UserRound className='h-4 w-4' />
-            </div>
-            <div className="w-8 h-8 rounded-full bg-[#e7e7e7] text-gray-500 flex items-center justify-center text-xs font-bold z-20 border-2 border-white">
-              <UserRound className='h-4 w-4' />
-            </div>
-            <div className="w-8 h-8 rounded-full bg-[#e7e7e7] text-gray-500 flex items-center justify-center text-xs font-bold z-10">
-              <UserRound className='h-4 w-4' />
-            </div>
-          </div>
         </div>
+
+
       </div>
     </>
   )

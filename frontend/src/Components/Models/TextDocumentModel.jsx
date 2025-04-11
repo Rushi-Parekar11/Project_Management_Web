@@ -75,9 +75,6 @@ function TextDocumentModel({ onClose }) {
                                 >
                                     <option value="None">None</option>
                                     <option value="Dot">Dot</option>
-                                    <option value="Marketing">Marketing</option>
-                                    <option value="Research">Research</option>
-                                    <option value="Other">Other</option>
                                 </select>
 
                             </div>

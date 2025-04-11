@@ -25,7 +25,6 @@ function DashBoard() {
     { name: 'Your Project', icon: LayoutPanelLeft },
     { name: 'Saved', icon: Star },
     { name: 'Workmates', icon: Users },
-    { name: 'Global Portfolio', icon: LayoutGrid },
     { name: 'Calendar', icon: CalendarRange },
     { name: 'Filters', icon: ListFilterPlus }
   ];
@@ -38,8 +37,6 @@ function DashBoard() {
         return <Saved />;
       case 'Workmates':
         return <Workmates />;
-      case 'Global Portfolio':
-        return <GlobalPortfolio />;
       case 'Calendar':
         return <Saved />;
       case 'Filters':
