@@ -35,7 +35,7 @@ app.get('/',(req,res)=>{
 })
 
 app.get('/ping',(req,res)=>{
-    res.send("PONG");
+    res.send("PONGG");
 })
 
 mongoose.connect(process.env.MONGODB_URL, {
