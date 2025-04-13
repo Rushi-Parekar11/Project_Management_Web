@@ -9,9 +9,10 @@ const cors = require("cors");
 const PORT = 8081;
 
 app.use(cors({
-  origin: ['https://dokjan.vercel.app/', 'https://dokjan.vercel.app'],
+  origin: ['http://localhost:5173', 'http://localhost:5174', 'https://dokjan.vercel.app'],
   credentials: true
 }));
+
 
 app.use(bodyParser.json());
 app.use('/', router);
