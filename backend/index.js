@@ -44,13 +44,16 @@ mongoose.connect(process.env.MONGODB_URL, {
 })
 .then(() => {
   console.log("MongoDB Connected ✅");
+
+  // Start server only after DB is connected
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running at http://localhost:${PORT}`);
+  });
+
 })
 .catch((err) => {
   console.error("❌ MongoDB Connection Error:", err);
 });
 
-// Start server only after DB is connected
-app.listen(PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`);
-});
+
 
