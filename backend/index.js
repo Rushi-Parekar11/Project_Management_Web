@@ -12,7 +12,6 @@ app.use(cors({
   origin: [ 'https://dokjan.vercel.app','http://localhost:5173', 'http://localhost:5174'],
   credentials: true
 }));
-app.use(cors());
 
 app.use(bodyParser.json());
 app.use('/', router);
