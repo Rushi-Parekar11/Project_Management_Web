@@ -20,9 +20,9 @@ app.get('/', (req, res) => {
   res.send("hii");
 });
 
-// app.get('/ping', (req, res) => {
-//   res.send("PONGG");
-// });
+app.get('/ping', (req, res) => {
+  res.send("PONGG");
+});
 
 // mongoose.connect(process.env.MONGODB_URL)
 // .then(() => {
