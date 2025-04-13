@@ -71,7 +71,7 @@ function FileDocument({ onClose, projectName }) {
       const user = JSON.parse(localStorage.getItem("user"));
  
       // Now send to your backend
-      const backendRes = await fetch(`http://localhost:8081/project/${projectName}/docfile`, {
+      const backendRes = await fetch(`https://project-management-web-backend.vercel.app/project/${projectName}/docfile`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

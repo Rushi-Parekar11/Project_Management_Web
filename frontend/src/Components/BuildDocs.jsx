@@ -41,7 +41,7 @@ function BuildDocs() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`http://localhost:8081/project/${projectName}`);
+        const res = await axios.get(`https://project-management-web-backend.vercel.app/project/${projectName}`);
         setProjectData(res.data);
         setFiles(res.data.docFile || []);
         setImageLength(res.data.docImage?.length || 0);
@@ -57,14 +57,6 @@ function BuildDocs() {
   if (!projectData) {
     return <SkProjectCardFour/>;
   }
-
-  const handleCopyClick = () => {
-    const link = "https://yourlink.com"; // Replace this with actual dynamic link
-    navigator.clipboard.writeText(link)
-      .then(() => setMessage('Copied!'))
-      .catch(() => setMessage('Failed to Copy'));
-    setTimeout(() => setMessage(''), 2000);
-  };
 
 
 

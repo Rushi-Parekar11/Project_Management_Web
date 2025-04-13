@@ -67,7 +67,7 @@ function ImageDocument({ onClose,projectName }) {
           const user = JSON.parse(localStorage.getItem("user"));
 
           // Now send to your backend
-          const backendRes = await fetch(`http://localhost:8081/project/${projectName}/docimage`, {
+          const backendRes = await fetch(`https://project-management-web-backend.vercel.app/project/${projectName}/docimage`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json"

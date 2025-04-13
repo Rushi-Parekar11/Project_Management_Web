@@ -17,7 +17,7 @@ function GlobalPortfolio() {
   useEffect(() => {
     const fetchdata = async () => {
       try {
-        const alldata = await axios.get('http://localhost:8081/GlobalPortfolio/projects');
+        const alldata = await axios.get('https://project-management-web-backend.vercel.app/GlobalPortfolio/projects');
         setallproject(alldata.data);
       } catch (error) {
         console.log(error);
