@@ -24,15 +24,13 @@ app.get('/ping', (req, res) => {
   res.send("PONGG");
 });
 
-// mongoose.connect(process.env.MONGODB_URL)
-// .then(() => {
-//   console.log("MongoDB Connected ✅");
-
-
-// })
-// .catch((err) => {
-//   console.error("❌ MongoDB Connection Error:", err);
-// });
+mongoose.connect(process.env.MONGODB_URL)
+.then(() => {
+  console.log("MongoDB Connected ✅");
+})
+.catch((err) => {
+  console.error("❌ MongoDB Connection Error:", err);
+});
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
