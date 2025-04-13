@@ -13,8 +13,8 @@ app.use(cors({
   credentials: true
 }));
 
-// app.use(bodyParser.json());
-// app.use('/', router);
+app.use(bodyParser.json());
+app.use('/', router);
 
 app.get('/', (req, res) => {
   res.send("hii");
