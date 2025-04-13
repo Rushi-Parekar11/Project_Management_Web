@@ -29,69 +29,97 @@ function Login() {
     setLoginInfo(prev => ({ ...prev, [name]: value }));
   }
 
-// Update your login handler:
-const handleLogin = async (e) => {
-  e.preventDefault();
-  setLoading(true);
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setLoading(true);
 
-  try {
-    const response = await fetch("https://project-management-web-backend.vercel.app/login", {
-      method: "POST",
-      credentials: 'include', // For cookies
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(loginInfo)
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Login failed');
+    const { email, password } = loginInfo;
+    if (!email || !password) {
+      toast.error("Please fill in all the fields");
+      setLoading(false);
+      return;
     }
 
-    const data = await response.json();
-    // Handle successful login
-    window.dispatchEvent(new Event("login-success"));
-    navigate(`/${data.user.name}/dashboard`);
+    try {
+      const response = await fetch("http://localhost:8081/login", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(loginInfo)
+      });
 
-  } catch (error) {
-    toast.error(error.message);
-  } finally {
-    setLoading(false);
+      const result = await response.json();
+      const { success, message, jwtToken, name, error } = result;
+
+      if (success) {
+        localStorage.setItem('token', jwtToken);
+        localStorage.setItem('LoggedInUser', name);
+        window.dispatchEvent(new Event("login"));
+
+        setTimeout(() => {
+          navigate(`/${name}/dashboard`);
+          setLoading(false);
+        }, 1000);
+      } else if (error) {
+        const details = error?.details?.[0]?.message;
+        toast.error(details || "Something went wrong!", { autoClose: 1000 });
+        setLoading(false);
+      } else {
+        toast.error(message || "Login failed", { autoClose: 1000 });
+        setLoading(false);
+      }
+    } catch (err) {
+      toast.error("Network error. Try again.");
+      setLoading(false);
+    }
   }
-}
 
   const authOnSuccess = async (credentialResponse) => {
+    const jwtToken = credentialResponse?.credential;
+    const decode = jwtDecode(jwtToken);
+    const name = decode?.name;
+    const email = decode?.email;
+    const password = decode?.sub;
+  
+    if (!name || !email || !password) {
+      toast.error("Missing info from Google.");
+      return;
+    }
+  
     try {
       setLoading(true);
-      const jwtToken = credentialResponse?.credential;
-      const decode = jwtDecode(jwtToken);
-      
-      // Verify the token with your backend
-      const response = await fetch("https://project-management-web-backend.vercel.app/auth/google", {
+      const url = "http://localhost:8081/login";
+      const response = await fetch(url, {
         method: "POST",
-        headers: { 
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${jwtToken}`
-        },
-        credentials: 'include' // For cookies if using them
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
       });
   
-      if (!response.ok) throw new Error('Google auth failed');
-  
       const result = await response.json();
-      
-      localStorage.setItem('token', result.jwtToken);
-      localStorage.setItem('LoggedInUser', result.name);
-      navigate(`/${result.name}/dashboard`);
-      
+      const { success, message, error } = result;
+  
+      if (success) {
+        toast.success(message || "Login successful!");
+        localStorage.setItem('token', jwtToken);
+        localStorage.setItem('LoggedInUser', name);
+        setTimeout(() => {
+          navigate(`/${name}/dashboard`);
+          window.location.reload();
+        }, 1000);
+      } else if (error) {
+        const details = error?.details?.[0]?.message;
+        toast.error("If you previously signed in with Google, please use that method again. Otherwise, sign up first.");
+      } else {
+        toast.error("If you previously signed in with Google, please use that method again. Otherwise, sign up first.");
+      }
     } catch (error) {
-      toast.error("Google authentication failed. Please try again.");
-      console.error("Google auth error:", error);
+      toast.error("Something went wrong!");
     } finally {
       setLoading(false);
     }
   }
+
   const authOnError = () => {
     console.log("SignIn Error");
     toast.error("Google login failed. Please try again.");
@@ -158,12 +186,10 @@ const handleLogin = async (e) => {
               <GoogleLogin
                 theme="outline"
                 size="medium"
-                width="300" // Fixed pixel value instead of percentage
+                width="100%"
                 onSuccess={authOnSuccess}
                 onError={authOnError}
                 text="signin_with"
-                shape="rectangular"
-                logo_alignment="left"
               />
             </div>
           </GoogleOAuthProvider>
