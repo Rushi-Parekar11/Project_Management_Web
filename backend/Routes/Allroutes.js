@@ -49,39 +49,97 @@ router.post('/signup', signupValidation,async(req,res)=>{
 router.post('/login', loginValidation, async (req, res) => {
   try {
     const { email, password } = req.body;
+    
+    // 1. Find user
     const user = await User.findOne({ email });
-
     if (!user) {
-      return res.status(401).json({ message: 'Invalid email or password', success: false });
+      return res.status(401).json({ 
+        success: false,
+        message: 'Invalid credentials', // Generic message for security
+        error: { details: [{ message: 'Invalid email or password' }] }
+      });
     }
 
-    const isPassEqual = await bcrypt.compare(password, user.password);
-    if (!isPassEqual) {
-      return res.status(401).json({ message: 'Invalid email or password', success: false });
+    // 2. Check password (for regular login)
+    if (user.password) { // Only check if password exists (social login users might not have one)
+      const isPassEqual = await bcrypt.compare(password, user.password);
+      if (!isPassEqual) {
+        return res.status(401).json({
+          success: false,
+          message: 'Invalid credentials',
+          error: { details: [{ message: 'Invalid email or password' }] }
+        });
+      }
     }
 
+    // 3. Generate token
     const jwtToken = jwt.sign(
-      { email: user.email, _id: user._id },
+      { 
+        email: user.email, 
+        _id: user._id,
+        name: user.name,
+        authMethod: user.authMethod || 'email' // Track auth method
+      },
       process.env.JWT_SECRET,
       { expiresIn: '240h' }
     );
 
-    res.status(200).json({
-      message: 'Login Successfully',
+    // 4. Successful response
+    return res.status(200).json({
+      message: 'Login successful',
       success: true,
       jwtToken,
-      email,
+      email: user.email,
       name: user.name
     });
+
   } catch (error) {
-    res.status(500).json({
-      message: 'Internal Server error [Allroute.js]',
-      success: false
+    console.error('Login error:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Internal server error',
+      error: error.message // Include error details for debugging
     });
   }
 });
 
-
+router.post('/auth/google', async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(' ')[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    
+    // Find or create user
+    let user = await User.findOne({ email: decoded.email });
+    
+    if (!user) {
+      // Create new user for Google sign-in
+      user = new User({
+        name: decoded.name,
+        email: decoded.email,
+        authMethod: 'google',
+        verified: true
+      });
+      await user.save();
+    }
+    
+    // Generate your own JWT
+    const appToken = jwt.sign(
+      { _id: user._id, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: '240h' }
+    );
+    
+    return res.json({
+      success: true,
+      jwtToken: appToken,
+      name: user.name
+    });
+    
+  } catch (error) {
+    console.error('Google auth error:', error);
+    return res.status(401).json({ success: false, message: 'Google authentication failed' });
+  }
+});
 
 
 //// Project create route

@@ -76,50 +76,36 @@ function Login() {
   }
 
   const authOnSuccess = async (credentialResponse) => {
-    const jwtToken = credentialResponse?.credential;
-    const decode = jwtDecode(jwtToken);
-    const name = decode?.name;
-    const email = decode?.email;
-    const password = decode?.sub;
-  
-    if (!name || !email || !password) {
-      toast.error("Missing info from Google.");
-      return;
-    }
-  
     try {
       setLoading(true);
-      const url = "https://project-management-web-backend.vercel.app/login";
-      const response = await fetch(url, {
+      const jwtToken = credentialResponse?.credential;
+      const decode = jwtDecode(jwtToken);
+      
+      // Verify the token with your backend
+      const response = await fetch("https://project-management-web-backend.vercel.app/auth/google", {
         method: "POST",
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${jwtToken}`
+        },
+        credentials: 'include' // For cookies if using them
       });
   
-      const result = await response.json();
-      const { success, message, error } = result;
+      if (!response.ok) throw new Error('Google auth failed');
   
-      if (success) {
-        toast.success(message || "Login successful!");
-        localStorage.setItem('token', jwtToken);
-        localStorage.setItem('LoggedInUser', name);
-        setTimeout(() => {
-          navigate(`/${name}/dashboard`);
-          window.location.reload();
-        }, 1000);
-      } else if (error) {
-        const details = error?.details?.[0]?.message;
-        toast.error("If you previously signed in with Google, please use that method again. Otherwise, sign up first.");
-      } else {
-        toast.error("If you previously signed in with Google, please use that method again. Otherwise, sign up first.");
-      }
+      const result = await response.json();
+      
+      localStorage.setItem('token', result.jwtToken);
+      localStorage.setItem('LoggedInUser', result.name);
+      navigate(`/${result.name}/dashboard`);
+      
     } catch (error) {
-      toast.error("Something went wrong!");
+      toast.error("Google authentication failed. Please try again.");
+      console.error("Google auth error:", error);
     } finally {
       setLoading(false);
     }
   }
-
   const authOnError = () => {
     console.log("SignIn Error");
     toast.error("Google login failed. Please try again.");
@@ -186,10 +172,12 @@ function Login() {
               <GoogleLogin
                 theme="outline"
                 size="medium"
-                width="100%"
+                width="300" // Fixed pixel value instead of percentage
                 onSuccess={authOnSuccess}
                 onError={authOnError}
                 text="signin_with"
+                shape="rectangular"
+                logo_alignment="left"
               />
             </div>
           </GoogleOAuthProvider>
