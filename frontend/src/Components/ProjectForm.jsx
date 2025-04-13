@@ -26,7 +26,7 @@ export default function ProjectForm({ onClose, username }) {
 
     e.preventDefault();
     try {
-      const response = await axios.post(`https://project-management-web-backend.vercel.app/${username}/dashboard`, {
+      const response = await axios.post(`http://localhost:8081/${username}/dashboard`, {
         projectname: project.name,
         discription: project.description,
         type: project.type

@@ -41,7 +41,7 @@ function BuildDocs() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`https://project-management-web-backend.vercel.app/project/${projectName}`);
+        const res = await axios.get(`http://localhost:8081/project/${projectName}`);
         setProjectData(res.data);
         setFiles(res.data.docFile || []);
         setImageLength(res.data.docImage?.length || 0);

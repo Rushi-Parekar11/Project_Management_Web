@@ -30,7 +30,7 @@ function Project() {
     const fetchData = async () => {
       setLoading(true)
       try {
-        const res = await axios.get(`https://project-management-web-backend.vercel.app/project/${projectName}`);
+        const res = await axios.get(`http://localhost:8081/project/${projectName}`);
         setProjectData(res.data);
         setLoading(false)
 

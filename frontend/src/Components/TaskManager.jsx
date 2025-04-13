@@ -12,7 +12,7 @@ const TaskManager = ({ projectName }) => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const res = await axios.get(`https://project-management-web-backend.vercel.app/project/${projectName}`);
+        const res = await axios.get(`http://localhost:8081/${projectName}`);
         setTasks(res.data.tasks || []);
       } catch (err) {
         console.error("Error fetching tasks:", err);

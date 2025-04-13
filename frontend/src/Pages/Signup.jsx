@@ -25,7 +25,7 @@ function Signup() {
       return;
     }
     try {
-      const url = "https://project-management-web-backend.vercel.app/signup";
+      const url = "http://localhost:8081/signup";
       const response = await fetch(url, {
         method: "POST",
         headers: {
