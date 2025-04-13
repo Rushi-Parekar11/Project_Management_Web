@@ -40,7 +40,6 @@ const handleLogin = async (e) => {
       credentials: 'include', // For cookies
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json'
       },
       body: JSON.stringify(loginInfo)
     });

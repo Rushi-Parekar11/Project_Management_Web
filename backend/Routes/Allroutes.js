@@ -47,75 +47,68 @@ router.post('/signup', signupValidation,async(req,res)=>{
 
 //// login route 
 // In your login route handler:
-router.post('/login', loginValidation, async (req, res) => {
+// Updated login route with better error handling
+router.post('/login', async (req, res) => {
   try {
-    const { email, password } = req.body;
+    console.log('Login attempt:', req.body.email); // Logging
     
-    // 1. More robust user lookup
-    const user = await User.findOne({ email }).select('+password');
+    // 1. Input validation
+    if (!req.body.email || !req.body.password) {
+      return res.status(400).json({
+        success: false,
+        message: 'Email and password are required'
+      });
+    }
+
+    // 2. Database connection check
+    if (mongoose.connection.readyState !== 1) {
+      throw new Error('Database not connected');
+    }
+
+    // 3. Find user
+    const user = await User.findOne({ email: req.body.email });
     if (!user) {
-      return res.status(401).json({ 
-        success: false,
-        message: 'Authentication failed',
-        error: 'USER_NOT_FOUND'
-      });
-    }
-
-    // 2. Handle social login users
-    if (user.authMethod === 'google' && !user.password) {
       return res.status(401).json({
         success: false,
-        message: 'Please use Google Sign-In',
-        error: 'USE_GOOGLE_AUTH'
+        message: 'Invalid credentials'
       });
     }
 
-    // 3. Better password comparison
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(401).json({
-        success: false,
-        message: 'Authentication failed',
-        error: 'INVALID_CREDENTIALS'
-      });
-    }
-
-    // 4. More secure token generation
-    const jwtToken = jwt.sign(
-      {
-        userId: user._id,
-        authMethod: user.authMethod || 'email'
-      },
-      process.env.JWT_SECRET,
-      { 
-        expiresIn: '240h',
-        issuer: 'your-app-name',
-        audience: 'your-app-client'
+    // 4. Password check (only if user has password)
+    if (user.password) {
+      const isMatch = await bcrypt.compare(req.body.password, user.password);
+      if (!isMatch) {
+        return res.status(401).json({
+          success: false,
+          message: 'Invalid credentials'
+        });
       }
+    }
+
+    // 5. Create token
+    const token = jwt.sign(
+      { userId: user._id },
+      process.env.JWT_SECRET,
+      { expiresIn: '1d' }
     );
 
-    // 5. Secure response
-    res.status(200)
-      .cookie('token', jwtToken, { 
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict'
-      })
-      .json({
-        success: true,
-        user: {
-          id: user._id,
-          name: user.name,
-          email: user.email
-        }
-      });
+    // 6. Successful response
+    return res.json({
+      success: true,
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email
+      }
+    });
 
   } catch (error) {
     console.error('Login error:', error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: 'Internal server error',
-      error: process.env.NODE_ENV === 'development' ? error.message : null
+      error: error.message // Only in development
     });
   }
 });

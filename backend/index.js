@@ -8,11 +8,19 @@ const cors = require("cors");
 
 const PORT = 8081;
 
+// In your backend entry file
 app.use(cors({
-  origin: [ 'https://dokjan.vercel.app','http://localhost:5173', 'http://localhost:5174'],
+  origin: [
+    'https://dokjan.vercel.app',
+    'http://localhost:5173',
+    'http://localhost:5174'
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
 
+// Handle preflight
+app.options('*', cors());
 app.use(bodyParser.json());
 app.use('/', router);
 
