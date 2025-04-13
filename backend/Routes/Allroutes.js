@@ -13,7 +13,7 @@ const API_KEY = "933327716588469";
 const API_SECRET = "ehrMQ09FIBsuJ4M1ZiNjwxYEx5c";
 
 router.get('/',(req,res)=>{
-  res.send('server is  running!');
+  res.send('server is  running route also!');
 })
 
 
