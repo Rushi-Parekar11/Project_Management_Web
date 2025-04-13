@@ -51,9 +51,9 @@ function ProjectCardTwo({ project }) {
 
 
         <div className="flex py-3 gap-3 pl-4">
-        <div className=" text-[#2f3035] flex gap-1 justify-center">
+         <div className=" text-[#2f3035] flex gap-1 justify-center">
           <UserPen className='h-4 w-4' />
-          <h1 className='text-sm font-medium'>{project.createdby?.name || 'Unknown'}</h1>
+          <h1 className='text-sm font-medium'>{project.createdby?.name || 'Unknownn'}</h1>
         </div>
         <div className=" text-[#2f3035] flex gap-1 justify-center ml-2">
           <Mail  className='h-4 w-4 mt-1' />
