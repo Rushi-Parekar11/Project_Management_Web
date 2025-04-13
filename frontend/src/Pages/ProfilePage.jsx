@@ -17,7 +17,7 @@ function ProfilePage() {
     const fetchProjects = async () => {
       setLoading(true)
       try {
-        const response = await fetch(`http://localhost:8081/profile/${username}`);
+        const response = await fetch(`https://project-management-web-backend.vercel.app/profile/${username}`);
         const data = await response.json();
         setuserinfo(data.user)
       //  setLoading(false)

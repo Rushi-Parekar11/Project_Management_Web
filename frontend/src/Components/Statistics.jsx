@@ -10,7 +10,7 @@ function Statistics() {
   useEffect(() => {
       const fetchdata = async() =>{
         try {
-          const res = await axios.get(`http://localhost:8081/project/${projectName}`);
+          const res = await axios.get(`https://project-management-web-backend.vercel.app/${projectName}`);
            settasks(res.data.tasks);
         } catch (error) {
           console.log(error)

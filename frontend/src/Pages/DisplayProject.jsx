@@ -38,7 +38,7 @@ function DisplayProject() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`http://localhost:8081/documentation/${projectName}`);
+        const res = await axios.get(`https://project-management-web-backend.vercel.app/documentation/${projectName}`);
         setProjectData(res.data);
         setFiles(res.data.docFile || []);
         setImageLength(res.data.docImage?.length || 0);

@@ -30,7 +30,7 @@ function Project() {
     const fetchData = async () => {
       setLoading(true)
       try {
-        const res = await axios.get(`http://localhost:8081/project/${projectName}`);
+        const res = await axios.get(`https://project-management-web-backend.vercel.app/project/${projectName}`);
         setProjectData(res.data);
         setLoading(false)
 
@@ -94,7 +94,7 @@ function Project() {
     setContributorLoading(true)
   
     try {
-      const res = await fetch(`http://localhost:8081/project/${projectData.projectname}`, {
+      const res = await fetch(`https://project-management-web-backend.vercel.app/project/${projectData.projectname}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
