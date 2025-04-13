@@ -75,50 +75,50 @@ function Login() {
     }
   }
 
-  // const authOnSuccess = async (credentialResponse) => {
-  //   const jwtToken = credentialResponse?.credential;
-  //   const decode = jwtDecode(jwtToken);
-  //   const name = decode?.name;
-  //   const email = decode?.email;
-  //   const password = decode?.sub;
+  const authOnSuccess = async (credentialResponse) => {
+    const jwtToken = credentialResponse?.credential;
+    const decode = jwtDecode(jwtToken);
+    const name = decode?.name;
+    const email = decode?.email;
+    const password = decode?.sub;
   
-  //   if (!name || !email || !password) {
-  //     toast.error("Missing info from Google.");
-  //     return;
-  //   }
+    if (!name || !email || !password) {
+      toast.error("Missing info from Google.");
+      return;
+    }
   
-  //   try {
-  //     setLoading(true);
-  //     const url = "https://project-management-web-backend.vercel.app/login";
-  //     const response = await fetch(url, {
-  //       method: "POST",
-  //       headers: { 'Content-Type': 'application/json' },
-  //       body: JSON.stringify({ email, password })
-  //     });
+    try {
+      setLoading(true);
+      const url = "https://project-management-web-backend.vercel.app/login";
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
   
-  //     const result = await response.json();
-  //     const { success, message, error } = result;
+      const result = await response.json();
+      const { success, message, error } = result;
   
-  //     if (success) {
-  //       toast.success(message || "Login successful!");
-  //       localStorage.setItem('token', jwtToken);
-  //       localStorage.setItem('LoggedInUser', name);
-  //       setTimeout(() => {
-  //         navigate(`/${name}/dashboard`);
-  //         window.location.reload();
-  //       }, 1000);
-  //     } else if (error) {
-  //       const details = error?.details?.[0]?.message;
-  //       toast.error("If you previously signed in with Google, please use that method again. Otherwise, sign up first.");
-  //     } else {
-  //       toast.error("If you previously signed in with Google, please use that method again. Otherwise, sign up first.");
-  //     }
-  //   } catch (error) {
-  //     toast.error("Something went wrong!");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // }
+      if (success) {
+        toast.success(message || "Login successful!");
+        localStorage.setItem('token', jwtToken);
+        localStorage.setItem('LoggedInUser', name);
+        setTimeout(() => {
+          navigate(`/${name}/dashboard`);
+          window.location.reload();
+        }, 1000);
+      } else if (error) {
+        const details = error?.details?.[0]?.message;
+        toast.error("If you previously signed in with Google, please use that method again. Otherwise, sign up first.");
+      } else {
+        toast.error("If you previously signed in with Google, please use that method again. Otherwise, sign up first.");
+      }
+    } catch (error) {
+      toast.error("Something went wrong!");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   const authOnError = () => {
     console.log("SignIn Error");
@@ -181,7 +181,7 @@ function Login() {
             </div>
           </div>
 
-          {/* <GoogleOAuthProvider clientId='189981361244-85fhqkq3hvcu65m23br947arg40u0e3o.apps.googleusercontent.com'>
+          <GoogleOAuthProvider clientId='189981361244-85fhqkq3hvcu65m23br947arg40u0e3o.apps.googleusercontent.com'>
             <div className="flex justify-center">
               <GoogleLogin
                 theme="outline"
@@ -192,7 +192,7 @@ function Login() {
                 text="signin_with"
               />
             </div>
-          </GoogleOAuthProvider> */}
+          </GoogleOAuthProvider>
         </form>
 
 
