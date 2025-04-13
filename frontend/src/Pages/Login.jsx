@@ -29,51 +29,38 @@ function Login() {
     setLoginInfo(prev => ({ ...prev, [name]: value }));
   }
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+// Update your login handler:
+const handleLogin = async (e) => {
+  e.preventDefault();
+  setLoading(true);
 
-    const { email, password } = loginInfo;
-    if (!email || !password) {
-      toast.error("Please fill in all the fields");
-      setLoading(false);
-      return;
+  try {
+    const response = await fetch("https://project-management-web-backend.vercel.app/login", {
+      method: "POST",
+      credentials: 'include', // For cookies
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(loginInfo)
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Login failed');
     }
 
-    try {
-      const response = await fetch("https://project-management-web-backend.vercel.app/login", {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(loginInfo)
-      });
+    const data = await response.json();
+    // Handle successful login
+    window.dispatchEvent(new Event("login-success"));
+    navigate(`/${data.user.name}/dashboard`);
 
-      const result = await response.json();
-      const { success, message, jwtToken, name, error } = result;
-
-      if (success) {
-        localStorage.setItem('token', jwtToken);
-        localStorage.setItem('LoggedInUser', name);
-        window.dispatchEvent(new Event("login"));
-
-        setTimeout(() => {
-          navigate(`/${name}/dashboard`);
-          setLoading(false);
-        }, 1000);
-      } else if (error) {
-        const details = error?.details?.[0]?.message;
-        toast.error(details || "Something went wrong!", { autoClose: 1000 });
-        setLoading(false);
-      } else {
-        toast.error(message || "Login failed", { autoClose: 1000 });
-        setLoading(false);
-      }
-    } catch (err) {
-      toast.error("Network error. Try again.");
-      setLoading(false);
-    }
+  } catch (error) {
+    toast.error(error.message);
+  } finally {
+    setLoading(false);
   }
+}
 
   const authOnSuccess = async (credentialResponse) => {
     try {

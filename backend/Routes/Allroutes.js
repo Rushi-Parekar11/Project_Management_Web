@@ -46,59 +46,76 @@ router.post('/signup', signupValidation,async(req,res)=>{
 })
 
 //// login route 
+// In your login route handler:
 router.post('/login', loginValidation, async (req, res) => {
   try {
     const { email, password } = req.body;
     
-    // 1. Find user
-    const user = await User.findOne({ email });
+    // 1. More robust user lookup
+    const user = await User.findOne({ email }).select('+password');
     if (!user) {
       return res.status(401).json({ 
         success: false,
-        message: 'Invalid credentials', // Generic message for security
-        error: { details: [{ message: 'Invalid email or password' }] }
+        message: 'Authentication failed',
+        error: 'USER_NOT_FOUND'
       });
     }
 
-    // 2. Check password (for regular login)
-    if (user.password) { // Only check if password exists (social login users might not have one)
-      const isPassEqual = await bcrypt.compare(password, user.password);
-      if (!isPassEqual) {
-        return res.status(401).json({
-          success: false,
-          message: 'Invalid credentials',
-          error: { details: [{ message: 'Invalid email or password' }] }
-        });
-      }
+    // 2. Handle social login users
+    if (user.authMethod === 'google' && !user.password) {
+      return res.status(401).json({
+        success: false,
+        message: 'Please use Google Sign-In',
+        error: 'USE_GOOGLE_AUTH'
+      });
     }
 
-    // 3. Generate token
+    // 3. Better password comparison
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({
+        success: false,
+        message: 'Authentication failed',
+        error: 'INVALID_CREDENTIALS'
+      });
+    }
+
+    // 4. More secure token generation
     const jwtToken = jwt.sign(
-      { 
-        email: user.email, 
-        _id: user._id,
-        name: user.name,
-        authMethod: user.authMethod || 'email' // Track auth method
+      {
+        userId: user._id,
+        authMethod: user.authMethod || 'email'
       },
       process.env.JWT_SECRET,
-      { expiresIn: '240h' }
+      { 
+        expiresIn: '240h',
+        issuer: 'your-app-name',
+        audience: 'your-app-client'
+      }
     );
 
-    // 4. Successful response
-    return res.status(200).json({
-      message: 'Login successful',
-      success: true,
-      jwtToken,
-      email: user.email,
-      name: user.name
-    });
+    // 5. Secure response
+    res.status(200)
+      .cookie('token', jwtToken, { 
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict'
+      })
+      .json({
+        success: true,
+        user: {
+          id: user._id,
+          name: user.name,
+          email: user.email
+        }
+      });
 
   } catch (error) {
     console.error('Login error:', error);
-    return res.status(500).json({
+    res.status(500).json({
       success: false,
       message: 'Internal server error',
-      error: error.message // Include error details for debugging
+      error: process.env.NODE_ENV === 'development' ? error.message : null
     });
   }
 });
