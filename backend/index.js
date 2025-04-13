@@ -24,10 +24,7 @@ app.get('/ping', (req, res) => {
   res.send("PONGG");
 });
 
-mongoose.connect(process.env.MONGODB_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose.connect(process.env.MONGODB_URL)
 .then(() => {
   console.log("MongoDB Connected ✅");
 
@@ -38,3 +35,4 @@ mongoose.connect(process.env.MONGODB_URL, {
 .catch((err) => {
   console.error("❌ MongoDB Connection Error:", err);
 });
+
