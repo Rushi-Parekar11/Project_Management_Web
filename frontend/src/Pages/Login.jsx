@@ -181,7 +181,7 @@ function Login() {
             </div>
           </div>
 
-          <GoogleOAuthProvider clientId='189981361244-85fhqkq3hvcu65m23br947arg40u0e3o.apps.googleusercontent.com'>
+          {/* <GoogleOAuthProvider clientId='189981361244-85fhqkq3hvcu65m23br947arg40u0e3o.apps.googleusercontent.com'>
             <div className="flex justify-center">
               <GoogleLogin
                 theme="outline"
@@ -192,7 +192,7 @@ function Login() {
                 text="signin_with"
               />
             </div>
-          </GoogleOAuthProvider>
+          </GoogleOAuthProvider> */}
         </form>
 
 
