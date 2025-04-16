@@ -82,8 +82,6 @@ router.post('/login', loginValidation, async (req, res) => {
 });
 
 
-
-
 //// Project create route
  router.post('/:name/dashboard', projectcreateValidation, async (req, res) => {
   const { projectname, discription, type } = req.body;
@@ -199,7 +197,7 @@ router.get('/documentation/:projectName', async (req, res) => {
 /// fetch all projects for Global portfolio
 router.get('/GlobalPortfolio/projects', async (req, res) => {
   try {
-    const projects = await Project.find().populate('createdby', 'email name');
+    const projects = await Project.find().populate('createdby', 'email name saved' ,);
     res.status(200).json(projects);
   } catch (error) {
     console.log(error);
@@ -243,7 +241,6 @@ router.post('/project/:projectname', async (req, res) => {
 });
 
 
-//Add textdocs
 // Route for adding text data
 router.post('/project/:projectname/textdocs', async (req, res) => {
   const { TextDocsObject } = req.body;
@@ -380,5 +377,35 @@ router.post('/project/:projectname/docfile', async (req, res) => {
 });
 
 
+/// Route for save project in GlobalPortfolio page
+router.post('/GlobalPortfolio/projects/save' , async (req , res) => {
+  const {email,ProjectId} = req.body;
+  if (!email || !ProjectId ){
+    return res.status(400).json({ message: 'email and id is required' });
+  }
+  
+  try {
+    const user = await User.findOne({email})
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    if (user.saved.includes(ProjectId)) {
+      user.saved = user.saved.filter(id => id.toString() !== ProjectId.toString());
+      await user.save();
+      return res.status(200).json({ message: 'Project removed from saved list' });
+    } 
+    else {
+      user.saved.push(ProjectId);
+      await user.save();
+      return res.status(200).json({ message: 'Project added to saved list' });
+    }
+
+  } catch (error) {
+    console.error('Error project Saving:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+  
+})
 
 module.exports = router

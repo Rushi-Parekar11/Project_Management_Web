@@ -85,7 +85,7 @@ function Guide() {
                 <div className="absolute -bottom-2 -right-2 w-full h-full bg-[#e19917] rounded-sm z-0"></div>
                 <div className="relative z-10 border-2 border-gray-400 rounded-sm max-w-[500px] h-auto bg-white">
                   <img
-                    src="https://res.cloudinary.com/dqw9hj5x6/image/upload/v1744360482/Screenshot_67_wstmjh.png"
+                    src="https://res.cloudinary.com/dqw9hj5x6/image/upload/v1744638479/Screenshot_67_xc3gwk.png"
                     className="rounded-sm"
                     alt="dashboard image"
                   />
@@ -103,7 +103,7 @@ function Guide() {
                 <div className="absolute -bottom-2 -right-2 w-full h-full bg-[#e19917] rounded-sm z-0"></div>
                 <div className="relative z-10 border-2 border-gray-400 rounded-sm max-w-[500px] h-auto bg-white">
                   <img
-                    src="https://res.cloudinary.com/dqw9hj5x6/image/upload/v1744361564/Screenshot_68_bedmpp.png"
+                    src="https://res.cloudinary.com/dqw9hj5x6/image/upload/v1744638814/Screenshot_68_k4ed8k.png"
                     className="rounded-sm"
                     alt="dashboard image"
                   />
@@ -126,7 +126,7 @@ function Guide() {
                 <div className="absolute -bottom-2 -right-2 w-full h-full bg-[#e19917] rounded-sm z-0"></div>
                 <div className="relative z-10 border-2 border-gray-400 rounded-sm max-w-[300px] h-auto bg-white">
                   <img
-                    src="https://res.cloudinary.com/dqw9hj5x6/image/upload/v1744362414/zepto_2_pbr8fu.png"
+                    src="https://res.cloudinary.com/dqw9hj5x6/image/upload/v1744638938/zepto_3_xxctct.png"
                     className="rounded-sm"
                     alt="dashboard image"
                   />
@@ -144,7 +144,7 @@ function Guide() {
                 <div className="absolute -bottom-2 -right-2 w-full h-full bg-[#e19917] rounded-sm z-0"></div>
                 <div className="relative z-10 border-2 border-gray-400 rounded-sm max-w-[410px] h-auto bg-white">
                   <img
-                    src="https://res.cloudinary.com/dqw9hj5x6/image/upload/v1744362892/Screenshot_69_r8a56t.png"
+                    src="https://res.cloudinary.com/dqw9hj5x6/image/upload/v1744638479/Screenshot_67_xc3gwk.png"
                     className="rounded-sm"
                     alt="dashboard image"
                   />

@@ -94,15 +94,14 @@ function YourProject() {
           ))
         ) : (
           <div className="h-[305px] w-full md:w-[770px] flex items-center justify-center flex-col">
-            <img src={NoProjects} alt="No projects" className="w-12 h-12 object-contain" />
-            <h1 className='text-xl md:text-2xl font-bold mt-2'>No Projects Found</h1>
+            <img src="https://img.freepik.com/free-vector/hand-drawn-no-data-concept_52683-127823.jpg?semt=ais_hybrid&w=740" alt="No projects" className="h-[230px] object-contain" />
+            <h1 className='text-xl text-[#7684f1] md:text-2xl font-bold mt-2'>No Projects Found</h1>
           </div>
         )}
       </div>
 
-      <hr className="w-full md:w-[95%] mt-8 md:mt-10 mb-4 border border-[#cacaca]" />
 
-      <div className="h-[100px] md:h-[130px] w-full flex justify-center">
+      {/* <div className="h-[100px] md:h-[130px] w-full flex justify-center">
         <div className="h-full w-full md:w-[48%] flex justify-center items-center">
           <button
             onClick={() => setIsModalOpen(true)}
@@ -111,7 +110,7 @@ function YourProject() {
             <Plus className='h-5 w-5' /> Start New Project
           </button>
         </div>
-      </div>
+      </div> */}
 
       {/* Modal */}
       {isModalOpen && (

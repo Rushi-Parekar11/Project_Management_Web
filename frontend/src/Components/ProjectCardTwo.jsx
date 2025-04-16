@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Ellipsis, Calendar1, ExternalLink, LockOpen, ClockAlert, UserPen,Mail ,ArrowUpRight, UserRound, Copy, Star } from 'lucide-react';
 import ProgressBar from './ProgressBar';
+import { TiStarOutline,TiStarFullOutline  } from "react-icons/ti";
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 
 function ProjectCardTwo({ project }) {
   const navigate = useNavigate();
@@ -28,8 +31,41 @@ function ProjectCardTwo({ project }) {
   const handleCopy = async () => {
       await navigator.clipboard.writeText(window.location.href)
   };
+
+  const [save, setSave] = useState(false);
+  const [sendSaveData, setSendSaveData] = useState({
+    email: '',
+    ProjectId: ''
+  });
   
-  console.log(project)
+  const handleSave =async () => {
+    const newSaveState = !save;
+    setSave(newSaveState);
+  
+    const updatedData = {
+      email: project.createdby?.email,
+      ProjectId: project._id
+    };
+
+    try {
+      const res = await axios.post("http://localhost:8081/GlobalPortfolio/projects/save", updatedData);
+      toast.success(res.data.message); // success message from backend
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong while saving the project.");
+    }
+
+  };
+  
+  useEffect(() => {
+    const isSaved = project?.createdby?.saved?.includes(project._id);
+    setSave(isSaved);
+  }, [project._id, project.createdby?.saved]);
+  
+
+
+ console.log(project)
+  console.log(save)
 
   return (
     <>
@@ -69,7 +105,7 @@ function ProjectCardTwo({ project }) {
 
         <hr className='w-[94%] my-3 ml-2 text-gray-300 mt-8' />
 
-        <div className="px-4 mt-2 text-gray-600 flex gap-5">
+        <div className="px-4 mt-2 text-gray-600 flex gap-5 items-center">
           <div className="flex gap-4">
             {/* Copy Icon with tooltip */}
             <div className="relative group" onClick={handleCopy}>
@@ -96,8 +132,8 @@ function ProjectCardTwo({ project }) {
             </div>
           </div>
 
-          <div className="relative group">
-            <Star className="h-5 w-5 cursor-pointer" />
+          <div className="relative group" onClick={()=>handleSave()}>
+          {save ? <TiStarFullOutline className="h-6 w-6 cursor-pointer text-[yellow-400]" /> : <TiStarOutline className="h-6 w-6 cursor-pointer" /> }  
             <span className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 scale-0 group-hover:scale-100 transition-transform bg-black text-white text-xs px-2 py-0.5 rounded whitespace-nowrap">
               Save
             </span>
@@ -115,6 +151,17 @@ function ProjectCardTwo({ project }) {
 
         </div>
 
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
 
       </div>
     </>

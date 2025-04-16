@@ -37,12 +37,6 @@ const ProjectSchema = new mongoose.Schema({
       ref: "User",
     }
   ],
-  saved: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-    } 
-  ],
   docText: [
     {
       textname: { type: String, required: true },  

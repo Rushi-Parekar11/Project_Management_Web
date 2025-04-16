@@ -43,7 +43,6 @@ function DashBoard() {
     { name: 'Saved', icon: Star },
     { name: 'Workmates', icon: Users },
     { name: 'Calendar', icon: CalendarRange },
-    { name: 'Filters', icon: ListFilterPlus }
   ];
 
   const renderContent = () => {
@@ -56,8 +55,6 @@ function DashBoard() {
         return <Workmates />;
       case 'Calendar':
         return <Calendar />;
-      case 'Filters':
-        return <Saved />;
       default:
         return <YourProject />;
     }
@@ -107,6 +104,10 @@ function DashBoard() {
               <span className="text-sm font-medium">{name}</span>
             </li>
           ))}
+
+          
+
+
 
           <hr className='mr-4 my-5 border-[#cacaca]' />
 

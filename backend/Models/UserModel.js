@@ -18,7 +18,13 @@ const UserSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "Project",
     }
-  ]
+  ],
+    saved: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Project",
+      } 
+    ],
 }, { timestamps: true });
 
 const User = mongoose.model("User", UserSchema);

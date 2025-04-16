@@ -17,7 +17,7 @@ function ProfilePage() {
     const fetchProjects = async () => {
       setLoading(true)
       try {
-        const response = await fetch(`http://localhost:8081/${username}`);
+        const response = await fetch(`http://localhost:8081/profile/${username}`);
         const data = await response.json();
         setuserinfo(data.user)
       //  setLoading(false)
@@ -79,7 +79,7 @@ function ProfilePage() {
     <div className="w-full min-h-[200px] py-4 px-2 flex flex-wrap gap-8 pl-7">
     {projects.length > 0 ?   projects.map((project, index) => (
   <ProjectCardThree key={index} data={project} className='cursor-pointer' />
-)) :  <div> <img src={NoProjects} alt="no Projects" className='h-[130px]'/> <h1 className='font-semibold ml-4'>No Projects Found</h1></div> }
+)) :  <div> <img src="https://img.freepik.com/free-vector/hand-drawn-no-data-concept_52683-127823.jpg?semt=ais_hybrid&w=740" alt="no Projects" className='h-[230px]'/> <h1 className='font-semibold ml-[70px]'>No Projects Found</h1></div> }
 </div>
     </div>
 
