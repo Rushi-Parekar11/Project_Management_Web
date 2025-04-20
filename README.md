@@ -1,8 +1,11 @@
-# 🚀 **DOKJAN** – *Your Complete Project Documentation & Management Tool*
+# 🚀 **DOKJAN** – *Complete Project Documentation & Management Tool*
+![Screenshot 2025-04-20 165917](https://github.com/user-attachments/assets/5005b1e1-34da-4818-a638-a0a4ded276c4)
+
 
 > 📘 **DOKJAN** is a modern web-based platform that helps students and teams manage project documentation and collaborate seamlessly — all in one place.
 
 ---
+
 
 ## 🧠 **What is DOKJAN?**
 
@@ -44,10 +47,8 @@
 - 🔐 **JWT Authentication & Encrypted Data**
 - 👤 **Google Sign-In Integration**
 
----
 
-## 🖼️ **Screenshots**
-> *(Include screenshots of key features like dashboard, documentation upload, team view, public project profile, etc.)*
+
 
 ---
 
@@ -62,5 +63,12 @@
 
 ---
 
-## 📂 Folder Structure (Optional)
+![Screenshot (69)](https://github.com/user-attachments/assets/377f910e-f7f7-48e7-a80d-8c05568da535)
+![Screenshot_68_k4ed8k](https://github.com/user-attachments/assets/91bcc268-57ae-4ad2-a077-f434bfad4e50)
+![zepto_3_xxctct](https://github.com/user-attachments/assets/3166f5bf-589e-495a-add5-cdc4d16ea225)
 
+
+
+---
+
+> 🧾 *“Digitize. Document. Deliver.”* – **DOKJAN**
