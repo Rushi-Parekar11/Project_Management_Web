@@ -408,4 +408,35 @@ router.post('/GlobalPortfolio/projects/save' , async (req , res) => {
   
 })
 
+
+/// Route for Displayed Saved Project In saved page 
+router.get('/:username/dashboard/displaysave', async (req, res) => {
+  const { username } = req.params;
+
+  try {
+    const user = await User.findOne({ name: username }).populate({
+      path: 'saved',
+      model: 'Project',
+      populate: {
+        path: 'createdby', // this should match the field in your Project model that references User
+        model: 'User',
+        select: 'email' // we only need email from creator
+      },
+      select: 'projectname createdby type updatedAt' // project fields you want to send
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json({
+      savedProjects: user.saved
+    });
+
+  } catch (error) {
+    console.error('Error fetching saved projects:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
 module.exports = router
