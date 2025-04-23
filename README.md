@@ -71,4 +71,4 @@
 
 ---
 
-> 🧾 *“Digitize. Document. Deliver.”* – **DOKJAN**
+> 🧾 *“Digitize. Document.  Deliver.”* – **DOKJAN**
