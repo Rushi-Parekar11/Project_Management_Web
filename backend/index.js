@@ -10,11 +10,7 @@ const PORT = process.env.PORT;
 
 // In your backend entry file
 app.use(cors({
-  origin: [
-    'https://dokjan.vercel.app',
-    'http://localhost:5173',
-    'http://localhost:5174'
-  ],
+  origin: ['*'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
