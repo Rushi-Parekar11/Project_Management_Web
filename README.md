@@ -2,7 +2,7 @@
 ![Screenshot 2025-04-20 165917](https://github.com/user-attachments/assets/5005b1e1-34da-4818-a638-a0a4ded276c4)
 
 
-> 📘 **DOKJAN** is a modern web-based platform that helps students and teams manage project documentation and collaborate seamlessly — all in one place.
+> 📘 **DOKJAN** is a modern web-based platform that helps students and teams manage project documentation and collaborate seamlessly —all in one place.
 
 ---
 
@@ -71,4 +71,4 @@
 
 ---
 
-> 🧾 *“Digitize. Document. Deliver.”* – **DOKJAN**
+> 🧾 *“Digitize. Document.  Deliver.”* – **DOKJAN**
