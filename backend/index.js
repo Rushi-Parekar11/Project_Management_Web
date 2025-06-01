@@ -9,11 +9,7 @@ const cors = require("cors");
 const PORT = process.env.PORT;
 
 // In your backend entry file
-app.use(cors({
-  origin: ['*'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true
-}));
+app.use(cors());
 
 // Handle preflight
 app.options('*', cors());
