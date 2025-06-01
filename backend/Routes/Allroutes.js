@@ -20,6 +20,7 @@ router.get('/',(req,res)=>{
 router.get('/run',(req,res)=>{
 res.send('running !');
 })
+
 //// signup route 
 router.post('/signup', signupValidation,async(req,res)=>{
     try {

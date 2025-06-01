@@ -1,6 +1,7 @@
 import React from 'react'
 import { Calendar1, Ellipsis, ExternalLink, LockOpen, ClockAlert, UserRound, Users, Paperclip,ArrowUpRight  } from 'lucide-react';
 import { RiImageAddFill } from "react-icons/ri";
+import { FaUserAlt } from "react-icons/fa";
 import { FaClockRotateLeft } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
 
@@ -28,7 +29,7 @@ function ProjectCardThree({data}) {
                             <h1 className="text-[15px] font-bold text-[#2f3035] ">{data.projectname}</h1>
                             <h1 className="text-[12px] text-gray-700">{data.type}</h1>
                         </div>
-                        <span className='h-7 w-7 items-center flex justify-center rounded-full hover:bg-[#e7e7e7]'><ArrowUpRight className="text-gray-500 h-5 w-5" /></span>
+                        <span className='h-7 w-7 items-center flex justify-center rounded-full hover:bg-[#e7e7e7] cursor-pointer ' onClick={()=>navigate(`/documentation/${data.projectname}`)}><ArrowUpRight className="text-gray-500 h-5 w-5" /></span>
                     </div>
                 </div>
 
@@ -39,7 +40,7 @@ function ProjectCardThree({data}) {
                 </div>
 
                 {/* image div */}
-                <div className="w-full px-2 mt-2 relative group">
+                <div className="w-full px-2 mt-2 relative group cursor-pointer">
                     <img
                         src="https://thingscareerrelated.com/wp-content/uploads/2021/10/default-background-image.png"
                         alt="Project Preview"
