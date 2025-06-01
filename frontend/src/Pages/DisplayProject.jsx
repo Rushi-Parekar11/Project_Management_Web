@@ -10,6 +10,7 @@ import ImageSlider from '../Components/ImageSlider';
 import SkProjectCardFive from '../Skeleton Compo/SkProjectCardFive';
 import html2canvas from 'html2canvas';
 import { useRef } from 'react';
+import { host } from '../api';
 
 
 function DisplayProject() {
@@ -38,7 +39,7 @@ function DisplayProject() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`http://localhost:8081/documentation/${projectName}`);
+        const res = await axios.get(`${host}/documentation/${projectName}`);
         setProjectData(res.data);
         setFiles(res.data.docFile || []);
         setImageLength(res.data.docImage?.length || 0);

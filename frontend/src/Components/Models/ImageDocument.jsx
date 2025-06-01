@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { CloudUpload } from 'lucide-react';
 import { useParams } from 'react-router-dom';
 import ClipLoader from "react-spinners/ClipLoader";
+import { host } from '../../api';
 
 function ImageDocument({ onClose,projectName }) {
   const { project } = useParams();
@@ -67,7 +68,7 @@ function ImageDocument({ onClose,projectName }) {
           const user = JSON.parse(localStorage.getItem("user"));
 
           // Now send to your backend
-          const backendRes = await fetch(`http://localhost:8081/project/${projectName}/docimage`, {
+          const backendRes = await fetch(`${host}/project/${projectName}/docimage`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json"

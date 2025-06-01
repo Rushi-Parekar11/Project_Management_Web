@@ -5,6 +5,7 @@ import ProjectForm from '../Components/ProjectForm';
 import SkeletonCard from '../Skeleton Compo/SkProjectCardOne';
 import { useNavigate } from 'react-router-dom';
 import NoProjects from '../assets/NoProjects.png'
+import { host } from '../api';
 
 function YourProject() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,7 +21,7 @@ function YourProject() {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await fetch(`http://localhost:8081/${username}/dashboard`);
+        const response = await fetch(`${host}/${username}/dashboard`);
         const data = await response.json();
         if (data.projects) {
           setProjects(data.projects);

@@ -4,6 +4,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import ClipLoader from "react-spinners/ClipLoader";
+import { host } from "../api";
 
 
 export default function ProjectForm({ onClose, username }) {
@@ -26,7 +27,7 @@ export default function ProjectForm({ onClose, username }) {
 
     e.preventDefault();
     try {
-      const response = await axios.post(`http://localhost:8081/${username}/dashboard`, {
+      const response = await axios.post(`${host}/${username}/dashboard`, {
         projectname: project.name,
         discription: project.description,
         type: project.type

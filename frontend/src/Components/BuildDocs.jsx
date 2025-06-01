@@ -9,6 +9,7 @@ import { AlignLeft, Copy, ExternalLink, Eye, FileChartPie, Play, UserPlus, Plus,
 import { LiaDownloadSolid } from "react-icons/lia";
 import PreviewImageSlider from './PreviewImageSlider';
 import SkProjectCardFour from '../Skeleton Compo/SkProjectCardFour';
+import { host } from '../api';
 
 
 
@@ -41,7 +42,7 @@ function BuildDocs() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`http://localhost:8081/project/${projectName}`);
+        const res = await axios.get(`${host}/project/${projectName}`);
         setProjectData(res.data);
         setFiles(res.data.docFile || []);
         setImageLength(res.data.docImage?.length || 0);

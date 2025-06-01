@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast, ToastContainer } from "react-toastify";
 import ClipLoader from "react-spinners/ClipLoader";
+import { host } from '../../api';
 
 
 function TextDocumentModel({ onClose }) {
@@ -30,7 +31,7 @@ function TextDocumentModel({ onClose }) {
         }
 
         try {
-            const response = await axios.post(`http://localhost:8081/project/${projectName}/textdocs`, { TextDocsObject: textDocs });
+            const response = await axios.post(`${host}/project/${projectName}/textdocs`, { TextDocsObject: textDocs });
 
             if (response.status === 200) {
                 toast.success("Text Data Added Successfully!");

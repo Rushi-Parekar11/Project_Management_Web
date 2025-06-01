@@ -4,6 +4,7 @@ import { Ellipsis, Calendar1, ExternalLink, LockOpen, ClockAlert, UserPen, Mail,
 import { TiStarOutline, TiStarFullOutline } from "react-icons/ti";
 import { toast, ToastContainer } from 'react-toastify';
 import axios from 'axios';
+import { host } from '../api';
 
 function ProjectCardFour({project}) {
       const navigate = useNavigate();
@@ -24,7 +25,7 @@ function ProjectCardFour({project}) {
           };
       
           try {
-            const res = await axios.post("http://localhost:8081/GlobalPortfolio/projects/save", updatedData);
+            const res = await axios.post(`${host}/GlobalPortfolio/projects/save`, updatedData);
             toast.success(res.data.message);
             window.location.reload();
           } catch (error) {

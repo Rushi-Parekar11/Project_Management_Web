@@ -4,6 +4,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import ClipLoader from "react-spinners/ClipLoader";
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from "jwt-decode";
+import { host } from '../api';
 
 function Signup() {
   const [SignupInfo, setSignupInfo] = useState({
@@ -25,7 +26,7 @@ function Signup() {
       return;
     }
     try {
-      const url = "http://localhost:8081/signup";
+      const url = `${host}/signup`;
       const response = await fetch(url, {
         method: "POST",
         headers: {

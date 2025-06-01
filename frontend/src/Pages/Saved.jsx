@@ -5,6 +5,7 @@ import { TiStarOutline, TiStarFullOutline } from "react-icons/ti";
 import { toast, ToastContainer } from 'react-toastify';
 import ProjectCardFour from '../Components/ProjectCardFour';
 import SkProjectCardSeven from '../Skeleton Compo/SkProjectCardSeven';
+import { host } from '../api';
 
 function Saved() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -19,7 +20,7 @@ function Saved() {
     setIsLogin(true);
     const fetchdata = async () => {
       try {
-        const res = await axios.get(`http://localhost:8081/${username}/dashboard/displaysave`);
+        const res = await axios.get(`${host}/${username}/dashboard/displaysave`);
         setdisprojects(res.data.savedProjects);
         console.log(disprojects);
         setIsLogin(false)

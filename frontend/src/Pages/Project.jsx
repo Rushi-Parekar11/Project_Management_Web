@@ -10,6 +10,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import ClipLoader from "react-spinners/ClipLoader";
 import SkProjectCardThree from '../Skeleton Compo/SkProjectCardThree';
 import { FaUserGroup } from "react-icons/fa6";
+import { host } from '../api';
 
 function Project() {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,7 +31,7 @@ function Project() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const res = await axios.get(`http://localhost:8081/project/${projectName}`);
+        const res = await axios.get(`${host}/project/${projectName}`);
         setProjectData(res.data);
         setLoading(false);
       } catch (err) {
@@ -87,7 +88,7 @@ function Project() {
     setContributorLoading(true);
   
     try {
-      const res = await fetch(`http://localhost:8081/project/${projectData.projectname}`, {
+      const res = await fetch(`${host}/project/${projectData.projectname}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: contributorEmail }),

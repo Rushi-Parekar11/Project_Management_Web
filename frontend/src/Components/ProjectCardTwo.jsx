@@ -5,6 +5,7 @@ import { TiStarOutline,TiStarFullOutline  } from "react-icons/ti";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
+import { host } from '../api';
 
 function ProjectCardTwo({ project }) {
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ function ProjectCardTwo({ project }) {
     };
 
     try {
-      const res = await axios.post("http://localhost:8081/GlobalPortfolio/projects/save", updatedData);
+      const res = await axios.post(`${host}/GlobalPortfolio/projects/save`, updatedData);
       toast.success(res.data.message); // success message from backend
     } catch (error) {
       console.log(error);

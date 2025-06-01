@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ChevronDown, Trash2 } from 'lucide-react';
 import axios from 'axios';
+import { host } from '../api';
 
 const TaskManager = ({ projectName }) => {
   const [task, setTask] = useState('');
@@ -12,7 +13,7 @@ const TaskManager = ({ projectName }) => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const res = await axios.get(`http://localhost:8081/${projectName}`);
+        const res = await axios.get(`${host}/${projectName}`);
         setTasks(res.data.tasks || []);
       } catch (err) {
         console.error("Error fetching tasks:", err);
@@ -24,7 +25,7 @@ const TaskManager = ({ projectName }) => {
 
   const saveTasksToDB = async (updatedTasks) => {
     try {
-      await axios.put(`https://project-management-web-backend.vercel.app/project/${projectName}`, {
+      await axios.put(`${host}/project/${projectName}`, {
         tasks: updatedTasks,
       });
     } catch (error) {

@@ -7,6 +7,7 @@ import SkProjectCardSix from '../Skeleton Compo/SkProjectCardSix';
 import axios from 'axios';
 import { FaUserAlt } from "react-icons/fa";
 import { MdOutlineMailOutline } from "react-icons/md";
+import { host } from '../api';
 
 
 
@@ -21,7 +22,7 @@ function ProfilePage() {
     const fetchData = async () => {
       try {
         setLoading(true)
-        const res = await axios.get(`http://localhost:8081/${username}/dashboard`);
+        const res = await axios.get(`${host}/${username}/dashboard`);
         setProjects(res.data.projects);
                 setLoading(false)
       } catch (error) {

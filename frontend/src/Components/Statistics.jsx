@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { TrendingUp } from "lucide-react"
+import { host } from '../api';
 
 function Statistics() {
   const { projectName } = useParams(); 
@@ -10,7 +11,7 @@ function Statistics() {
   useEffect(() => {
       const fetchdata = async() =>{
         try {
-          const res = await axios.get(`http://localhost:8081/${projectName}`);
+          const res = await axios.get(`${host}/${projectName}`);
            settasks(res.data.tasks);
         } catch (error) {
           console.log(error)

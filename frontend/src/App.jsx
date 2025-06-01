@@ -12,6 +12,7 @@ import Cluster from './Pages/Cluster'
 import Guide from './Pages/Guide'
 import Legal from './Pages/Legal'
 import { ToastContainer } from 'react-toastify'
+import { host } from './api'
 
 import { Route, Routes } from 'react-router-dom'
 function App() {
