@@ -52,8 +52,8 @@ function ProfilePage() {
             </div>
 
             <div className="w-full flex justify-between h-[10vh] mt-[55px]">
-              <div className='w-[20%] pl-[100px] items-center flex h-full  '><h1 className='text-2xl  font-bold'>{username}</h1> <MdOutlineMailOutline className='hover:bg-gray-300'/>
-               <h2 className='text-sm ml-6'>test@gmail.com</h2></div>
+              <div className='w-[20%] pl-[95px] items-center flex h-full  '><h1 className='text-2xl  font-bold'>{username}</h1> 
+          </div>
               <div className="flex gap-1 mt-2 pr-3">
                 <div className="h-[40px] w-[40px] rounded-full flex items-center justify-center hover:bg-gray-300"><Copy className='h-[20px] w-[20px]' /></div>
                 <div className="h-[40px] w-[40px] rounded-full flex items-center justify-center hover:bg-gray-300"><Pencil className='h-[20px] w-[20px]' /></div>
