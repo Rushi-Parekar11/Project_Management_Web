@@ -31,7 +31,7 @@ function Project() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const res = await axios.get(`${host}/project/${projectName}`);
+        const res = await axios.get(`${host}project/${projectName}`);
         setProjectData(res.data);
         setLoading(false);
       } catch (err) {
