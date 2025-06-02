@@ -20,7 +20,7 @@ function Saved() {
     setIsLogin(true);
     const fetchdata = async () => {
       try {
-        const res = await axios.get(`${host}/${username}/dashboard/displaysave`);
+        const res = await axios.get(`${host}${username}/dashboard/displaysave`);
         setdisprojects(res.data.savedProjects);
         console.log(disprojects);
         setIsLogin(false)

@@ -25,7 +25,7 @@ function ProjectCardFour({project}) {
           };
       
           try {
-            const res = await axios.post(`${host}/GlobalPortfolio/projects/save`, updatedData);
+            const res = await axios.post(`${host}GlobalPortfolio/projects/save`, updatedData);
             toast.success(res.data.message);
             window.location.reload();
           } catch (error) {

@@ -88,7 +88,7 @@ function Project() {
     setContributorLoading(true);
   
     try {
-      const res = await fetch(`${host}/project/${projectData.projectname}`, {
+      const res = await fetch(`${host}project/${projectData.projectname}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: contributorEmail }),

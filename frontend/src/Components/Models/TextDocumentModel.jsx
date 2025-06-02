@@ -31,7 +31,7 @@ function TextDocumentModel({ onClose }) {
         }
 
         try {
-            const response = await axios.post(`${host}/project/${projectName}/textdocs`, { TextDocsObject: textDocs });
+            const response = await axios.post(`${host}project/${projectName}/textdocs`, { TextDocsObject: textDocs });
 
             if (response.status === 200) {
                 toast.success("Text Data Added Successfully!");

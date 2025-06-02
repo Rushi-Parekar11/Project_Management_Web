@@ -72,7 +72,7 @@ function FileDocument({ onClose, projectName }) {
       const user = JSON.parse(localStorage.getItem("user"));
  
       // Now send to your backend
-      const backendRes = await fetch(`${host}/project/${projectName}/docfile`, {
+      const backendRes = await fetch(`${host}project/${projectName}/docfile`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

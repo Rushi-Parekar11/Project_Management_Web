@@ -13,7 +13,7 @@ const TaskManager = ({ projectName }) => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const res = await axios.get(`${host}/${projectName}`);
+        const res = await axios.get(`${host}${projectName}`);
         setTasks(res.data.tasks || []);
       } catch (err) {
         console.error("Error fetching tasks:", err);
@@ -25,7 +25,7 @@ const TaskManager = ({ projectName }) => {
 
   const saveTasksToDB = async (updatedTasks) => {
     try {
-      await axios.put(`${host}/project/${projectName}`, {
+      await axios.put(`${host}project/${projectName}`, {
         tasks: updatedTasks,
       });
     } catch (error) {

@@ -22,7 +22,7 @@ function ProfilePage() {
     const fetchData = async () => {
       try {
         setLoading(true)
-        const res = await axios.get(`${host}/${username}/dashboard`);
+        const res = await axios.get(`${host}${username}/dashboard`);
         setProjects(res.data.projects);
                 setLoading(false)
       } catch (error) {

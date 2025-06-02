@@ -42,7 +42,7 @@ function BuildDocs() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`${host}/project/${projectName}`);
+        const res = await axios.get(`${host}project/${projectName}`);
         setProjectData(res.data);
         setFiles(res.data.docFile || []);
         setImageLength(res.data.docImage?.length || 0);

@@ -11,7 +11,7 @@ function Statistics() {
   useEffect(() => {
       const fetchdata = async() =>{
         try {
-          const res = await axios.get(`${host}/${projectName}`);
+          const res = await axios.get(`${host}${projectName}`);
            settasks(res.data.tasks);
         } catch (error) {
           console.log(error)

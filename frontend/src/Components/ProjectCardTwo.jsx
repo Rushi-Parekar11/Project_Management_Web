@@ -49,7 +49,7 @@ function ProjectCardTwo({ project }) {
     };
 
     try {
-      const res = await axios.post(`${host}/GlobalPortfolio/projects/save`, updatedData);
+      const res = await axios.post(`${host}GlobalPortfolio/projects/save`, updatedData);
       toast.success(res.data.message); // success message from backend
     } catch (error) {
       console.log(error);

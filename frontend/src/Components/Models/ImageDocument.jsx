@@ -68,7 +68,7 @@ function ImageDocument({ onClose,projectName }) {
           const user = JSON.parse(localStorage.getItem("user"));
 
           // Now send to your backend
-          const backendRes = await fetch(`${host}/project/${projectName}/docimage`, {
+          const backendRes = await fetch(`${host}project/${projectName}/docimage`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
