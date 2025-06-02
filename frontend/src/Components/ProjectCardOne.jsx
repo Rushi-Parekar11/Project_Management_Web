@@ -56,6 +56,7 @@ function SkProjectCardOne({ project }) {
           <span >{timeAgo}</span>
         </div>
 
+
         <div className="flex items-center space-x-[-10px] sm:space-x-[-12px]">
           {[1, 2, 3].map((_, index) => (
             <div 
