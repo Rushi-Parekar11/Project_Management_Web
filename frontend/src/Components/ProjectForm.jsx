@@ -27,7 +27,7 @@ export default function ProjectForm({ onClose, username }) {
 
     e.preventDefault();
     try {
-      const response = await axios.post(`${host}/${username}/dashboard`, {
+      const response = await axios.post(`${host}${username}/dashboard`, {
         projectname: project.name,
         discription: project.description,
         type: project.type
