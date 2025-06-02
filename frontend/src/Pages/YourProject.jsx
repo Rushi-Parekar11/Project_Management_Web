@@ -21,7 +21,7 @@ function YourProject() {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await fetch(`${host}/${username}/dashboard`);
+        const response = await fetch(`${host}${username}/dashboard`);
         const data = await response.json();
         if (data.projects) {
           setProjects(data.projects);
