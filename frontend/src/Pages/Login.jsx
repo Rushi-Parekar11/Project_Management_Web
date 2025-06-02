@@ -90,7 +90,7 @@ function Login() {
   
     try {
       setLoading(true);
-      const url = `${host}/login`;
+      const url = `${host}login`;
       const response = await fetch(url, {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
