@@ -51,9 +51,9 @@ function SkProjectCardOne({ project }) {
       <hr className='my-3 sm:my-4 md:my-[20px] mx-3 sm:mx-4' />
 
       <div className="px-3 sm:px-4 mt-4 sm:mt-6 md:mt-10 flex justify-between items-center">
-        <div className="h-7 sm:h-8 w-[80px] sm:w-[90px] bg-[#e7e7e7] flex items-center justify-center text-xs text-gray-700 gap-1 rounded">
+        <div className="h-7 sm:h-8 w-[80px] sm:w-[90px] bg-[#e7e7e7] flex items-center justify-center text-[10px] text-gray-700 gap-1 rounded">
           <ClockAlert className="h-3 w-3 sm:h-4 sm:w-4" />
-          <span>{timeAgo}</span>
+          <span >{timeAgo}</span>
         </div>
 
         <div className="flex items-center space-x-[-10px] sm:space-x-[-12px]">

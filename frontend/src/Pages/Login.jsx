@@ -181,19 +181,6 @@ function Login() {
               <span className="px-2 bg-white text-sm text-gray-500">Or continue with</span>
             </div>
           </div>
-
-          <GoogleOAuthProvider clientId='189981361244-85fhqkq3hvcu65m23br947arg40u0e3o.apps.googleusercontent.com'>
-            <div className="flex justify-center">
-              <GoogleLogin
-                theme="outline"
-                size="medium"
-                width="100%"
-                onSuccess={authOnSuccess}
-                onError={authOnError}
-                text="signin_with"
-              />
-            </div>
-          </GoogleOAuthProvider>
         </form>
 
 

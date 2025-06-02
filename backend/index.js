@@ -16,22 +16,18 @@ app.options('*', cors());
 app.use(bodyParser.json());
 app.use('/', router);
 
-app.get('/', (req, res) => {
-  res.send("hii");
-});
-
 app.get('/ping', (req, res) => {
   res.send("PONGG");
 });
 
 mongoose.connect(process.env.MONGODB_URL)
 .then(() => {
-  console.log("MongoDB Connected ✅");
+  console.log("MongoDB Connected ");
 })
 .catch((err) => {
-  console.error("❌ MongoDB Connection Error:", err);
+  console.error(" MongoDB Connection Error:", err);
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`);
+  console.log(` Server running at http://localhost:${PORT}`);
 });
