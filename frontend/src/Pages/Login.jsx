@@ -181,6 +181,7 @@ function Login() {
               <span className="px-2 bg-white text-sm text-gray-500">Or continue with</span>
             </div>
           </div>
+
         </form>
 
 
