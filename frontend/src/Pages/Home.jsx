@@ -94,7 +94,7 @@ function Home() {
                       onClick={goToYourWork}
                       className="cursor-pointer group relative border w-28 h-8 sm:w-40 sm:h-10 rounded-3xl bg-black text-white flex items-center justify-center z-10 overflow-hidden transition-all duration-500"
                     >
-                      <span className="group-hover:translate-y-[-150%] absolute transition-all duration-500 text-sm sm:text-base">
+                      <span className="group-hover:translate-y-[-150%] absolute transition-all duration-500 text-[9px] sm:text-base">
                         Try DokJan for Free
                       </span>
                       <span className="flex items-center gap-1 opacity-0 translate-y-[150%] group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-in-out text-sm">
