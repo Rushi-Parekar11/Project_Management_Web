@@ -1,73 +1,73 @@
-import React from 'react'
-import { Calendar1, Ellipsis, ExternalLink, LockOpen, ClockAlert, UserRound, Users, Paperclip,ArrowUpRight  } from 'lucide-react';
+import React from 'react';
+import { Users, Paperclip } from 'lucide-react';
 import { RiImageAddFill } from "react-icons/ri";
-import { FaUserAlt } from "react-icons/fa";
 import { FaClockRotateLeft } from "react-icons/fa6";
+import { ArrowUpRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-function ProjectCardThree({data}) {
-    console.log(data)
-    const navigate = useNavigate();
-    //    projectname = zomato;
+function ProjectCardThree({ data }) {
+  const navigate = useNavigate();
 
-    //const createdDate = new Date(createdAt);
-    //const currentDate = new Date();
-    //const timeDiff = currentDate - createdDate;
-    //const daysAgo = Math.floor(timeDiff / (1000 * 3600 * 24));
-    //const timeAgo = daysAgo === 0 ? 'Today' : `${daysAgo} days ago`;
+  return (
+    <div
+      className="w-full sm:w-[48%] md:w-[320px] p-2 flex flex-col justify-between rounded-md shadow-sm border border-gray-300 cursor-pointer hover:shadow-md hover:border-gray-400"
+      onClick={() => navigate(`/documentation/${data.projectname}`)}
+    >
+      {/* Header */}
+      <div className="flex items-center gap-3">
+        <div className="flex-shrink-0 h-9 w-9 bg-[#776aff] text-white rounded-lg flex items-center justify-center font-bold text-lg">
+          {data.projectname ? data.projectname.substring(0, 2).toUpperCase() : 'NA'}
+        </div>
+        <div className="flex-1">
+          <h2 className="text-base font-semibold truncate">{data.projectname}</h2>
+          <p className="text-xs text-gray-600 truncate">{data.type}</p>
+        </div>
+        <ArrowUpRight className="h-5 w-5 text-gray-500" />
+      </div>
 
-    return (
-        <>
-            <div className="h-[250px] w-[330px] pb-3 justify-between flex flex-col rounded-md shadow-black hover: hover:shadow-md border-2 border-[#dddedd] hover:border-[#c2c2c2] "   >
+      {/* Creator info */}
+      <div
+        className="flex items-center gap-2 mt-2 text-xs text-gray-700 cursor-pointer"
+        onClick={e => {
+          e.stopPropagation();
+          navigate(`/profile/${data.createdby.name}`);
+        }}
+      >
+        <div className="h-5 w-5 bg-[#776aff] rounded-full flex items-center justify-center text-white text-[10px] font-semibold">
+          RU
+        </div>
+        <span className="truncate">{data.createdby.name}</span>
+      </div>
 
-                <div className="pt-2 pl-2 flex items-center justify-between pr-3 " >
-                    <div className="h-9 w-9 bg-[#776aff] font-bold text-white rounded-lg flex justify-center items-center cursor-pointer"  onClick={()=>navigate(`/documentation/${data.projectname}`)}>
-                        {data.projectname ? data.projectname.substring(0, 2).toUpperCase() : 'NA'}
-                    </div>
-                    <div className=" w-[90%] justify-between flex">
-                        <div className="pl-2 cursor-pointer"  onClick={()=>navigate(`/documentation/${data.projectname}`)}>
-                            <h1 className="text-[15px] font-bold text-[#2f3035] ">{data.projectname}</h1>
-                            <h1 className="text-[12px] text-gray-700">{data.type}</h1>
-                        </div>
-                        <span className='h-7 w-7 items-center flex justify-center rounded-full hover:bg-[#e7e7e7] cursor-pointer ' onClick={()=>navigate(`/documentation/${data.projectname}`)}><ArrowUpRight className="text-gray-500 h-5 w-5" /></span>
-                    </div>
-                </div>
+      {/* Image preview */}
+      <div className="relative mt-2 rounded overflow-hidden h-24 bg-gray-200">
+        <img
+          src="https://thingscareerrelated.com/wp-content/uploads/2021/10/default-background-image.png"
+          alt="Project Preview"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+          <RiImageAddFill className="h-6 w-6 text-white" />
+        </div>
+      </div>
 
-                <div className='flex items-center gap-2 border-[1px] rounded-lg hover:border-[#bebebe] bg-[#e7e7e7] px-[2px] py-[2px] mx-2 mt-1 cursor-pointer'  onClick={()=>navigate(`/profile/${data.createdby.name}`)}>
-                    <div className="h-4 w-4 bg-[#776aff] text-[6px] text-white rounded-full flex justify-center items-center">RU</div>
-                    <h2 className='text-[12px] font-semibold'>{data.createdby.name}</h2>
-                    <h3 className='text-[9px] mt-[1px] ml-3'>{data.createdby.email}</h3>
-                </div>
-
-                {/* image div */}
-                <div className="w-full px-2 mt-2 relative group cursor-pointer">
-                    <img
-                        src="https://thingscareerrelated.com/wp-content/uploads/2021/10/default-background-image.png"
-                        alt="Project Preview"
-                        className="rounded-sm w-full h-[100px] object-cover"
-                    />
-
-                    <div className="absolute mx-2 inset-0 bg-black bg-opacity-40 hidden group-hover:flex items-center justify-center rounded-sm transition duration-300">
-                        <RiImageAddFill className="h-6 w-6 text-white" />
-                    </div>
-                </div>
-
-
-                <div></div>
-                <div></div>
-
-
-                {/* Time and Users Info */}
-                <div className="py-0 pl-3 gap-4 flex">
-                    <div className='flex flex-col '><div className='flex items-center '><Users className='h-[13px] w-[13px]' /><h1 className='text-[13px] ml-1'>0</h1></div> <h3 className='text-[9px]'>Contributor</h3></div>
-                    <div className='flex flex-col '><div className='flex items-center '><Paperclip className='h-[13px] w-[13px]' /><h1 className='text-[13px] ml-1'>0</h1></div> <h3 className='text-[9px]'>Attachments</h3></div>
-                    <div className='flex flex-col items-center h-[24px] ml-[95px] bg-[#e7e7e7] pt-1 px-2 mt-1 py-[2px]'><div className='flex items-center '><FaClockRotateLeft className='h-[11px] w-[11px]' /><h1 className='text-[10px] ml-1'>10 daysAgo</h1></div></div>
-
-                </div>
-            </div>
-
-        </>
-    )
+      {/* Footer stats */}
+      <div className="flex justify-between items-center mt-2 text-xs text-gray-600">
+        <div className="flex items-center gap-1">
+          <Users className="h-4 w-4" />
+          <span>0 Contributors</span>
+        </div>
+        <div className="flex items-center gap-1">
+          <Paperclip className="h-4 w-4" />
+          <span>0 Attachments</span>
+        </div>
+        <div className="flex items-center gap-1">
+          <FaClockRotateLeft className="h-4 w-4" />
+          <span>10d ago</span>
+        </div>
+      </div>
+    </div>
+  );
 }
 
-export default ProjectCardThree
+export default ProjectCardThree;
