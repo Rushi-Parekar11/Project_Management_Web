@@ -34,6 +34,7 @@ function App() {
        <Route path="/profile/:username" element={<ProfilePage />} />
        <Route path="/legal" element={<Legal />} />
     </Routes>
+    
     <ToastContainer
   position="top-center"
   autoClose={1000}
