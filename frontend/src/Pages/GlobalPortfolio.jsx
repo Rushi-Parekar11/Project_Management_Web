@@ -95,19 +95,20 @@ function GlobalPortfolio() {
 
       {/* Project List */}
       <h1 className="text-lg font-semibold text-[#292a2e] mt-6">Listed All Projects</h1>
-      <div className="mt-5 flex flex-wrap gap-6 justify-center sm:justify-start">
-        {loading ? (
-          Array.from({ length: 8 }).map((_, index) => (
-            <SkProjectCardTwo key={index} />
-          ))
-        ) : filteredProjects.length > 0 ? (
-          filteredProjects.map((project) => (
-            <ProjectCardTwo key={project._id} project={project} />
-          ))
-        ) : (
-          <p className="text-gray-600 mt-4">No projects found.</p>
-        )}
-      </div>
+<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-5">
+  {loading ? (
+    Array.from({ length: 8 }).map((_, index) => (
+      <SkProjectCardTwo key={index} />
+    ))
+  ) : filteredProjects.length > 0 ? (
+    filteredProjects.map((project) => (
+      <ProjectCardTwo key={project._id} project={project} />
+    ))
+  ) : (
+    <p className="text-gray-600 mt-4 col-span-full">No projects found.</p>
+  )}
+</div>
+
     </div>
   );
 }
