@@ -33,7 +33,6 @@ function App() {
        <Route path='/guide' element={<Guide/>}/>
        <Route path="/profile/:username" element={<ProfilePage />} />
        <Route path="/legal" element={<Legal />} />
-
     </Routes>
     <ToastContainer
   position="top-center"
