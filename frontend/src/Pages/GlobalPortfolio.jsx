@@ -26,6 +26,7 @@ function GlobalPortfolio() {
         console.log(error);
       } finally {
         setLoading(false);
+        
       }
     };
     fetchdata();

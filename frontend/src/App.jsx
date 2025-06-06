@@ -35,6 +35,7 @@ function App() {
        <Route path="/legal" element={<Legal />} />
     </Routes>
     
+    
     <ToastContainer
   position="top-center"
   autoClose={1000}
