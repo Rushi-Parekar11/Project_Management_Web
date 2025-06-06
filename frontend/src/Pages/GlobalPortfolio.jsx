@@ -4,6 +4,8 @@ import ProjectCardTwo from '../Components/ProjectCardTwo';
 import axios from 'axios';
 import SkProjectCardTwo from '../Skeleton Compo/SkProjectCardTwo ';
 import { useNavigate } from 'react-router-dom';
+import { host } from '../api';
+
 
 function GlobalPortfolio() {
   const [allproject, setallproject] = useState([]);
@@ -17,7 +19,7 @@ function GlobalPortfolio() {
   useEffect(() => {
     const fetchdata = async () => {
       try {
-        const alldata = await axios.get('http://localhost:8081/GlobalPortfolio/projects');
+        const alldata = await axios.get(`${host}GlobalPortfolio/projects`);
   //      const alldata = await axios.get('https://project-management-web-backend.vercel.app/GlobalPortfolio/projects');
         setallproject(alldata.data);
       } catch (error) {
