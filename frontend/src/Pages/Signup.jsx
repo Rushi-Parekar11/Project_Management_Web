@@ -26,7 +26,7 @@ function Signup() {
       return;
     }
     try {
-      const url = `${host}/signup`;
+      const url = `${host}signup`;
       const response = await fetch(url, {
         method: "POST",
         headers: {
