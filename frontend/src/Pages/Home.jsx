@@ -167,7 +167,7 @@ function Home() {
     <motion.div
       className="relative w-60 h-60"
       initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+      animate={{ opacity: 1, y: 20 }}
       transition={{ duration: 0.6, delay: 0.1 }}
     >
       <div className="absolute w-60 h-60 bg-[#ffa900] rounded-lg -z-10 translate-x-2 translate-y-2 hidden md:block" />
@@ -184,7 +184,7 @@ function Home() {
     <motion.div
       className="relative w-60 h-60"
       initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+      animate={{ opacity: 1, y: 20 }}
       transition={{ duration: 0.6, delay: 0.2 }}
     >
       <div className="absolute w-60 h-60 bg-[#ffa900] rounded-lg -z-10 translate-x-2 translate-y-2 hidden md:block" />
@@ -201,7 +201,7 @@ function Home() {
     <motion.div
       className="relative w-60 h-60"
       initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+      animate={{ opacity: 1, y: 20 }}
       transition={{ duration: 0.6, delay: 0.3 }}
     >
       <div className="absolute w-60 h-60 bg-[#ffa900] rounded-lg -z-10 translate-x-2 translate-y-2 hidden md:block" />
@@ -218,7 +218,7 @@ function Home() {
     <motion.div
       className="relative w-60 h-60"
       initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+      animate={{ opacity: 1, y: 20 }}
       transition={{ duration: 0.6, delay: 0.4 }}
     >
       <div className="absolute w-60 h-60 bg-[#ffa900] rounded-lg -z-10 translate-x-2 translate-y-2 hidden md:block" />
@@ -236,7 +236,7 @@ function Home() {
 
       <div className="h-[6vh] md:h-[12vh] bg-[#e6f1fd]"></div>
 
-      <div className="relative flex items-center justify-center bg-gradient-to-r from-indigo-500 to-purple-600 text-white h-auto md:h-[32vh] py-10 md:py-0 shadow-lg p-6 overflow-hidden">
+      <div className="relative flex items-center justify-center bg-black text-white h-auto md:h-[32vh] py-10 md:py-0 shadow-lg p-6 overflow-hidden">
         <div className="absolute inset-0 bg-opacity-10 backdrop-blur-lg" />
 
         <div className="relative z-10 text-center max-w-xl px-4">
@@ -250,16 +250,16 @@ function Home() {
 
           <div className="mt-4 flex flex-col sm:flex-row justify-center gap-4 animate-fade-in-up delay-400">
             {isLogin ? (
-              <button className="bg-white text-indigo-600 hover:bg-indigo-100 font-semibold flex items-center justify-center gap-2 px-6 py-2 rounded-lg" onClick={goToYourWork}>
-                <Rocket size={18} /> Get Started
+              <button className="bg-white text-black hover:bg-[#ffa900]  hover:text-white   font-semibold flex items-center justify-center gap-2 px-6 py-2 rounded-lg" onClick={goToYourWork}>
+               Get Started
               </button>
             ) : (
-              <button className="bg-white text-indigo-600 hover:bg-indigo-100 font-semibold flex items-center justify-center gap-2 px-6 py-2 rounded-lg" onClick={() => navigate('/login')}>
-                <Rocket size={18} /> Get Started
+              <button className="bg-white text-black hover:bg-[#ffa900] hover:text-white font-semibold flex items-center justify-center gap-2 px-6 py-2 rounded-lg" onClick={() => navigate('/login')}>
+               Get Started
               </button>
             )}
-            <button className="bg-indigo-700 hover:bg-indigo-800 font-semibold flex items-center justify-center gap-2 px-6 py-2 rounded-lg" onClick={() => navigate('./guide')}>
-              <CheckCircle size={18} /> Learn More
+            <button className="bg-white text-black hover:bg-[#ffa900] hover:text-white flex items-center justify-center gap-2 px-6 py-2 rounded-lg" onClick={() => navigate('./guide')}>
+             Learn More
             </button>
           </div>
         </div>

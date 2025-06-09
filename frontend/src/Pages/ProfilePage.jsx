@@ -11,6 +11,8 @@ function ProfilePage() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(false);
   const { username } = useParams();
+    const [copied, setCopied] = useState(false);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,6 +29,14 @@ function ProfilePage() {
 
     fetchData();
   }, [username]);
+
+  const copyToClipboard = () => {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000); // hide message after 2 sec
+    });
+  };
 
   return (
     <>
@@ -54,10 +64,28 @@ function ProfilePage() {
               <h1 className="text-2xl font-bold">{username}</h1>
               <div className="flex gap-2 mt-2 sm:mt-0">
                 <div className="h-10 w-10 rounded-full flex items-center justify-center hover:bg-gray-300 cursor-pointer">
-                  <Copy className="h-5 w-5" />
+                   <div className="relative inline-block">
+      <div
+        className="h-10 w-10 rounded-full flex items-center justify-center hover:bg-gray-300 cursor-pointer"
+        onClick={copyToClipboard}
+        aria-label="Copy URL"
+        role="button"
+        tabIndex={0}
+        onKeyPress={e => { if (e.key === 'Enter') copyToClipboard(); }}
+      >
+        <Copy className="h-5 w-5" />
+      </div>
+      {copied && (
+        <div
+          className="absolute top-full mt-1 w-max px-2 py-1 text-xs text-white bg-black rounded"
+          style={{ left: "50%", transform: "translateX(-50%)" }}
+        >
+          Copied!
+        </div>
+      )}
+    </div>
                 </div>
                 <div className="h-10 w-10 rounded-full flex items-center justify-center hover:bg-gray-300 cursor-pointer">
-                  <Pencil className="h-5 w-5" />
                 </div>
               </div>
             </div>
@@ -67,12 +95,12 @@ function ProfilePage() {
               <div className="flex-1">
                 <h1 className="font-semibold text-lg">About</h1>
                 <p className="text-sm mt-1">
-                  I am a pre-final year B.Tech CSE student passionate about web development, with experience in the MERN stack and Java. I enjoy creating dynamic, user-friendly web applications and am eager to learn and grow. Open to internships and collaborative opportunities to apply my skills and gain practical experience. Let's connect and work on impactful projects together!
-                </p>
+Below are the projects I’ve created — feel free to explore and refer to them as inspiration or for your own use.
+Each project reflects my passion and skills, crafted with care and creativity.
+Check them out to see what I’ve been building and how I solve challenges.                </p>
               </div>
               <div className="mt-2 sm:mt-0">
                 <div className="h-8 w-8 rounded-full flex items-center justify-center hover:bg-gray-300 cursor-pointer">
-                  <Pencil className="h-[17px] w-[17px]" />
                 </div>
               </div>
             </div>

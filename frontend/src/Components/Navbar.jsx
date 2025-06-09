@@ -66,7 +66,7 @@ function Navbar() {
         <div className={`flex flex-col  sm:flex-row gap-4 sm:gap-6 items-center absolute sm:static top-16 left-0 w-full sm:w-auto bg-white sm:bg-transparent px-6 sm:px-0 py-4 sm:py-0 transition-all duration-300 ease-in-out ${menuOpen ? 'block' : 'hidden sm:flex'} shadow sm:shadow-none z-40`}>
           <Link to="/GlobalPortfolio/projects" className='text-gray-800 hover:text-black hover:border-b-2 border-black'>Global Showcases</Link>
           <Link to="/guide" className='text-gray-800 hover:text-black hover:border-b-2 border-black'>Guide</Link>
-          <Link to="/cluster" className='text-gray-800 hover:text-black hover:border-b-2 border-black'>Cluster</Link>
+<Link to="/cluster" className="hidden md:inline text-gray-800 hover:text-black hover:border-b-2 border-black">Cluster</Link>
           <Link to="/legal" className='text-gray-800 hover:text-black hover:border-b-2 border-black sm:mr-[300px]'>Legal</Link>
 
           {isLogin ? (
