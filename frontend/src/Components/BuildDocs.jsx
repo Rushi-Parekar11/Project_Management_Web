@@ -69,7 +69,7 @@ function BuildDocs() {
                 className="flex items-center gap-2 h-10 rounded-sm pl-3 pr-2 cursor-pointer transition-all duration-200 hover:bg-[#ebebeb] text-[#333]">
               <Plus className="h-4 w-4" /><span className="text-sm font-medium">PDFs and other raw files</span>
             </li>
-            <li className="flex items-center gap-2 h-10 rounded-sm pl-3 pr-2 cursor-pointer transition-all duration-200 hover:bg-[#ebebeb] text-[#333]">
+            {/* <li className="flex items-center gap-2 h-10 rounded-sm pl-3 pr-2 cursor-pointer transition-all duration-200 hover:bg-[#ebebeb] text-[#333]">
               <Plus className="h-4 w-4" /><span className="text-sm font-medium">Links</span><Link className='h-3 w-3' />
             </li>
             <li className="flex items-center gap-2 h-10 rounded-sm pl-3 pr-2 cursor-pointer transition-all duration-200 hover:bg-[#ebebeb] text-[#333]">
@@ -80,7 +80,7 @@ function BuildDocs() {
             </li>
             <li className="flex items-center gap-2 h-10 rounded-sm pl-3 pr-2 cursor-pointer transition-all duration-200 hover:bg-[#ebebeb] text-[#333]">
               <Plus className="h-4 w-4" /><span className="text-sm font-medium">Chart</span>
-            </li>
+            </li> */}
           </ul>
         </div>
 
