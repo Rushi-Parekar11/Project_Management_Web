@@ -77,8 +77,8 @@ function Project() {
   const renderContent = () => {
     switch (active) {
       case 'Build Documentation': return <BuildDocs />;
-      case 'Project Management': return <TaskManager projectName={projectName} />;
-      case 'Statistics': return <Statistics />;
+      // case 'Project Management': return <TaskManager projectName={projectName} />;
+      // case 'Statistics': return <Statistics />;
       default: return <BuildDocs />;
     }
   };
